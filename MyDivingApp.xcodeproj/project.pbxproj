@@ -10,6 +10,10 @@
 		07B112FE2BD7B8C200FFECC5 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 07B112FD2BD7B8C200FFECC5 /* FirebaseAuth */; };
 		07B113002BD7B8C200FFECC5 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 07B112FF2BD7B8C200FFECC5 /* FirebaseFirestore */; };
 		07B113022BD7B8C200FFECC5 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 07B113012BD7B8C200FFECC5 /* FirebaseFirestoreSwift */; };
+		07B113042BD7E6E400FFECC5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07B113032BD7E6E300FFECC5 /* GoogleService-Info.plist */; };
+		07BF44E72BD8BD270062EFD0 /* DiveSiteObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BF44E62BD8BD270062EFD0 /* DiveSiteObject.swift */; };
+		07BF44E92BD8BD490062EFD0 /* DiveSites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BF44E82BD8BD490062EFD0 /* DiveSites.swift */; };
+		07BF44ED2BD8DAF00062EFD0 /* DiveSitesSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BF44EC2BD8DAEF0062EFD0 /* DiveSitesSearchTableViewController.swift */; };
 		275F443E2BD7B24F00E136CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275F443D2BD7B24F00E136CD /* AppDelegate.swift */; };
 		275F44402BD7B24F00E136CD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275F443F2BD7B24F00E136CD /* SceneDelegate.swift */; };
 		275F44422BD7B24F00E136CD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275F44412BD7B24F00E136CD /* ViewController.swift */; };
@@ -19,6 +23,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		07B113032BD7E6E300FFECC5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		07BF44E62BD8BD270062EFD0 /* DiveSiteObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiveSiteObject.swift; sourceTree = "<group>"; };
+		07BF44E82BD8BD490062EFD0 /* DiveSites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiveSites.swift; sourceTree = "<group>"; };
+		07BF44EC2BD8DAEF0062EFD0 /* DiveSitesSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiveSitesSearchTableViewController.swift; sourceTree = "<group>"; };
 		275F443A2BD7B24F00E136CD /* MyDivingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyDivingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		275F443D2BD7B24F00E136CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		275F443F2BD7B24F00E136CD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +70,7 @@
 		275F443C2BD7B24F00E136CD /* MyDivingApp */ = {
 			isa = PBXGroup;
 			children = (
+				07B113032BD7E6E300FFECC5 /* GoogleService-Info.plist */,
 				275F443D2BD7B24F00E136CD /* AppDelegate.swift */,
 				275F443F2BD7B24F00E136CD /* SceneDelegate.swift */,
 				275F44412BD7B24F00E136CD /* ViewController.swift */,
@@ -69,6 +78,9 @@
 				275F44462BD7B25000E136CD /* Assets.xcassets */,
 				275F44482BD7B25000E136CD /* LaunchScreen.storyboard */,
 				275F444B2BD7B25000E136CD /* Info.plist */,
+				07BF44E62BD8BD270062EFD0 /* DiveSiteObject.swift */,
+				07BF44E82BD8BD490062EFD0 /* DiveSites.swift */,
+				07BF44EC2BD8DAEF0062EFD0 /* DiveSitesSearchTableViewController.swift */,
 			);
 			path = MyDivingApp;
 			sourceTree = "<group>";
@@ -140,6 +152,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				275F444A2BD7B25000E136CD /* LaunchScreen.storyboard in Resources */,
+				07B113042BD7E6E400FFECC5 /* GoogleService-Info.plist in Resources */,
 				275F44472BD7B25000E136CD /* Assets.xcassets in Resources */,
 				275F44452BD7B24F00E136CD /* Main.storyboard in Resources */,
 			);
@@ -152,9 +165,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07BF44E92BD8BD490062EFD0 /* DiveSites.swift in Sources */,
 				275F44422BD7B24F00E136CD /* ViewController.swift in Sources */,
+				07BF44ED2BD8DAF00062EFD0 /* DiveSitesSearchTableViewController.swift in Sources */,
 				275F443E2BD7B24F00E136CD /* AppDelegate.swift in Sources */,
 				275F44402BD7B24F00E136CD /* SceneDelegate.swift in Sources */,
+				07BF44E72BD8BD270062EFD0 /* DiveSiteObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
