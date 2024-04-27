@@ -47,11 +47,74 @@
                             <outlet property="delegate" destination="2oW-Cw-fpO" id="rCF-eW-yVX"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="DiveTrail" id="9xC-0C-QOt"/>
+                    <navigationItem key="navigationItem" title="DiveTrail" id="9xC-0C-QOt">
+                        <barButtonItem key="leftBarButtonItem" title="Item" id="u1V-xu-tfV"/>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="Gsh-s8-40F" kind="show" identifier="diveSiteInfo" id="M2P-GM-S3U"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mk1-Sd-QJK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1587.0229007633586" y="-68.309859154929583"/>
+            <point key="canvasLocation" x="2513.740458015267" y="-68.309859154929583"/>
+        </scene>
+        <!--Dive Site View Controller-->
+        <scene sceneID="F2G-mx-xPZ">
+            <objects>
+                <viewController id="Gsh-s8-40F" customClass="DiveSiteViewController" customModule="MyDivingApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="J9c-sR-SJL">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LdJ-Bn-AyA">
+                                <rect key="frame" x="20" y="143" width="353" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cTw-KA-qXL">
+                                <rect key="frame" x="20" y="197" width="353" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mB8-9g-0as">
+                                <rect key="frame" x="20" y="251" width="353" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bUd-xv-QoO">
+                                <rect key="frame" x="20" y="305" width="353" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="xN2-sD-vGH"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="mB8-9g-0as" firstAttribute="top" secondItem="cTw-KA-qXL" secondAttribute="bottom" constant="20" id="4oj-p2-QuZ"/>
+                            <constraint firstItem="cTw-KA-qXL" firstAttribute="leading" secondItem="xN2-sD-vGH" secondAttribute="leading" constant="20" id="AoQ-01-7KT"/>
+                            <constraint firstItem="LdJ-Bn-AyA" firstAttribute="leading" secondItem="xN2-sD-vGH" secondAttribute="leading" constant="20" id="C53-fU-MG0"/>
+                            <constraint firstItem="bUd-xv-QoO" firstAttribute="leading" secondItem="xN2-sD-vGH" secondAttribute="leading" constant="20" id="IFz-ST-6F8"/>
+                            <constraint firstItem="mB8-9g-0as" firstAttribute="leading" secondItem="xN2-sD-vGH" secondAttribute="leading" constant="20" id="MFX-E6-rfr"/>
+                            <constraint firstItem="xN2-sD-vGH" firstAttribute="trailing" secondItem="LdJ-Bn-AyA" secondAttribute="trailing" constant="20" id="RAG-cg-A5r"/>
+                            <constraint firstItem="xN2-sD-vGH" firstAttribute="trailing" secondItem="cTw-KA-qXL" secondAttribute="trailing" constant="20" id="SaW-qU-ldb"/>
+                            <constraint firstItem="xN2-sD-vGH" firstAttribute="trailing" secondItem="bUd-xv-QoO" secondAttribute="trailing" constant="20" id="eBS-Ul-JRz"/>
+                            <constraint firstItem="xN2-sD-vGH" firstAttribute="trailing" secondItem="mB8-9g-0as" secondAttribute="trailing" constant="20" id="g9L-Cb-cJ6"/>
+                            <constraint firstItem="bUd-xv-QoO" firstAttribute="top" secondItem="mB8-9g-0as" secondAttribute="bottom" constant="20" id="ouI-5f-ite"/>
+                            <constraint firstItem="LdJ-Bn-AyA" firstAttribute="top" secondItem="xN2-sD-vGH" secondAttribute="top" constant="40" id="tCF-6f-mjo"/>
+                            <constraint firstItem="cTw-KA-qXL" firstAttribute="top" secondItem="LdJ-Bn-AyA" secondAttribute="bottom" constant="20" id="x6m-aw-lLb"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="IfT-JF-MmF"/>
+                    <connections>
+                        <outlet property="latitude" destination="mB8-9g-0as" id="Kty-Eh-Woi"/>
+                        <outlet property="longitude" destination="bUd-xv-QoO" id="uYb-v0-Syg"/>
+                        <outlet property="ocean" destination="cTw-KA-qXL" id="ZFn-0W-9zn"/>
+                        <outlet property="region" destination="LdJ-Bn-AyA" id="GtX-BY-Krm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CHu-Y4-T57" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3518" y="-68"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -119,12 +182,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3408.3969465648852" y="448.59154929577466"/>
+            <point key="canvasLocation" x="5260.3053435114498" y="448.59154929577466"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Item-->
         <scene sceneID="G1Y-lP-CNl">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Q0S-VP-3IA" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="aXV-mH-aTY"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="rv9-5i-VqC">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
@@ -137,7 +201,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xfg-Oo-5FA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="660.30534351145036" y="-68.309859154929583"/>
+            <point key="canvasLocation" x="1587.0229007633586" y="-68.309859154929583"/>
         </scene>
     </scenes>
     <resources>

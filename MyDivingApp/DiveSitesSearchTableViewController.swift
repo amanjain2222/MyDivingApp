@@ -14,6 +14,8 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
     let Key = "007d406e35msh8a93dbecf6813cfp15bd95jsn9c435e5f31f3"
     
     var newSites = [DiveSites]()
+    var indicator = UIActivityIndicatorView()
+    var currentSite: DiveSites?
     
     let headers = [
         "X-RapidAPI-Key": "007d406e35msh8a93dbecf6813cfp15bd95jsn9c435e5f31f3",
@@ -37,6 +39,19 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
         navigationItem.searchController = searchController
         // Ensure the search bar is always visible.
         navigationItem.hidesSearchBarWhenScrolling = false
+        
+        
+        // Add a loading indicator view
+        indicator.style = UIActivityIndicatorView.Style.large
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(indicator)
+        
+        NSLayoutConstraint.activate([
+            indicator.centerXAnchor.constraint(equalTo:
+                    view.safeAreaLayoutGuide.centerXAnchor),
+            indicator.centerYAnchor.constraint(equalTo:
+        view.safeAreaLayoutGuide.centerYAnchor)
+            ])
         
     }
     
@@ -62,7 +77,7 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
         
         do {
             let (data, _) = try await URLSession.shared.data(for: urlRequest)
-            //indicator.stopAnimating()
+            indicator.stopAnimating()
             
             let decoder = JSONDecoder()
             let diveSiteObject = try decoder.decode(DiveSiteObject.self, from: data)
@@ -87,7 +102,7 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
         }
         
         navigationItem.searchController?.dismiss(animated: true)
-        //indicator.startAnimating()
+        indicator.startAnimating()
         Task{
             URLSession.shared.invalidateAndCancel()
             await requestDiveSites(searchText)
@@ -122,14 +137,24 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
     }
     
 
-    /*
+    
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
-
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        currentSite = newSites[indexPath.row]
+        performSegue(withIdentifier: "diveSiteInfo", sender: nil)
+    
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        let destination = segue.destination as! DiveSiteViewController
+        destination.currentSite = currentSite
+    }
     /*
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
