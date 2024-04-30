@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--DiveTrail-->
+        <!--Dive Sites Search Table View Controller-->
         <scene sceneID="hrX-5H-CKB">
             <objects>
                 <tableViewController id="2oW-Cw-fpO" customClass="DiveSitesSearchTableViewController" customModule="MyDivingApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -47,16 +47,73 @@
                             <outlet property="delegate" destination="2oW-Cw-fpO" id="rCF-eW-yVX"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="DiveTrail" id="9xC-0C-QOt">
-                        <barButtonItem key="leftBarButtonItem" title="Item" id="u1V-xu-tfV"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="9xC-0C-QOt">
+                        <barButtonItem key="leftBarButtonItem" title="Melbourne  v" id="nGI-Tt-drJ">
+                            <connections>
+                                <segue destination="FBC-W1-r4W" kind="popoverPresentation" identifier="updateCurrentLocation" popoverAnchorBarButtonItem="nGI-Tt-drJ" id="FFv-Gu-3OI">
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                </segue>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="CurrentLocationButton" destination="nGI-Tt-drJ" id="LUa-VW-xZO"/>
                         <segue destination="Gsh-s8-40F" kind="show" identifier="diveSiteInfo" id="M2P-GM-S3U"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mk1-Sd-QJK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2513.740458015267" y="-68.309859154929583"/>
+        </scene>
+        <!--Current Location-->
+        <scene sceneID="9qa-L3-x6k">
+            <objects>
+                <viewController id="FBC-W1-r4W" customClass="CurrentLocationViewController" customModule="MyDivingApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" tag="5" contentMode="scaleToFill" id="qKK-MB-yah">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Uj1-1U-Q9c">
+                                <rect key="frame" x="30" y="130" width="333" height="40"/>
+                                <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Aqy-6C-tYg"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S0A-yB-BzH">
+                                <rect key="frame" x="16" y="38" width="88" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Done"/>
+                                <connections>
+                                    <action selector="CloseButton:" destination="FBC-W1-r4W" eventType="touchUpInside" id="8OP-iI-gm1"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="1XI-2B-dBi"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Uj1-1U-Q9c" firstAttribute="leading" secondItem="1XI-2B-dBi" secondAttribute="leading" constant="30" id="LSR-Hl-ONe"/>
+                            <constraint firstItem="1XI-2B-dBi" firstAttribute="trailing" secondItem="Uj1-1U-Q9c" secondAttribute="trailing" constant="30" id="QPL-R5-uYH"/>
+                            <constraint firstItem="Uj1-1U-Q9c" firstAttribute="top" secondItem="1XI-2B-dBi" secondAttribute="top" constant="130" id="uuQ-qh-HDN"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Current Location" id="zTa-In-KCY">
+                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="pyT-An-bal"/>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="CurrentLocation" destination="Uj1-1U-Q9c" id="IiM-Su-qZH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uen-eQ-yFR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2513.740458015267" y="706.33802816901414"/>
         </scene>
         <!--Dive Site View Controller-->
         <scene sceneID="F2G-mx-xPZ">
@@ -182,7 +239,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5260.3053435114498" y="448.59154929577466"/>
+            <point key="canvasLocation" x="6185.4961832061063" y="448.59154929577466"/>
         </scene>
         <!--Item-->
         <scene sceneID="G1Y-lP-CNl">
@@ -207,6 +264,9 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

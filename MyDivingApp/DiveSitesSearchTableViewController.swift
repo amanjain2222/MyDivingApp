@@ -7,15 +7,19 @@
 
 import UIKit
 
-class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDelegate {
+class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDelegate, UpdateLoctionDelegate, UISearchResultsUpdating {
+
+    
     
     let CELL_SITE = "diveSiteCell"
     let REQUEST_STRING = "https://world-scuba-diving-sites-api.p.rapidapi.com/api/divesite?country="
     let Key = "007d406e35msh8a93dbecf6813cfp15bd95jsn9c435e5f31f3"
     
     var newSites = [DiveSites]()
+    var filteredSites = [DiveSites]()
     var indicator = UIActivityIndicatorView()
     var currentSite: DiveSites?
+    var CurrentLocation: String?
     
     let headers = [
         "X-RapidAPI-Key": "007d406e35msh8a93dbecf6813cfp15bd95jsn9c435e5f31f3",
@@ -24,21 +28,14 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
         let searchController = UISearchController(searchResultsController: nil)
-        searchController.searchBar.delegate = self
+        searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search"
-        searchController.searchBar.showsCancelButton = false
+        searchController.searchBar.placeholder = "Search Dive Site"
         navigationItem.searchController = searchController
-        // Ensure the search bar is always visible.
-        navigationItem.hidesSearchBarWhenScrolling = false
+        // This view controller decides how the search controller is presented
+        definesPresentationContext = true
         
         
         // Add a loading indicator view
@@ -53,7 +50,21 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
         view.safeAreaLayoutGuide.centerYAnchor)
             ])
         
+        
+        if CurrentLocation == nil {
+            CurrentLocationButton.title = "set location v"
+        }else{
+            CurrentLocationButton.title = CurrentLocation
+        }
+      
     }
+    
+    
+    
+    @IBOutlet weak var CurrentLocationButton: UIBarButtonItem!
+    
+
+
     
     func requestDiveSites(_ region: String) async{
         
@@ -83,6 +94,7 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
             let diveSiteObject = try decoder.decode(DiveSiteObject.self, from: data)
             if let diveSites = diveSiteObject.diveSites {
                 newSites.append(contentsOf: diveSites)
+                filteredSites = newSites
                 tableView.reloadData()
             }
             
@@ -93,19 +105,34 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
         
     }
     
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        newSites.removeAll()
-        tableView.reloadData()
+    func updateSearchResults(for searchController: UISearchController){
         
-        guard let searchText = searchBar.text, !searchText.isEmpty else{
+        guard let searchText = searchController.searchBar.text?.lowercased()
+        else {
             return
         }
         
-        navigationItem.searchController?.dismiss(animated: true)
-        indicator.startAnimating()
-        Task{
-            URLSession.shared.invalidateAndCancel()
-            await requestDiveSites(searchText)
+        if searchText.count > 0 {
+            filteredSites = newSites.filter({ (Site: DiveSites) -> Bool in
+                return Site.name?.lowercased().contains(searchText) ?? false
+            })
+        } else {
+        filteredSites = newSites
+        }
+        tableView.reloadData()
+        
+    }
+    
+ 
+    func UpdateCurrentLocation(_ Location: String?) {
+        if Location != "" && Location != CurrentLocation{
+            newSites.removeAll()
+            CurrentLocationButton.title = Location
+            indicator.startAnimating()
+            Task{
+                URLSession.shared.invalidateAndCancel()
+                await requestDiveSites(Location!)
+            }
         }
         
     }
@@ -119,7 +146,7 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return newSites.count
+        return filteredSites.count
     }
 
     
@@ -128,7 +155,7 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
 
         // Configure the cell...
         // Configure the cell...
-        let site = newSites[indexPath.row]
+        let site = filteredSites[indexPath.row]
         cell.textLabel?.text = site.name
         cell.detailTextLabel?.text = site.region
 
@@ -145,15 +172,24 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        currentSite = newSites[indexPath.row]
+        currentSite = filteredSites[indexPath.row]
         performSegue(withIdentifier: "diveSiteInfo", sender: nil)
     
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        let destination = segue.destination as! DiveSiteViewController
-        destination.currentSite = currentSite
+        if segue.identifier == "diveSiteInfo"{
+            let destination = segue.destination as! DiveSiteViewController
+            destination.currentSite = currentSite
+        }
+        
+        if segue.identifier == "updateCurrentLocation"{
+            let destination = segue.destination as! CurrentLocationViewController
+            destination.delegate = self
+        }
+        
+        return
     }
     /*
     // Override to support editing the table view.
