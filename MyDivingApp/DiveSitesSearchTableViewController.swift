@@ -10,7 +10,7 @@ import UIKit
 class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDelegate, UpdateLoctionDelegate, UISearchResultsUpdating {
 
     
-    
+    let searchController = UISearchController(searchResultsController: nil)
     let CELL_SITE = "diveSiteCell"
     let REQUEST_STRING = "https://world-scuba-diving-sites-api.p.rapidapi.com/api/divesite?country="
     let Key = "007d406e35msh8a93dbecf6813cfp15bd95jsn9c435e5f31f3"
@@ -29,13 +29,16 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let searchController = UISearchController(searchResultsController: nil)
+        
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search Dive Site"
         navigationItem.searchController = searchController
         // This view controller decides how the search controller is presented
         definesPresentationContext = true
+        
+        searchController.searchBar.isHidden = hideSearchBar()
+        
         
         
         // Add a loading indicator view
@@ -59,6 +62,13 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
       
     }
     
+    
+    func hideSearchBar() -> Bool{
+        if newSites.isEmpty{
+            return true
+        }
+        return false
+    }
     
     
     @IBOutlet weak var CurrentLocationButton: UIBarButtonItem!
@@ -95,6 +105,7 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
             if let diveSites = diveSiteObject.diveSites {
                 newSites.append(contentsOf: diveSites)
                 filteredSites = newSites
+                searchController.searchBar.isHidden = hideSearchBar()
                 tableView.reloadData()
             }
             
@@ -136,6 +147,8 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
         }
         
     }
+    
+    
 
     // MARK: - Table view data source
 

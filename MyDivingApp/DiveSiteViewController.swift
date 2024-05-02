@@ -6,10 +6,11 @@
 //
 
 import UIKit
-
+import MapKit
 class DiveSiteViewController: UIViewController {
     
     var currentSite: DiveSites?
+    var isFirstViewApperance = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,27 +21,38 @@ class DiveSiteViewController: UIViewController {
         ocean.allowsEditingTextAttributes = false
         ocean.borderStyle = .none
         
-        region.text = "Region: " + (currentSite?.region)!
-        region.allowsEditingTextAttributes = false
-        region.borderStyle = .none
+        guard let latitude = Double((currentSite?.latitude)!) else {return}
+        guard let longitude = Double((currentSite?.longitude)!) else {return}
         
-        longitude.text = "longitude: " + (currentSite?.longitude)!
-        longitude.allowsEditingTextAttributes = false
-        longitude.borderStyle = .none
+        let mapAnnotation = LocationAnnotation(title: (currentSite?.name)!, subtitle: (currentSite?.region)!, lat: latitude , long: longitude)
         
-        latitude.text = "latitude: " + (currentSite?.latitude)!
-        latitude.allowsEditingTextAttributes = false
-        latitude.borderStyle = .none
+        if isFirstViewApperance {
+            self.mapView.addAnnotation(mapAnnotation)
+            isFirstViewApperance = false
+        }
         
+        focusOn(annotation: mapAnnotation)
+    
+
         // Do any additional setup after loading the view.
     }
+
+    
+    
+    
+    func focusOn(annotation: MKAnnotation) {
+        mapView.selectAnnotation(annotation, animated: true)
+        
+        let zoomRegion = MKCoordinateRegion(center: annotation.coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
+        mapView.setRegion(zoomRegion, animated: true)
+    }
+    
     
     @IBOutlet weak var ocean: UITextField!
-    @IBOutlet weak var region: UITextField!
+
+
     
-    @IBOutlet weak var longitude: UITextField!
-    @IBOutlet weak var latitude: UITextField!
-    
+    @IBOutlet weak var mapView: MKMapView!
     /*
      
      // MARK: - Navigation
