@@ -9,59 +9,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Dive Sites Search Table View Controller-->
-        <scene sceneID="hrX-5H-CKB">
-            <objects>
-                <tableViewController id="2oW-Cw-fpO" customClass="DiveSitesSearchTableViewController" customModule="MyDivingApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="edZ-cT-KGS">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="diveSiteCell" textLabel="EDs-OY-mqF" detailTextLabel="mpr-vQ-leb" style="IBUITableViewCellStyleSubtitle" id="K1g-sJ-lOl">
-                                <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="K1g-sJ-lOl" id="FMF-23-rkY">
-                                    <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="EDs-OY-mqF">
-                                            <rect key="frame" x="20" y="6.0000000000000009" width="25" height="14.333333333333334"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mpr-vQ-leb">
-                                            <rect key="frame" x="19.999999999999996" y="22.333333333333336" width="43.666666666666664" height="14.333333333333334"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="2oW-Cw-fpO" id="B8p-P9-K4m"/>
-                            <outlet property="delegate" destination="2oW-Cw-fpO" id="rCF-eW-yVX"/>
-                        </connections>
-                    </tableView>
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="9xC-0C-QOt">
-                        <barButtonItem key="leftBarButtonItem" title="Melbourne  v" id="nGI-Tt-drJ"/>
-                    </navigationItem>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <outlet property="CurrentLocationButton" destination="nGI-Tt-drJ" id="LUa-VW-xZO"/>
-                        <segue destination="Gsh-s8-40F" kind="show" identifier="diveSiteInfo" id="M2P-GM-S3U"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mk1-Sd-QJK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3440.4580152671756" y="-68.309859154929583"/>
-        </scene>
         <!--Map View Controller-->
         <scene sceneID="4WE-9b-i5i">
             <objects>
@@ -235,43 +182,6 @@
             </objects>
             <point key="canvasLocation" x="6508" y="956"/>
         </scene>
-        <!--Dive Site View Controller-->
-        <scene sceneID="F2G-mx-xPZ">
-            <objects>
-                <viewController id="Gsh-s8-40F" customClass="DiveSiteViewController" customModule="MyDivingApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="J9c-sR-SJL">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cTw-KA-qXL">
-                                <rect key="frame" x="20" y="123" width="353" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sc5-XQ-ynu">
-                                <rect key="frame" x="20" y="178" width="357" height="632"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <standardMapConfiguration key="preferredConfiguration"/>
-                            </mapView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="xN2-sD-vGH"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="cTw-KA-qXL" firstAttribute="leading" secondItem="xN2-sD-vGH" secondAttribute="leading" constant="20" id="AoQ-01-7KT"/>
-                            <constraint firstItem="xN2-sD-vGH" firstAttribute="trailing" secondItem="cTw-KA-qXL" secondAttribute="trailing" constant="20" id="SaW-qU-ldb"/>
-                            <constraint firstItem="cTw-KA-qXL" firstAttribute="top" secondItem="xN2-sD-vGH" secondAttribute="top" constant="20" id="i1p-bZ-9ON"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="IfT-JF-MmF"/>
-                    <connections>
-                        <outlet property="mapView" destination="sc5-XQ-ynu" id="dF3-WQ-h4h"/>
-                        <outlet property="ocean" destination="cTw-KA-qXL" id="ZFn-0W-9zn"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="CHu-Y4-T57" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4443.5114503816794" y="-68.309859154929583"/>
-        </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -339,26 +249,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="8964.1221374045799" y="448.59154929577466"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="G1Y-lP-CNl">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Q0S-VP-3IA" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="search" id="aXV-mH-aTY"/>
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="qZM-96-ddD"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="rv9-5i-VqC">
-                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="2oW-Cw-fpO" kind="relationship" relationship="rootViewController" id="53N-cU-i02"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Xfg-Oo-5FA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2513.740458015267" y="-68.309859154929583"/>
         </scene>
     </scenes>
     <resources>
