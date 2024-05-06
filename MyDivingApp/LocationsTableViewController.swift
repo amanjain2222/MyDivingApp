@@ -7,20 +7,134 @@
 
 import UIKit
 
-class LocationsTableViewController: UITableViewController {
+class LocationsTableViewController: UITableViewController, UISearchBarDelegate, UpdateLoctionDelegate, UISearchResultsUpdating {
     
-    let CELL_LOCATION = "locationCell"
+    
+    let searchController = UISearchController(searchResultsController: nil)
+    let CELL_SITE = "diveSiteCell"
+    let REQUEST_STRING = "https://world-scuba-diving-sites-api.p.rapidapi.com/api/divesite?country="
+    let Key = "007d406e35msh8a93dbecf6813cfp15bd95jsn9c435e5f31f3"
+    var newSites = [DiveSites]()
+    var filteredSites = [DiveSites]()
+    
+    var indicator = UIActivityIndicatorView()
+    var currentSite: DiveSites?
+    var CurrentLocation: String?
+    
     weak var mapViewController: MapViewController?
-    var locationList = [LocationAnnotation]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Dive Site"
+        navigationItem.searchController = searchController
+        // This view controller decides how the search controller is presented
+        definesPresentationContext = true
+        
+        searchController.searchBar.isHidden = hideSearchBar()
+        
+        
+        
+        // Add a loading indicator view
+        indicator.style = UIActivityIndicatorView.Style.large
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(indicator)
+        
+        NSLayoutConstraint.activate([
+            indicator.centerXAnchor.constraint(equalTo:
+                    view.safeAreaLayoutGuide.centerXAnchor),
+            indicator.centerYAnchor.constraint(equalTo:
+        view.safeAreaLayoutGuide.centerYAnchor)
+            ])
+        
+        
+        if CurrentLocation == nil {
+            CurrentLocationButton.title = "set location v"
+        }else{
+            CurrentLocationButton.title = CurrentLocation
+        }
+    }
+    
+    func hideSearchBar() -> Bool{
+        if newSites.isEmpty{
+            return true
+        }
+        return false
+    }
+    
+    func requestDiveSites(_ region: String) async{
+        
+        var searchURLComponents = URLComponents()
+        searchURLComponents.scheme = "https"
+        searchURLComponents.host = "world-scuba-diving-sites-api.p.rapidapi.com"
+        searchURLComponents.path = "/api/divesite"
+        searchURLComponents.queryItems = [
+            URLQueryItem(name: "country", value: region)
+        ]
+        
+        guard let requestURL = searchURLComponents.url else { print("Invalid URL.")
+            return
+        }
+        var urlRequest = URLRequest(url: requestURL)
+        
+        urlRequest.allHTTPHeaderFields = [
+             "X-RapidAPI-Key": Key,
+             "X-RapidAPI-Host": "world-scuba-diving-sites-api.p.rapidapi.com"
+         ]
+        
+        do {
+            let (data, _) = try await URLSession.shared.data(for: urlRequest)
+            indicator.stopAnimating()
+            
+            let decoder = JSONDecoder()
+            let diveSiteObject = try decoder.decode(DiveSiteObject.self, from: data)
+            if let diveSites = diveSiteObject.diveSites {
+                newSites.append(contentsOf: diveSites)
+                filteredSites = newSites
+                searchController.searchBar.isHidden = hideSearchBar()
+                tableView.reloadData()
+            }
+            
+        }
+        catch let error {
+            print(error)
+        }
+        
+    }
+    
+    func updateSearchResults(for searchController: UISearchController){
+        
+        guard let searchText = searchController.searchBar.text?.lowercased()
+        else {
+            return
+        }
+        
+        if searchText.count > 0 {
+            filteredSites = newSites.filter({ (Site: DiveSites) -> Bool in
+                return Site.name?.lowercased().contains(searchText) ?? false
+            })
+        } else {
+        filteredSites = newSites
+        }
+        tableView.reloadData()
+        
+    }
+    
+ 
+    func UpdateCurrentLocation(_ Location: String?) {
+        if Location != "" && Location != CurrentLocation{
+            newSites.removeAll()
+            CurrentLocationButton.title = Location
+            indicator.startAnimating()
+            Task{
+                URLSession.shared.invalidateAndCancel()
+                await requestDiveSites(Location!)
+            }
+        }
+        
     }
 
     // MARK: - Table view data source
@@ -32,30 +146,51 @@ class LocationsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return locationList.count
+        return filteredSites.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: CELL_LOCATION, for: indexPath)
-        let annotation = locationList[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: CELL_SITE, for: indexPath)
         
-        cell.textLabel?.text = annotation.title
-        cell.detailTextLabel?.text = "latitude: \(annotation.coordinate.latitude) +  longitude: \(annotation.coordinate.longitude)"
-        // Configure the cell...
+        let site = filteredSites[indexPath.row]
+        cell.textLabel?.text = site.name
+        cell.detailTextLabel?.text = site.region
 
         return cell
     }
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        mapViewController?.focusOn(annotation: locationList[indexPath.row])
+        
+        currentSite = filteredSites[indexPath.row]
+        guard let latitude = Double((currentSite?.latitude)!) else {return}
+        guard let longitude = Double((currentSite?.longitude)!) else {return}
+        
+        let mapAnnotation = LocationAnnotation(title: (currentSite?.name)!, subtitle: (currentSite?.region)!, lat: latitude , long: longitude)
+        
+        mapViewController?.mapView.addAnnotation(mapAnnotation)
+        mapViewController?.focusOn(annotation: mapAnnotation)
+        
         splitViewController?.show(.secondary)
     }
     
     
-    @IBOutlet weak var setCurrentLocationButton: UIBarButtonItem!
-    @IBAction func setCurrentLocation(_ sender: Any) {
+    @IBOutlet weak var CurrentLocationButton: UIBarButtonItem!
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+//        if segue.identifier == "diveSiteInfo"{
+//            let destination = segue.destination as! DiveSiteViewController
+//            destination.currentSite = currentSite
+//        }
+        
+        if segue.identifier == "updateCurrentLocation"{
+            let destination = segue.destination as! CurrentLocationViewController
+            destination.delegate = self
+        }
+        
+        return
     }
     
 

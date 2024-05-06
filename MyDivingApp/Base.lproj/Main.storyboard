@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Q0S-VP-3IA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5if-ev-I0l">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
@@ -50,13 +50,7 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="9xC-0C-QOt">
-                        <barButtonItem key="leftBarButtonItem" title="Melbourne  v" id="nGI-Tt-drJ">
-                            <connections>
-                                <segue destination="FBC-W1-r4W" kind="popoverPresentation" identifier="updateCurrentLocation" popoverAnchorBarButtonItem="nGI-Tt-drJ" id="FFv-Gu-3OI">
-                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                </segue>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="leftBarButtonItem" title="Melbourne  v" id="nGI-Tt-drJ"/>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -67,22 +61,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mk1-Sd-QJK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3440.4580152671756" y="-68.309859154929583"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="kCl-wS-UuL">
-            <objects>
-                <viewController id="Y5I-GU-oZ5" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="zDo-oI-LpC">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="aet-6W-weL"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="yVQ-3S-12f"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gNR-sh-yJl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3385.4961832061067" y="729.57746478873241"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="4WE-9b-i5i">
@@ -106,26 +84,13 @@
                             <constraint firstAttribute="trailingMargin" secondItem="j20-Fi-vCZ" secondAttribute="trailing" id="c9S-oq-1TQ"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="j20-Fi-vCZ" id="AQb-jg-c7V"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yy9-5M-J4D" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5023.6641221374048" y="2365.4929577464791"/>
-        </scene>
-        <!--Newfile View Controller-->
-        <scene sceneID="nke-nj-LsL">
-            <objects>
-                <viewController id="meS-Eb-ay3" customClass="newfileViewController" customModule="MyDivingApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="fHi-ZQ-zcg">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="pjO-c9-agE"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="Ha6-yr-yco"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="i4n-6o-ujc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="6508" y="911"/>
         </scene>
         <!--Locations List-->
         <scene sceneID="SjG-nA-x3e">
@@ -136,7 +101,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="locationCell" textLabel="kpp-Ql-YK6" detailTextLabel="ckQ-fG-STM" style="IBUITableViewCellStyleSubtitle" id="P0n-03-4ie">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="diveSiteCell" textLabel="kpp-Ql-YK6" detailTextLabel="ckQ-fG-STM" style="IBUITableViewCellStyleSubtitle" id="P0n-03-4ie">
                                 <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="P0n-03-4ie" id="sfc-l3-nqy">
@@ -169,12 +134,15 @@
                     <navigationItem key="navigationItem" title="Locations List" id="vsu-or-eKr">
                         <barButtonItem key="leftBarButtonItem" title="Item" id="Kp8-nt-o8i">
                             <connections>
-                                <segue destination="meS-Eb-ay3" kind="popoverPresentation" popoverAnchorBarButtonItem="Kp8-nt-o8i" id="M5a-tk-Kf3">
+                                <segue destination="FBC-W1-r4W" kind="popoverPresentation" identifier="updateCurrentLocation" popoverAnchorBarButtonItem="Kp8-nt-o8i" id="O4T-kl-Owg">
                                     <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                 </segue>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="CurrentLocationButton" destination="Kp8-nt-o8i" id="nJu-GF-ITZ"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mAf-we-Ldb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -265,7 +233,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uen-eQ-yFR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3385" y="-794"/>
+            <point key="canvasLocation" x="6508" y="956"/>
         </scene>
         <!--Dive Site View Controller-->
         <scene sceneID="F2G-mx-xPZ">
@@ -391,25 +359,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xfg-Oo-5FA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2513.740458015267" y="-68.309859154929583"/>
-        </scene>
-        <!--Item-->
-        <scene sceneID="kJP-rq-Gj2">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="e36-T4-Sel" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="vGV-Xo-TOa"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="BTD-H7-Txv">
-                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="Y5I-GU-oZ5" kind="relationship" relationship="rootViewController" id="t9S-HH-lp2"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5ME-UP-Ib8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2458.7786259541986" y="729.57746478873241"/>
         </scene>
     </scenes>
     <resources>

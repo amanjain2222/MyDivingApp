@@ -18,17 +18,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
         
-//        let splitViewController = window?.rootViewController as! UISplitViewController
-//        
-//        splitViewController.preferredDisplayMode = .oneBesideSecondary
-//        
-//        let masterNavigationController = splitViewController.viewControllers.first as! UINavigationController
-//        let detailNavigationController = splitViewController.viewControllers.last as! UINavigationController
-//        
-//        let locationsTableViewController = masterNavigationController.viewControllers.first as! LocationsTableViewController
-//        let mapViewController = detailNavigationController.viewControllers.first as! MapViewController
-//        
-//        locationsTableViewController.mapViewController = mapViewController
+        let splitViewController = window?.rootViewController as! UISplitViewController
+        
+        splitViewController.preferredDisplayMode = .oneBesideSecondary
+        
+        let masterNavigationController = splitViewController.viewControllers.first as! UINavigationController
+        let detailNavigationController = splitViewController.viewControllers.last as! UINavigationController
+        
+        let locationsTableViewController = masterNavigationController.viewControllers.first as! LocationsTableViewController
+        let mapViewController = detailNavigationController.viewControllers.first as! MapViewController
+        
+        locationsTableViewController.mapViewController = mapViewController
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

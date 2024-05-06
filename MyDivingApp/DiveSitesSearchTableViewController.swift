@@ -21,10 +21,6 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
     var currentSite: DiveSites?
     var CurrentLocation: String?
     
-    let headers = [
-        "X-RapidAPI-Key": "007d406e35msh8a93dbecf6813cfp15bd95jsn9c435e5f31f3",
-        "X-RapidAPI-Host": "world-scuba-diving-sites-api.p.rapidapi.com"
-    ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -167,7 +163,7 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
         let cell = tableView.dequeueReusableCell(withIdentifier: CELL_SITE, for: indexPath)
 
         // Configure the cell...
-        // Configure the cell...
+
         let site = filteredSites[indexPath.row]
         cell.textLabel?.text = site.name
         cell.detailTextLabel?.text = site.region
@@ -179,10 +175,10 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
 
     
     // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
+//    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+//        // Return false if you do not want the specified item to be editable.
+//        return true
+//    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         currentSite = filteredSites[indexPath.row]
