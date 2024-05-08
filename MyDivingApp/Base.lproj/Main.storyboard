@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5if-ev-I0l">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="CNe-HL-dzF">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Map View Controller-->
+        <!--Item-->
         <scene sceneID="4WE-9b-i5i">
             <objects>
                 <viewController id="rDP-3s-XPk" customClass="MapViewController" customModule="MyDivingApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -31,13 +31,30 @@
                             <constraint firstAttribute="trailingMargin" secondItem="j20-Fi-vCZ" secondAttribute="trailing" id="c9S-oq-1TQ"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="6gT-t4-AIu"/>
                     <connections>
                         <outlet property="mapView" destination="j20-Fi-vCZ" id="AQb-jg-c7V"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yy9-5M-J4D" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5023.6641221374048" y="2365.4929577464791"/>
+            <point key="canvasLocation" x="5024" y="1920"/>
+        </scene>
+        <!--AquaTrail-->
+        <scene sceneID="6Ci-he-x0S">
+            <objects>
+                <viewController id="0xD-w6-5Xz" customClass="MorePageViewController" customModule="MyDivingApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rHq-YF-hVy">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="4zU-fK-Chz"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="AquaTrail" id="b2h-qQ-3lq"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mfK-Zy-5vM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5161" y="2723"/>
         </scene>
         <!--Locations List-->
         <scene sceneID="SjG-nA-x3e">
@@ -93,12 +110,13 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mAf-we-Ldb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6509" y="1639"/>
+            <point key="canvasLocation" x="6071" y="991"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Item-->
         <scene sceneID="JVc-3m-8FP">
             <objects>
                 <navigationController id="FOA-wv-Rkb" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="M61-gy-4XL"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="9Mp-kH-8HI">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -109,12 +127,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k7p-oy-ZOp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5024" y="1639"/>
+            <point key="canvasLocation" x="5024" y="991"/>
         </scene>
-        <!--Split View Controller-->
+        <!--Item-->
         <scene sceneID="Uga-cQ-lbm">
             <objects>
                 <splitViewController allowDoubleColumnStyle="YES" primaryBackgroundStyle="sidebar" id="5if-ev-I0l" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="LzK-IO-86e"/>
                     <connections>
                         <segue destination="FOA-wv-Rkb" kind="relationship" relationship="masterViewController" id="Y09-pM-ovH"/>
                         <segue destination="rDP-3s-XPk" kind="relationship" relationship="detailViewController" id="T69-61-LGv"/>
@@ -122,7 +141,7 @@
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dYQ-XF-ikz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4095" y="1906"/>
+            <point key="canvasLocation" x="3833" y="1506"/>
         </scene>
         <!--Current Location-->
         <scene sceneID="9qa-L3-x6k">
@@ -180,7 +199,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uen-eQ-yFR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6508" y="956"/>
+            <point key="canvasLocation" x="7271" y="991"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -248,7 +267,44 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8964.1221374045799" y="448.59154929577466"/>
+            <point key="canvasLocation" x="8549" y="2075"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="ILA-93-wNY">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1ed-wx-eD3" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="lUL-Gh-GvR"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="JF1-e1-zrS">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="0xD-w6-5Xz" kind="relationship" relationship="rootViewController" id="4E0-7g-3kn"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XpA-b4-9NM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3833" y="2723"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="BTH-qE-Scw">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="CNe-HL-dzF" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Xj1-tD-9UX">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="1ed-wx-eD3" kind="relationship" relationship="viewControllers" id="Y0h-eg-WkQ"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Fyk-aV-su9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2074" y="2148"/>
         </scene>
     </scenes>
     <resources>
@@ -256,7 +312,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray5Color">
-            <color red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

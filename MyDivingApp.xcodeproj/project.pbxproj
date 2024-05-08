@@ -15,10 +15,12 @@
 		07B113042BD7E6E400FFECC5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07B113032BD7E6E300FFECC5 /* GoogleService-Info.plist */; };
 		07BF44E72BD8BD270062EFD0 /* DiveSiteObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BF44E62BD8BD270062EFD0 /* DiveSiteObject.swift */; };
 		07BF44E92BD8BD490062EFD0 /* DiveSites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BF44E82BD8BD490062EFD0 /* DiveSites.swift */; };
+		07BF4ABB2BEB7BF00081EA19 /* MulticastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BF4ABA2BEB7BF00081EA19 /* MulticastDelegate.swift */; };
+		07BF4ABE2BEB7C340081EA19 /* DatabaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BF4ABD2BEB7C340081EA19 /* DatabaseProtocol.swift */; };
+		07BF4AC12BEB7E790081EA19 /* MorePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BF4AC02BEB7E790081EA19 /* MorePageViewController.swift */; };
 		07F979672BE2511E00F52DC8 /* LocationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F979662BE2511E00F52DC8 /* LocationsTableViewController.swift */; };
 		07F979692BE2526000F52DC8 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F979682BE2526000F52DC8 /* MapViewController.swift */; };
 		07F9796B2BE253DB00F52DC8 /* LocationAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F9796A2BE253DB00F52DC8 /* LocationAnnotation.swift */; };
-		07F9796D2BE254B500F52DC8 /* NewLocationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F9796C2BE254B500F52DC8 /* NewLocationDelegate.swift */; };
 		275F443E2BD7B24F00E136CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275F443D2BD7B24F00E136CD /* AppDelegate.swift */; };
 		275F44402BD7B24F00E136CD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275F443F2BD7B24F00E136CD /* SceneDelegate.swift */; };
 		275F44452BD7B24F00E136CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 275F44432BD7B24F00E136CD /* Main.storyboard */; };
@@ -32,10 +34,12 @@
 		07B113032BD7E6E300FFECC5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		07BF44E62BD8BD270062EFD0 /* DiveSiteObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiveSiteObject.swift; sourceTree = "<group>"; };
 		07BF44E82BD8BD490062EFD0 /* DiveSites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiveSites.swift; sourceTree = "<group>"; };
+		07BF4ABA2BEB7BF00081EA19 /* MulticastDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MulticastDelegate.swift; sourceTree = "<group>"; };
+		07BF4ABD2BEB7C340081EA19 /* DatabaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseProtocol.swift; sourceTree = "<group>"; };
+		07BF4AC02BEB7E790081EA19 /* MorePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MorePageViewController.swift; sourceTree = "<group>"; };
 		07F979662BE2511E00F52DC8 /* LocationsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsTableViewController.swift; sourceTree = "<group>"; };
 		07F979682BE2526000F52DC8 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		07F9796A2BE253DB00F52DC8 /* LocationAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAnnotation.swift; sourceTree = "<group>"; };
-		07F9796C2BE254B500F52DC8 /* NewLocationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLocationDelegate.swift; sourceTree = "<group>"; };
 		275F443A2BD7B24F00E136CD /* MyDivingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyDivingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		275F443D2BD7B24F00E136CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		275F443F2BD7B24F00E136CD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -59,6 +63,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		07BF4ABC2BEB7C1D0081EA19 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				07BF4ABA2BEB7BF00081EA19 /* MulticastDelegate.swift */,
+				07BF4ABD2BEB7C340081EA19 /* DatabaseProtocol.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		07BF4ABF2BEB7DFB0081EA19 /* splitViewController */ = {
+			isa = PBXGroup;
+			children = (
+				07F9796A2BE253DB00F52DC8 /* LocationAnnotation.swift */,
+				07F979682BE2526000F52DC8 /* MapViewController.swift */,
+				0705564B2BDD6419001719CB /* CurrentLocationViewController.swift */,
+				07BF44E82BD8BD490062EFD0 /* DiveSites.swift */,
+				07BF44E62BD8BD270062EFD0 /* DiveSiteObject.swift */,
+				07F979662BE2511E00F52DC8 /* LocationsTableViewController.swift */,
+			);
+			path = splitViewController;
+			sourceTree = "<group>";
+		};
 		275F44312BD7B24F00E136CD = {
 			isa = PBXGroup;
 			children = (
@@ -79,20 +105,16 @@
 			isa = PBXGroup;
 			children = (
 				07B113032BD7E6E300FFECC5 /* GoogleService-Info.plist */,
+				07BF4ABC2BEB7C1D0081EA19 /* Database */,
+				07BF4ABF2BEB7DFB0081EA19 /* splitViewController */,
 				275F443D2BD7B24F00E136CD /* AppDelegate.swift */,
 				275F443F2BD7B24F00E136CD /* SceneDelegate.swift */,
+				070B0B7F2BDA9F640098EB91 /* FirebaseController.swift */,
 				275F44432BD7B24F00E136CD /* Main.storyboard */,
-				275F44462BD7B25000E136CD /* Assets.xcassets */,
 				275F44482BD7B25000E136CD /* LaunchScreen.storyboard */,
 				275F444B2BD7B25000E136CD /* Info.plist */,
-				07BF44E62BD8BD270062EFD0 /* DiveSiteObject.swift */,
-				07BF44E82BD8BD490062EFD0 /* DiveSites.swift */,
-				070B0B7F2BDA9F640098EB91 /* FirebaseController.swift */,
-				0705564B2BDD6419001719CB /* CurrentLocationViewController.swift */,
-				07F979662BE2511E00F52DC8 /* LocationsTableViewController.swift */,
-				07F979682BE2526000F52DC8 /* MapViewController.swift */,
-				07F9796A2BE253DB00F52DC8 /* LocationAnnotation.swift */,
-				07F9796C2BE254B500F52DC8 /* NewLocationDelegate.swift */,
+				275F44462BD7B25000E136CD /* Assets.xcassets */,
+				07BF4AC02BEB7E790081EA19 /* MorePageViewController.swift */,
 			);
 			path = MyDivingApp;
 			sourceTree = "<group>";
@@ -179,12 +201,14 @@
 			files = (
 				07F979692BE2526000F52DC8 /* MapViewController.swift in Sources */,
 				07F979672BE2511E00F52DC8 /* LocationsTableViewController.swift in Sources */,
+				07BF4AC12BEB7E790081EA19 /* MorePageViewController.swift in Sources */,
 				070B0B802BDA9F640098EB91 /* FirebaseController.swift in Sources */,
 				07BF44E92BD8BD490062EFD0 /* DiveSites.swift in Sources */,
 				275F443E2BD7B24F00E136CD /* AppDelegate.swift in Sources */,
 				275F44402BD7B24F00E136CD /* SceneDelegate.swift in Sources */,
-				07F9796D2BE254B500F52DC8 /* NewLocationDelegate.swift in Sources */,
 				0705564C2BDD6419001719CB /* CurrentLocationViewController.swift in Sources */,
+				07BF4ABE2BEB7C340081EA19 /* DatabaseProtocol.swift in Sources */,
+				07BF4ABB2BEB7BF00081EA19 /* MulticastDelegate.swift in Sources */,
 				07BF44E72BD8BD270062EFD0 /* DiveSiteObject.swift in Sources */,
 				07F9796B2BE253DB00F52DC8 /* LocationAnnotation.swift in Sources */,
 			);
