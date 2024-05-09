@@ -36,6 +36,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 Task {
                     do {
                         try await authController.signOut()
+                        self.UserlogRef = nil
         
                     }
                     catch {
@@ -150,6 +151,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
         UserlogRef = database.collection("UserLogs")
         let log = UserLogs()
         log.UserID = logID
+        log.logs = []
         if let logsRef = UserlogRef?.addDocument(data: ["UserID" : logID]) {
             log.id = logsRef.documentID
         }
@@ -208,9 +210,9 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 return
             }
             self.parseLogsSnapshot(snapshot: querySnapshot)
-            if self.UserlogRef == nil {
+//            if self.UserlogRef == nil {
                 self.setupUserlogListener()
-            }
+//            }
         }
     }
     
@@ -266,13 +268,12 @@ class FirebaseController: NSObject, DatabaseProtocol {
                     currentUserLogs.logs.append(log)
                 }
             }
-//            listeners.invoke { (listener) in
-//                if listener.listenerType == ListenerType.UserLog ||
-//                    listener.listenerType == ListenerType.all {
-//                    listener.onUserLogsChange(change: .update,
-//                                          UserLogs: currentUserLogs.logs)
-//                }
-//            }
+            listeners.invoke { (listener) in
+                if listener.listenerType == ListenerType.Userlogs ||
+                    listener.listenerType == ListenerType.all {
+                    listener.onUserLogsChange(change: .update, logs: currentUserLogs.logs)
+                }
+            }
         }
         
     }

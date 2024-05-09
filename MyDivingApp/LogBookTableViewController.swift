@@ -8,13 +8,19 @@
 import UIKit
 
 class LogBookTableViewController: UITableViewController, DatabaseListener {
-    func onAllLogsChange(change: DatabaseChange, logs: [diveLogs]) {
+    
+    func onUserLogsChange(change: DatabaseChange, logs: [diveLogs]) {
         allLogs = logs
         tableView.reloadData()
     }
     
     
-    var listenerType: ListenerType = .logs
+    func onAllLogsChange(change: DatabaseChange, logs: [diveLogs]) {
+        
+    }
+    
+    
+    var listenerType: ListenerType = .Userlogs
     
     func onAuthenticationChange(ifSucessful: Bool) {
         

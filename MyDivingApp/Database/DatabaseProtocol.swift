@@ -41,10 +41,12 @@ enum ListenerType {
     case all
     case authentication
     case logs
+    case Userlogs
 }
 
 protocol DatabaseListener: AnyObject {
     var listenerType: ListenerType {get set}
     func onAuthenticationChange(ifSucessful: Bool)
     func onAllLogsChange(change: DatabaseChange, logs: [diveLogs])
+    func onUserLogsChange(change: DatabaseChange, logs: [diveLogs])
 }

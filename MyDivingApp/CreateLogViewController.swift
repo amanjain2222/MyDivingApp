@@ -30,7 +30,7 @@ class CreateLogViewController: UIViewController {
         return
         }
         
-        let log = databaseController?.addlog(title: title)
+        _ = databaseController?.addlog(title: title)
         
         navigationController?.popViewController(animated: true)
         
