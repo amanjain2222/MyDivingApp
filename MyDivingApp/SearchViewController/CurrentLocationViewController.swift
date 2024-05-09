@@ -20,7 +20,7 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
     var latitude: Double?
     var longitude: Double?
     
-    weak var locationDelegate: NewLocationDelegate?
+
     var locationManager: CLLocationManager = CLLocationManager()
     var currentLocation: CLLocationCoordinate2D?
 

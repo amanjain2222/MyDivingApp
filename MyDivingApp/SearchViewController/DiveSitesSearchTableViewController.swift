@@ -167,7 +167,7 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
         let cell = tableView.dequeueReusableCell(withIdentifier: CELL_SITE, for: indexPath)
 
         // Configure the cell...
-        // Configure the cell...
+
         let site = filteredSites[indexPath.row]
         cell.textLabel?.text = site.name
         cell.detailTextLabel?.text = site.region

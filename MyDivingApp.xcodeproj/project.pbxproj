@@ -9,19 +9,25 @@
 /* Begin PBXBuildFile section */
 		0705564C2BDD6419001719CB /* CurrentLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0705564B2BDD6419001719CB /* CurrentLocationViewController.swift */; };
 		070B0B802BDA9F640098EB91 /* FirebaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070B0B7F2BDA9F640098EB91 /* FirebaseController.swift */; };
-		0769B1D42BE3362D00758968 /* newfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0769B1D32BE3362D00758968 /* newfileViewController.swift */; };
 		07B112FE2BD7B8C200FFECC5 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 07B112FD2BD7B8C200FFECC5 /* FirebaseAuth */; };
 		07B113002BD7B8C200FFECC5 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 07B112FF2BD7B8C200FFECC5 /* FirebaseFirestore */; };
 		07B113022BD7B8C200FFECC5 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 07B113012BD7B8C200FFECC5 /* FirebaseFirestoreSwift */; };
 		07B113042BD7E6E400FFECC5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07B113032BD7E6E300FFECC5 /* GoogleService-Info.plist */; };
+		07BCE9F32BEB8665008DB0CB /* MulticastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BCE9F22BEB8665008DB0CB /* MulticastDelegate.swift */; };
+		07BCE9F52BEB8678008DB0CB /* DatabaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BCE9F42BEB8678008DB0CB /* DatabaseProtocol.swift */; };
+		07BCE9FC2BEB8F46008DB0CB /* MoreScreenTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BCE9FB2BEB8F46008DB0CB /* MoreScreenTableViewController.swift */; };
+		07BCE9FE2BEBB96B008DB0CB /* LogBookTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BCE9FD2BEBB96B008DB0CB /* LogBookTableViewController.swift */; };
+		07BCEA002BEBC362008DB0CB /* diveLogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BCE9FF2BEBC362008DB0CB /* diveLogs.swift */; };
+		07BCEA022BEBC864008DB0CB /* LogBookWarningViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BCEA012BEBC864008DB0CB /* LogBookWarningViewCell.swift */; };
+		07BCEA042BEC5918008DB0CB /* userLogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BCEA032BEC5918008DB0CB /* userLogs.swift */; };
+		07BCEA062BEC6BB8008DB0CB /* LoginPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BCEA052BEC6BB8008DB0CB /* LoginPageViewController.swift */; };
+		07BCEA082BEC6F87008DB0CB /* CreateLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BCEA072BEC6F87008DB0CB /* CreateLogViewController.swift */; };
 		07BF44E72BD8BD270062EFD0 /* DiveSiteObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BF44E62BD8BD270062EFD0 /* DiveSiteObject.swift */; };
 		07BF44E92BD8BD490062EFD0 /* DiveSites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BF44E82BD8BD490062EFD0 /* DiveSites.swift */; };
 		07BF44ED2BD8DAF00062EFD0 /* DiveSitesSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BF44EC2BD8DAEF0062EFD0 /* DiveSitesSearchTableViewController.swift */; };
 		07EEDD852BDA964300172BF2 /* DiveSiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EEDD842BDA964300172BF2 /* DiveSiteViewController.swift */; };
-		07F979672BE2511E00F52DC8 /* LocationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F979662BE2511E00F52DC8 /* LocationsTableViewController.swift */; };
 		07F979692BE2526000F52DC8 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F979682BE2526000F52DC8 /* MapViewController.swift */; };
 		07F9796B2BE253DB00F52DC8 /* LocationAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F9796A2BE253DB00F52DC8 /* LocationAnnotation.swift */; };
-		07F9796D2BE254B500F52DC8 /* NewLocationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F9796C2BE254B500F52DC8 /* NewLocationDelegate.swift */; };
 		275F443E2BD7B24F00E136CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275F443D2BD7B24F00E136CD /* AppDelegate.swift */; };
 		275F44402BD7B24F00E136CD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275F443F2BD7B24F00E136CD /* SceneDelegate.swift */; };
 		275F44422BD7B24F00E136CD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275F44412BD7B24F00E136CD /* ViewController.swift */; };
@@ -33,16 +39,22 @@
 /* Begin PBXFileReference section */
 		0705564B2BDD6419001719CB /* CurrentLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationViewController.swift; sourceTree = "<group>"; };
 		070B0B7F2BDA9F640098EB91 /* FirebaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseController.swift; sourceTree = "<group>"; };
-		0769B1D32BE3362D00758968 /* newfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = newfileViewController.swift; sourceTree = "<group>"; };
 		07B113032BD7E6E300FFECC5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		07BCE9F22BEB8665008DB0CB /* MulticastDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MulticastDelegate.swift; sourceTree = "<group>"; };
+		07BCE9F42BEB8678008DB0CB /* DatabaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseProtocol.swift; sourceTree = "<group>"; };
+		07BCE9FB2BEB8F46008DB0CB /* MoreScreenTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreScreenTableViewController.swift; sourceTree = "<group>"; };
+		07BCE9FD2BEBB96B008DB0CB /* LogBookTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogBookTableViewController.swift; sourceTree = "<group>"; };
+		07BCE9FF2BEBC362008DB0CB /* diveLogs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = diveLogs.swift; sourceTree = "<group>"; };
+		07BCEA012BEBC864008DB0CB /* LogBookWarningViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogBookWarningViewCell.swift; sourceTree = "<group>"; };
+		07BCEA032BEC5918008DB0CB /* userLogs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userLogs.swift; sourceTree = "<group>"; };
+		07BCEA052BEC6BB8008DB0CB /* LoginPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageViewController.swift; sourceTree = "<group>"; };
+		07BCEA072BEC6F87008DB0CB /* CreateLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateLogViewController.swift; sourceTree = "<group>"; };
 		07BF44E62BD8BD270062EFD0 /* DiveSiteObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiveSiteObject.swift; sourceTree = "<group>"; };
 		07BF44E82BD8BD490062EFD0 /* DiveSites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiveSites.swift; sourceTree = "<group>"; };
 		07BF44EC2BD8DAEF0062EFD0 /* DiveSitesSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiveSitesSearchTableViewController.swift; sourceTree = "<group>"; };
 		07EEDD842BDA964300172BF2 /* DiveSiteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiveSiteViewController.swift; sourceTree = "<group>"; };
-		07F979662BE2511E00F52DC8 /* LocationsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsTableViewController.swift; sourceTree = "<group>"; };
 		07F979682BE2526000F52DC8 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		07F9796A2BE253DB00F52DC8 /* LocationAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAnnotation.swift; sourceTree = "<group>"; };
-		07F9796C2BE254B500F52DC8 /* NewLocationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLocationDelegate.swift; sourceTree = "<group>"; };
 		275F443A2BD7B24F00E136CD /* MyDivingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyDivingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		275F443D2BD7B24F00E136CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		275F443F2BD7B24F00E136CD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,6 +79,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		07BCE9F02BEB85F2008DB0CB /* SearchViewController */ = {
+			isa = PBXGroup;
+			children = (
+				07BF44E82BD8BD490062EFD0 /* DiveSites.swift */,
+				07BF44E62BD8BD270062EFD0 /* DiveSiteObject.swift */,
+				07BF44EC2BD8DAEF0062EFD0 /* DiveSitesSearchTableViewController.swift */,
+				07EEDD842BDA964300172BF2 /* DiveSiteViewController.swift */,
+				0705564B2BDD6419001719CB /* CurrentLocationViewController.swift */,
+				07F979682BE2526000F52DC8 /* MapViewController.swift */,
+				07F9796A2BE253DB00F52DC8 /* LocationAnnotation.swift */,
+			);
+			path = SearchViewController;
+			sourceTree = "<group>";
+		};
+		07BCE9F12BEB8657008DB0CB /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				07BCE9F22BEB8665008DB0CB /* MulticastDelegate.swift */,
+				07BCE9F42BEB8678008DB0CB /* DatabaseProtocol.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		07BCE9F62BEB86A5008DB0CB /* moreVIewController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = moreVIewController;
+			sourceTree = "<group>";
+		};
 		275F44312BD7B24F00E136CD = {
 			isa = PBXGroup;
 			children = (
@@ -86,25 +128,25 @@
 		275F443C2BD7B24F00E136CD /* MyDivingApp */ = {
 			isa = PBXGroup;
 			children = (
+				07BCE9F12BEB8657008DB0CB /* Database */,
+				07BCE9F02BEB85F2008DB0CB /* SearchViewController */,
 				07B113032BD7E6E300FFECC5 /* GoogleService-Info.plist */,
+				07BCE9F62BEB86A5008DB0CB /* moreVIewController */,
 				275F443D2BD7B24F00E136CD /* AppDelegate.swift */,
 				275F443F2BD7B24F00E136CD /* SceneDelegate.swift */,
 				275F44412BD7B24F00E136CD /* ViewController.swift */,
+				070B0B7F2BDA9F640098EB91 /* FirebaseController.swift */,
 				275F44432BD7B24F00E136CD /* Main.storyboard */,
-				275F44462BD7B25000E136CD /* Assets.xcassets */,
 				275F44482BD7B25000E136CD /* LaunchScreen.storyboard */,
 				275F444B2BD7B25000E136CD /* Info.plist */,
-				07BF44E62BD8BD270062EFD0 /* DiveSiteObject.swift */,
-				07BF44E82BD8BD490062EFD0 /* DiveSites.swift */,
-				07BF44EC2BD8DAEF0062EFD0 /* DiveSitesSearchTableViewController.swift */,
-				07EEDD842BDA964300172BF2 /* DiveSiteViewController.swift */,
-				070B0B7F2BDA9F640098EB91 /* FirebaseController.swift */,
-				0705564B2BDD6419001719CB /* CurrentLocationViewController.swift */,
-				07F979662BE2511E00F52DC8 /* LocationsTableViewController.swift */,
-				07F979682BE2526000F52DC8 /* MapViewController.swift */,
-				07F9796A2BE253DB00F52DC8 /* LocationAnnotation.swift */,
-				07F9796C2BE254B500F52DC8 /* NewLocationDelegate.swift */,
-				0769B1D32BE3362D00758968 /* newfileViewController.swift */,
+				275F44462BD7B25000E136CD /* Assets.xcassets */,
+				07BCE9FB2BEB8F46008DB0CB /* MoreScreenTableViewController.swift */,
+				07BCE9FD2BEBB96B008DB0CB /* LogBookTableViewController.swift */,
+				07BCE9FF2BEBC362008DB0CB /* diveLogs.swift */,
+				07BCEA012BEBC864008DB0CB /* LogBookWarningViewCell.swift */,
+				07BCEA032BEC5918008DB0CB /* userLogs.swift */,
+				07BCEA052BEC6BB8008DB0CB /* LoginPageViewController.swift */,
+				07BCEA072BEC6F87008DB0CB /* CreateLogViewController.swift */,
 			);
 			path = MyDivingApp;
 			sourceTree = "<group>";
@@ -189,20 +231,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07BCE9F52BEB8678008DB0CB /* DatabaseProtocol.swift in Sources */,
 				07F979692BE2526000F52DC8 /* MapViewController.swift in Sources */,
-				07F979672BE2511E00F52DC8 /* LocationsTableViewController.swift in Sources */,
 				070B0B802BDA9F640098EB91 /* FirebaseController.swift in Sources */,
 				07BF44E92BD8BD490062EFD0 /* DiveSites.swift in Sources */,
 				275F44422BD7B24F00E136CD /* ViewController.swift in Sources */,
 				07EEDD852BDA964300172BF2 /* DiveSiteViewController.swift in Sources */,
+				07BCEA022BEBC864008DB0CB /* LogBookWarningViewCell.swift in Sources */,
+				07BCEA002BEBC362008DB0CB /* diveLogs.swift in Sources */,
 				07BF44ED2BD8DAF00062EFD0 /* DiveSitesSearchTableViewController.swift in Sources */,
+				07BCEA082BEC6F87008DB0CB /* CreateLogViewController.swift in Sources */,
 				275F443E2BD7B24F00E136CD /* AppDelegate.swift in Sources */,
+				07BCE9FC2BEB8F46008DB0CB /* MoreScreenTableViewController.swift in Sources */,
+				07BCEA042BEC5918008DB0CB /* userLogs.swift in Sources */,
 				275F44402BD7B24F00E136CD /* SceneDelegate.swift in Sources */,
-				07F9796D2BE254B500F52DC8 /* NewLocationDelegate.swift in Sources */,
 				0705564C2BDD6419001719CB /* CurrentLocationViewController.swift in Sources */,
-				0769B1D42BE3362D00758968 /* newfileViewController.swift in Sources */,
+				07BCEA062BEC6BB8008DB0CB /* LoginPageViewController.swift in Sources */,
+				07BCE9FE2BEBB96B008DB0CB /* LogBookTableViewController.swift in Sources */,
 				07BF44E72BD8BD270062EFD0 /* DiveSiteObject.swift in Sources */,
 				07F9796B2BE253DB00F52DC8 /* LocationAnnotation.swift in Sources */,
+				07BCE9F32BEB8665008DB0CB /* MulticastDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

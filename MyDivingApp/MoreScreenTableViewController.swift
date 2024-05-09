@@ -1,17 +1,17 @@
 //
-//  LocationsTableViewController.swift
+//  MoreScreenTableViewController.swift
 //  MyDivingApp
 //
-//  Created by aman on 1/5/2024.
+//  Created by aman on 8/5/2024.
 //
 
 import UIKit
 
-class LocationsTableViewController: UITableViewController {
+class MoreScreenTableViewController: UITableViewController {
     
-    let CELL_LOCATION = "locationCell"
-    weak var mapViewController: MapViewController?
-    var locationList = [LocationAnnotation]()
+    let Section_Options = 0
+    let Section_Signout = 1
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,48 +27,81 @@ class LocationsTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 2
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return locationList.count
+        if section == Section_Options{
+            return 6
+        }
+        return 1
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: CELL_LOCATION, for: indexPath)
-        let annotation = locationList[indexPath.row]
         
-        cell.textLabel?.text = annotation.title
-        cell.detailTextLabel?.text = "latitude: \(annotation.coordinate.latitude) +  longitude: \(annotation.coordinate.longitude)"
-        // Configure the cell...
-
-        return cell
+        if indexPath.section == Section_Options {
+            let profileInfoCell = tableView.dequeueReusableCell(withIdentifier: "ProfileInfo", for: indexPath)
+            let optionCell = tableView.dequeueReusableCell(withIdentifier: "MoreOptions", for: indexPath)
+            if indexPath.row == 0{
+                
+                profileInfoCell.textLabel?.text = "name"
+                profileInfoCell.detailTextLabel?.text = "UserEmail"
+                
+                return profileInfoCell
+            }
+            else{
+                
+                switch indexPath.row {
+                case 1:
+                    optionCell.textLabel?.text = "Account"
+                case 2:
+                    optionCell.textLabel?.text = "Settings"
+                case 3:
+                    optionCell.textLabel?.text = "My Equipment"
+                case 4:
+                    optionCell.textLabel?.text = "Dive Safety And Resources"
+                case 5:
+                    optionCell.textLabel?.text = "About"
+                default:
+                    fatalError("Unhandled row index")
+                }
+                return optionCell
+            }
+        }
+        
+        else{
+            let signoutCell = tableView.dequeueReusableCell(withIdentifier: "MoreOptions", for: indexPath)
+                        signoutCell.textLabel?.text = "Sign Out"
+                        return signoutCell
+            
+        }
+        
+        
     }
     
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        mapViewController?.focusOn(annotation: locationList[indexPath.row])
-        splitViewController?.show(.secondary)
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        if section == Section_Options{
+            return "General"
+        }else{
+            return " "
+        }
     }
-    
-    
-    @IBOutlet weak var setCurrentLocationButton: UIBarButtonItem!
-    @IBAction func setCurrentLocation(_ sender: Any) {
-    }
-    
-
 
     
-
-    /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
-        return true
+        return false
     }
-    */
+    
+//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        if indexPath.row ==
+//
+//    }
+
 
     /*
     // Override to support editing the table view.
