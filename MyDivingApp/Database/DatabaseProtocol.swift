@@ -15,7 +15,7 @@ protocol DatabaseProtocol: AnyObject {
     
 
     
-    func addUserLogs(logID: String) -> UserLogs
+    func addUserLogs(logID: String) async throws -> UserLogs
     func deleteUserLogs(userlog: UserLogs)
     
     func addLogToUserLogs(log: diveLogs, userLog: UserLogs) -> Bool

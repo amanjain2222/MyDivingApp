@@ -12,6 +12,7 @@ import FirebaseFirestoreSwift
 class FirebaseController: NSObject, DatabaseProtocol {
     
     
+    
     var listeners = MulticastDelegate<DatabaseListener>()
     var logsList: [diveLogs]
     var authController: Auth
@@ -36,7 +37,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 Task {
                     do {
                         try await authController.signOut()
-                        self.UserlogRef = nil
+                        isUserSignedIn = false
         
                     }
                     catch {
@@ -76,7 +77,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 let authResult = try await authController.createUser(withEmail: email, password: password)
                 currentUser = authResult.user
                 isUserSignedIn = true
-                _ = addUserLogs(logID: currentUser!.uid)
+                _ = try await addUserLogs(logID: currentUser!.uid)
                 self.setUpLogsListener()
                 self.listeners.invoke { (listener) in
                     if listener.listenerType == ListenerType.authentication || listener.listenerType == ListenerType.all {
@@ -147,12 +148,11 @@ class FirebaseController: NSObject, DatabaseProtocol {
     
 
     
-    func addUserLogs(logID: String) -> UserLogs {
+    func addUserLogs(logID: String) async throws -> UserLogs {
         UserlogRef = database.collection("UserLogs")
         let log = UserLogs()
         log.UserID = logID
-        log.logs = []
-        if let logsRef = UserlogRef?.addDocument(data: ["UserID" : logID]) {
+        if let logsRef = try await UserlogRef?.addDocument(data: ["UserID" : logID]) {
             log.id = logsRef.documentID
         }
         
@@ -268,11 +268,12 @@ class FirebaseController: NSObject, DatabaseProtocol {
                     currentUserLogs.logs.append(log)
                 }
             }
-            listeners.invoke { (listener) in
-                if listener.listenerType == ListenerType.Userlogs ||
-                    listener.listenerType == ListenerType.all {
-                    listener.onUserLogsChange(change: .update, logs: currentUserLogs.logs)
-                }
+            
+        }
+        listeners.invoke { (listener) in
+            if listener.listenerType == ListenerType.Userlogs ||
+                listener.listenerType == ListenerType.all {
+                listener.onUserLogsChange(change: .update, logs: currentUserLogs.logs)
             }
         }
         
@@ -282,7 +283,6 @@ class FirebaseController: NSObject, DatabaseProtocol {
         do{
             try authController.signOut()
             logsList = []
-            self.UserlogRef = nil
             isUserSignedIn = false
         }catch{
                 print(error)

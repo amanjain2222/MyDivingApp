@@ -83,6 +83,7 @@ class LogBookTableViewController: UITableViewController, DatabaseListener {
             let log = allLogs[indexPath.row]
             var content = logcell.defaultContentConfiguration()
             content.text = log.title
+            logcell.contentConfiguration = content
             return logcell
         }
 
