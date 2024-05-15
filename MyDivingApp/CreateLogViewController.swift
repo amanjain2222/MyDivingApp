@@ -22,15 +22,20 @@ class CreateLogViewController: UIViewController {
 
     @IBOutlet weak var LogTitle: UITextField!
     
+    @IBOutlet weak var DiveType: UISegmentedControl!
+    
+    @IBOutlet weak var DiveDate: UITextField!
+    @IBOutlet weak var DiveLocation: UITextField!
+    
     
     @IBAction func AddLog(_ sender: Any) {
         
-        guard let title = LogTitle.text
-        else {
-        return
-        }
+        guard let title = LogTitle.text, let diveType = MyDivingApp.DiveType(rawValue:Int(DiveType.selectedSegmentIndex)), let diveDate = DiveDate.text, let diveLocation = DiveLocation.text
+                else {
+                return
+                }
         
-        _ = databaseController?.addlog(title: title)
+        _ = databaseController?.addlog(title: title, divetype: diveType, DiveLocation: diveLocation, DiveDate: diveDate)
         
         navigationController?.popViewController(animated: true)
         

@@ -10,6 +10,7 @@ import Firebase
 import FirebaseFirestoreSwift
 
 class FirebaseController: NSObject, DatabaseProtocol {
+
     
     
     
@@ -19,7 +20,9 @@ class FirebaseController: NSObject, DatabaseProtocol {
     var currentUser: FirebaseAuth.User?
     var database: Firestore
     var isUserSignedIn = false
-    
+    var userFname: String?
+    var userLname: String?
+    var userEmail: String?
     var currentUserLogs: UserLogs
     
     var logRef: CollectionReference?
@@ -46,7 +49,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
         
         
                 }
-//        
+////        
     }
     
     
@@ -55,12 +58,14 @@ class FirebaseController: NSObject, DatabaseProtocol {
             do{
                 let authResult = try await authController.signIn(withEmail: email, password: password)
                 currentUser = authResult.user
+                
                 isUserSignedIn = true
                 self.setUpLogsListener()
                 self.listeners.invoke { (listener) in
-                    if listener.listenerType == ListenerType.authentication || listener.listenerType == ListenerType.all {
+                    if listener.listenerType == ListenerType.authentication || listener.listenerType == ListenerType.Userlogs {
                         let wasSuccessful = true
                         listener.onAuthenticationChange(ifSucessful: wasSuccessful)
+                        
                     }
                 }
             }catch{
@@ -71,16 +76,16 @@ class FirebaseController: NSObject, DatabaseProtocol {
     }
     
     
-    func createAccount(email: String, password: String) {
+    func createAccount(email: String, password: String, Fname: String, Lname: String) {
         Task{
             do{
                 let authResult = try await authController.createUser(withEmail: email, password: password)
                 currentUser = authResult.user
                 isUserSignedIn = true
-                _ = try await addUserLogs(logID: currentUser!.uid)
+                _ = try await addUserLogs(logID: currentUser!.uid, Fname: Fname, Lname: Lname)
                 self.setUpLogsListener()
                 self.listeners.invoke { (listener) in
-                    if listener.listenerType == ListenerType.authentication || listener.listenerType == ListenerType.all {
+                    if listener.listenerType == ListenerType.authentication || listener.listenerType == ListenerType.Userlogs {
                         let wasSuccessful = true
                         listener.onAuthenticationChange(ifSucessful: wasSuccessful)
                     }
@@ -106,8 +111,9 @@ class FirebaseController: NSObject, DatabaseProtocol {
 //        if listener.listenerType == .team || listener.listenerType == .all {
 //                    listener.onTeamChange(change: .update, teamHeroes: defaultTeam.heroes)
 //                }
-        if listener.listenerType == .authentication || listener.listenerType == .all {
+        if listener.listenerType == .authentication || listener.listenerType == .Userlogs {
             if authController.currentUser != nil{
+                isUserSignedIn = true
                 currentUser = authController.currentUser
                 self.setUpLogsListener()
                 listener.onAuthenticationChange(ifSucessful: true)
@@ -121,11 +127,13 @@ class FirebaseController: NSObject, DatabaseProtocol {
     }
     
     
-    func addlog(title: String) -> diveLogs {
+    func addlog(title: String, divetype: DiveType, DiveLocation: String, DiveDate: String) -> diveLogs {
         
         let log = diveLogs()
         log.title = title
-        
+        log.type = divetype.rawValue
+        log.date = DiveDate
+        log.location = DiveLocation
         do {
         if let logsRef = try logRef?.addDocument(from: log) {
             log.id = logsRef.documentID
@@ -148,13 +156,21 @@ class FirebaseController: NSObject, DatabaseProtocol {
     
 
     
-    func addUserLogs(logID: String) async throws -> UserLogs {
+    func addUserLogs(logID: String, Fname: String, Lname: String) async throws -> UserLogs {
+        
         UserlogRef = database.collection("UserLogs")
         let log = UserLogs()
         log.UserID = logID
-        if let logsRef = try await UserlogRef?.addDocument(data: ["UserID" : logID]) {
-            log.id = logsRef.documentID
-        }
+        log.Fname = Fname
+        log.Lname = Lname
+        var data: [String: Any] = [
+                "UserID": logID,
+                "Fname": Fname,
+                "Lname": Lname
+            ]
+        if let logsRef = try await UserlogRef?.addDocument(data: data) {
+                log.id = logsRef.documentID
+            }
         
         return log
     }
@@ -179,15 +195,17 @@ class FirebaseController: NSObject, DatabaseProtocol {
     }
     
     
-    func removeLogFromUserLogs(log: diveLogs, userLog: UserLogs) {
-        if userLog.logs.contains(log), let logID = log.id, let userLogID = userLog.id{
+    func removeLogFromUserLogs(log: diveLogs) {
+        if currentUserLogs.logs.contains(log), let logID = log.id, let userLogID = currentUserLogs.id{
             
             if let removedLogRef = logRef?.document(logID) {
                 UserlogRef?.document(userLogID).updateData(
                     ["logs": FieldValue.arrayRemove([removedLogRef])]
                 )
             }
+            deletelog(log: log)
         }
+        
     }
     
     func getLogByID(_ id: String) -> diveLogs?{
@@ -259,6 +277,8 @@ class FirebaseController: NSObject, DatabaseProtocol {
     func parseUserLogsSnapshot(snapshot: QueryDocumentSnapshot){
         currentUserLogs = UserLogs()
         currentUserLogs.UserID = snapshot.data()["UserID"] as? String
+        currentUserLogs.Fname = snapshot.data()["Fname"] as? String
+        currentUserLogs.Lname = snapshot.data()["Lname"] as? String
         currentUserLogs.id = snapshot.documentID
         
         if let logsReferences = snapshot.data()["logs"] as? [DocumentReference] {
@@ -269,13 +289,15 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 }
             }
             
-        }
-        listeners.invoke { (listener) in
-            if listener.listenerType == ListenerType.Userlogs ||
-                listener.listenerType == ListenerType.all {
-                listener.onUserLogsChange(change: .update, logs: currentUserLogs.logs)
+            listeners.invoke { (listener) in
+                if listener.listenerType == ListenerType.Userlogs ||
+                    listener.listenerType == ListenerType.all {
+                    listener.onUserLogsChange(change: .update, logs: currentUserLogs.logs)
+                }
             }
+            
         }
+        
         
     }
     
@@ -284,6 +306,16 @@ class FirebaseController: NSObject, DatabaseProtocol {
             try authController.signOut()
             logsList = []
             isUserSignedIn = false
+            currentUserLogs = UserLogs()
+            currentUser = nil
+            
+            self.listeners.invoke { (listener) in
+                if listener.listenerType == ListenerType.authentication || listener.listenerType == ListenerType.Userlogs {
+                    let wasSuccessful = false
+                    listener.onAuthenticationChange(ifSucessful: wasSuccessful)
+                }
+            }
+
         }catch{
                 print(error)
         }

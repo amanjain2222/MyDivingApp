@@ -7,26 +7,57 @@
 
 import UIKit
 
-class MoreScreenTableViewController: UITableViewController {
+class MoreScreenTableViewController: UITableViewController, DatabaseListener {
+    
+    var listenerType: ListenerType = .authentication
+    
+    func onAuthenticationChange(ifSucessful: Bool) {
+            tableView.reloadData()
+    }
+    
+    func onAllLogsChange(change: DatabaseChange, logs: [diveLogs]) {
+        
+    }
+    
+    func onUserLogsChange(change: DatabaseChange, logs: [diveLogs]) {
+        
+    }
+    
     
     let Section_Options = 0
     let Section_Signout = 1
     
-
+    
+    weak var databaseController: DatabaseProtocol?
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        databaseController = appDelegate?.databaseController
+        
+        databaseController?.addListener(listener: self)
+        
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
+    
+
+
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
+        if databaseController?.isSignedIn() == false{
+            return 1
+        }
         return 2
     }
 
@@ -34,24 +65,26 @@ class MoreScreenTableViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         if section == Section_Options{
             return 6
+        }else if section == Section_Signout && databaseController?.isSignedIn() == true{
+            return 1
         }
-        return 1
+        return 0
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == Section_Options {
-            let profileInfoCell = tableView.dequeueReusableCell(withIdentifier: "ProfileInfo", for: indexPath)
-            let optionCell = tableView.dequeueReusableCell(withIdentifier: "MoreOptions", for: indexPath)
-            if indexPath.row == 0{
-                
-                profileInfoCell.textLabel?.text = "name"
-                profileInfoCell.detailTextLabel?.text = "UserEmail"
+            if indexPath.row == 0 {
+                let profileInfoCell = tableView.dequeueReusableCell(withIdentifier: "profileCell", for: indexPath) as! profileViewTableViewCell
+                profileInfoCell.username.text = "\(databaseController?.currentUserLogs.Fname ?? "Anonymous") \( databaseController?.currentUserLogs.Lname ?? "User")"
+                profileInfoCell.userEmail.text = databaseController?.currentUser?.email
                 
                 return profileInfoCell
             }
             else{
+                
+                let optionCell = tableView.dequeueReusableCell(withIdentifier: "MoreOptions", for: indexPath)
                 
                 switch indexPath.row {
                 case 1:
@@ -72,23 +105,15 @@ class MoreScreenTableViewController: UITableViewController {
         }
         
         else{
-            let signoutCell = tableView.dequeueReusableCell(withIdentifier: "MoreOptions", for: indexPath)
-                        signoutCell.textLabel?.text = "Sign Out"
-                        return signoutCell
+            
+                let signoutCell = tableView.dequeueReusableCell(withIdentifier: "MoreOptions", for: indexPath)
+                signoutCell.textLabel?.text = "Sign Out"
+                return signoutCell
             
         }
-        
-        
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-        if section == Section_Options{
-            return "General"
-        }else{
-            return " "
-        }
-    }
+
 
     
     // Override to support conditional editing of the table view.
@@ -97,11 +122,27 @@ class MoreScreenTableViewController: UITableViewController {
         return false
     }
     
-//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if indexPath.row ==
-//
-//    }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == Section_Signout {
+            
+            databaseController?.signOutUser()
+            performSegue(withIdentifier: "toLoginPage", sender: nil)
+            
+        }
 
+    }
+
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        if indexPath.section == Section_Options && indexPath.row == 0{
+            return 80
+        }
+        
+        return UITableView.automaticDimension
+        
+    }
+    
 
     /*
     // Override to support editing the table view.

@@ -1,43 +1,44 @@
 //
-//  LoginPageViewController.swift
+//  SignUpViewController.swift
 //  MyDivingApp
 //
-//  Created by aman on 9/5/2024.
+//  Created by aman on 15/5/2024.
 //
 
 import UIKit
 
-class LoginPageViewController: UIViewController, DatabaseListener {
-    func onUserLogsChange(change: DatabaseChange, logs: [diveLogs]) {
-        
-    }
-    
-    func onAllLogsChange(change: DatabaseChange, logs: [diveLogs]) {
-        
-    }
+class SignUpViewController: UIViewController, DatabaseListener {
+    var listenerType: ListenerType = .authentication
     
     func onAuthenticationChange(ifSucessful: Bool) {
         if ifSucessful{
             DispatchQueue.main.async {
-                //                self.performSegue(withIdentifier: "signedIn", sender: nil)
+                self.navigationController?.popViewController(animated: true)
                 self.navigationController?.popViewController(animated: true)
             }
         }
+
+    }
+    
+    func onAllLogsChange(change: DatabaseChange, logs: [diveLogs]) {
+    
+        
+    }
+    
+    func onUserLogsChange(change: DatabaseChange, logs: [diveLogs]) {
+        
         
     }
     
     
     weak var databaseController: DatabaseProtocol?
-    
-    var listenerType: ListenerType = .authentication
-
-
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
+
         // Do any additional setup after loading the view.
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -48,9 +49,22 @@ class LoginPageViewController: UIViewController, DatabaseListener {
     override func viewDidDisappear(_ animated: Bool) {
         databaseController?.removeListener(listener: self)
     }
-
-    @IBOutlet weak var PasswordText: UITextField!
-    @IBOutlet weak var EmailText: UITextField!
+    
+    
+    @IBOutlet weak var Fname: UITextField!
+    @IBOutlet weak var Lname: UITextField!
+    @IBOutlet weak var email: UITextField!
+    @IBOutlet weak var password: UITextField!
+    
+    @IBAction func SignUpButton(_ sender: Any) {
+        
+        guard let email = email.text, let password = password.text, let Fname = Fname.text,  let Lname = Lname.text
+        else{
+            return
+        }
+        databaseController?.createAccount(email: email, password: password, Fname: Fname, Lname: Lname)
+    }
+    }
     /*
     // MARK: - Navigation
 
@@ -60,15 +74,5 @@ class LoginPageViewController: UIViewController, DatabaseListener {
         // Pass the selected object to the new view controller.
     }
     */
-    
-    @IBAction func login(_ sender: Any) {
-        
-        guard let email = EmailText.text, let password = PasswordText.text
-        else{
-            return
-        }
-        databaseController?.login(email: email, password: password)
-    }
-    
-    
-}
+
+

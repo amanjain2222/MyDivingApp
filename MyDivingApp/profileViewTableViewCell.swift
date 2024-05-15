@@ -1,13 +1,13 @@
 //
-//  LogBookWarningViewCell.swift
+//  profileViewTableViewCell.swift
 //  MyDivingApp
 //
-//  Created by aman on 9/5/2024.
+//  Created by aman on 15/5/2024.
 //
 
 import UIKit
 
-class LogBookWarningViewCell: UITableViewCell {
+class profileViewTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -16,11 +16,13 @@ class LogBookWarningViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        
-        
 
         // Configure the view for the selected state
     }
-
+    
+    @IBOutlet weak var username: UILabel!
+    
+    @IBOutlet weak var userEmail: UILabel!
+    @IBOutlet weak var profilePhoto: UIImageView!
+    
 }

@@ -12,6 +12,8 @@ class UserLogs: NSObject, Codable {
     var id: String?
     var UserID: String?
     var logs: [diveLogs] = []
+    var Fname: String?
+    var Lname: String?
 
 
 }
