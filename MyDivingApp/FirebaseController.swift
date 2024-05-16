@@ -37,18 +37,18 @@ class FirebaseController: NSObject, DatabaseProtocol {
         logsList = [diveLogs]()
         super.init()
         
-                Task {
-                    do {
-                        try await authController.signOut()
-                        isUserSignedIn = false
-        
-                    }
-                    catch {
-                        fatalError("Firebase Authentication Failed with Error \(String(describing: error))")
-                    }
-        
-        
-                }
+//                Task {
+//                    do {
+//                        try await authController.signOut()
+//                        isUserSignedIn = false
+//        
+//                    }
+//                    catch {
+//                        fatalError("Firebase Authentication Failed with Error \(String(describing: error))")
+//                    }
+//        
+//        
+//                }
 ////        
     }
     

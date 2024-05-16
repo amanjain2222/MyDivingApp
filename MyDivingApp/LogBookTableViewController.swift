@@ -53,8 +53,12 @@ class LogBookTableViewController: UITableViewController, DatabaseListener {
         databaseController = appDelegate?.databaseController
         
         databaseController?.addListener(listener: self)
-    
-        addlogbutton.isHidden = true
+        
+        if databaseController?.isSignedIn() == false{
+            addlogbutton.isHidden = true
+        }else{
+            addlogbutton.isHidden = false
+        }
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false

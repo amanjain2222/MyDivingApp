@@ -12,6 +12,8 @@
 		072D217A2BF457F90068E6B3 /* profileViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D21792BF457F90068E6B3 /* profileViewTableViewCell.swift */; };
 		072D217E2BF478CF0068E6B3 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D217D2BF478CF0068E6B3 /* SignUpViewController.swift */; };
 		072D21802BF4BA1E0068E6B3 /* ViewDiveSiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D217F2BF4BA1E0068E6B3 /* ViewDiveSiteViewController.swift */; };
+		07A342382BF59EFF00A4FF35 /* FishInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A342372BF59EFF00A4FF35 /* FishInfo.swift */; };
+		07A3423A2BF5A35900A4FF35 /* FishInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A342392BF5A35900A4FF35 /* FishInfoViewController.swift */; };
 		07B112FE2BD7B8C200FFECC5 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 07B112FD2BD7B8C200FFECC5 /* FirebaseAuth */; };
 		07B113002BD7B8C200FFECC5 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 07B112FF2BD7B8C200FFECC5 /* FirebaseFirestore */; };
 		07B113022BD7B8C200FFECC5 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 07B113012BD7B8C200FFECC5 /* FirebaseFirestoreSwift */; };
@@ -45,6 +47,8 @@
 		072D21792BF457F90068E6B3 /* profileViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileViewTableViewCell.swift; sourceTree = "<group>"; };
 		072D217D2BF478CF0068E6B3 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		072D217F2BF4BA1E0068E6B3 /* ViewDiveSiteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDiveSiteViewController.swift; sourceTree = "<group>"; };
+		07A342372BF59EFF00A4FF35 /* FishInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishInfo.swift; sourceTree = "<group>"; };
+		07A342392BF5A35900A4FF35 /* FishInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishInfoViewController.swift; sourceTree = "<group>"; };
 		07B113032BD7E6E300FFECC5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		07BCE9F22BEB8665008DB0CB /* MulticastDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MulticastDelegate.swift; sourceTree = "<group>"; };
 		07BCE9F42BEB8678008DB0CB /* DatabaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseProtocol.swift; sourceTree = "<group>"; };
@@ -148,6 +152,8 @@
 				072D21792BF457F90068E6B3 /* profileViewTableViewCell.swift */,
 				072D217D2BF478CF0068E6B3 /* SignUpViewController.swift */,
 				072D217F2BF4BA1E0068E6B3 /* ViewDiveSiteViewController.swift */,
+				07A342372BF59EFF00A4FF35 /* FishInfo.swift */,
+				07A342392BF5A35900A4FF35 /* FishInfoViewController.swift */,
 			);
 			path = MyDivingApp;
 			sourceTree = "<group>";
@@ -241,6 +247,7 @@
 				07EEDD852BDA964300172BF2 /* DiveSiteViewController.swift in Sources */,
 				07BCEA022BEBC864008DB0CB /* LogBookWarningViewCell.swift in Sources */,
 				07BCEA002BEBC362008DB0CB /* diveLogs.swift in Sources */,
+				07A3423A2BF5A35900A4FF35 /* FishInfoViewController.swift in Sources */,
 				07BF44ED2BD8DAF00062EFD0 /* DiveSitesSearchTableViewController.swift in Sources */,
 				072D217A2BF457F90068E6B3 /* profileViewTableViewCell.swift in Sources */,
 				07BCEA082BEC6F87008DB0CB /* CreateLogViewController.swift in Sources */,
@@ -255,6 +262,7 @@
 				07BF44E72BD8BD270062EFD0 /* DiveSiteObject.swift in Sources */,
 				07F9796B2BE253DB00F52DC8 /* LocationAnnotation.swift in Sources */,
 				07BCE9F32BEB8665008DB0CB /* MulticastDelegate.swift in Sources */,
+				07A342382BF59EFF00A4FF35 /* FishInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
