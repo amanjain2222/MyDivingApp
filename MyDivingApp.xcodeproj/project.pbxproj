@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		0705564C2BDD6419001719CB /* CurrentLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0705564B2BDD6419001719CB /* CurrentLocationViewController.swift */; };
 		070B0B802BDA9F640098EB91 /* FirebaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070B0B7F2BDA9F640098EB91 /* FirebaseController.swift */; };
+		072303922C02F784003F41AC /* FishSpeciesListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072303912C02F784003F41AC /* FishSpeciesListTableViewController.swift */; };
+		072303942C0320AF003F41AC /* viewFishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072303932C0320AF003F41AC /* viewFishViewController.swift */; };
+		072303982C0331D8003F41AC /* UIViewController+displayMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072303972C0331D8003F41AC /* UIViewController+displayMessage.swift */; };
 		072D217A2BF457F90068E6B3 /* profileViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D21792BF457F90068E6B3 /* profileViewTableViewCell.swift */; };
 		072D217E2BF478CF0068E6B3 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D217D2BF478CF0068E6B3 /* SignUpViewController.swift */; };
 		072D21802BF4BA1E0068E6B3 /* ViewDiveSiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D217F2BF4BA1E0068E6B3 /* ViewDiveSiteViewController.swift */; };
@@ -44,6 +47,9 @@
 /* Begin PBXFileReference section */
 		0705564B2BDD6419001719CB /* CurrentLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationViewController.swift; sourceTree = "<group>"; };
 		070B0B7F2BDA9F640098EB91 /* FirebaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseController.swift; sourceTree = "<group>"; };
+		072303912C02F784003F41AC /* FishSpeciesListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishSpeciesListTableViewController.swift; sourceTree = "<group>"; };
+		072303932C0320AF003F41AC /* viewFishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = viewFishViewController.swift; sourceTree = "<group>"; };
+		072303972C0331D8003F41AC /* UIViewController+displayMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+displayMessage.swift"; sourceTree = "<group>"; };
 		072D21792BF457F90068E6B3 /* profileViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileViewTableViewCell.swift; sourceTree = "<group>"; };
 		072D217D2BF478CF0068E6B3 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		072D217F2BF4BA1E0068E6B3 /* ViewDiveSiteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDiveSiteViewController.swift; sourceTree = "<group>"; };
@@ -154,6 +160,9 @@
 				072D217F2BF4BA1E0068E6B3 /* ViewDiveSiteViewController.swift */,
 				07A342372BF59EFF00A4FF35 /* FishInfo.swift */,
 				07A342392BF5A35900A4FF35 /* FishInfoViewController.swift */,
+				072303912C02F784003F41AC /* FishSpeciesListTableViewController.swift */,
+				072303932C0320AF003F41AC /* viewFishViewController.swift */,
+				072303972C0331D8003F41AC /* UIViewController+displayMessage.swift */,
 			);
 			path = MyDivingApp;
 			sourceTree = "<group>";
@@ -249,10 +258,13 @@
 				07BCEA002BEBC362008DB0CB /* diveLogs.swift in Sources */,
 				07A3423A2BF5A35900A4FF35 /* FishInfoViewController.swift in Sources */,
 				07BF44ED2BD8DAF00062EFD0 /* DiveSitesSearchTableViewController.swift in Sources */,
+				072303982C0331D8003F41AC /* UIViewController+displayMessage.swift in Sources */,
 				072D217A2BF457F90068E6B3 /* profileViewTableViewCell.swift in Sources */,
+				072303922C02F784003F41AC /* FishSpeciesListTableViewController.swift in Sources */,
 				07BCEA082BEC6F87008DB0CB /* CreateLogViewController.swift in Sources */,
 				275F443E2BD7B24F00E136CD /* AppDelegate.swift in Sources */,
 				07BCE9FC2BEB8F46008DB0CB /* MoreScreenTableViewController.swift in Sources */,
+				072303942C0320AF003F41AC /* viewFishViewController.swift in Sources */,
 				07BCEA042BEC5918008DB0CB /* userLogs.swift in Sources */,
 				275F44402BD7B24F00E136CD /* SceneDelegate.swift in Sources */,
 				0705564C2BDD6419001719CB /* CurrentLocationViewController.swift in Sources */,
