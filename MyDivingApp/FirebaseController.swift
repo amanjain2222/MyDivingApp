@@ -22,11 +22,17 @@ class FirebaseController: NSObject, DatabaseProtocol {
     var userEmail: String?
     var currentUserLogs: UserLogs
     
+    var currentUserDetails: User
+    
     var currentSender: Sender?
     
     var logRef: CollectionReference?
     
+    var userRef: CollectionReference?
+    
     var UserlogRef: CollectionReference?
+    
+    var channelsRef: CollectionReference?
     
     override init(){
         FirebaseApp.configure()
@@ -34,20 +40,21 @@ class FirebaseController: NSObject, DatabaseProtocol {
         database = Firestore.firestore()
         currentUserLogs = UserLogs()
         logsList = [diveLogs]()
+        currentUserDetails = User()
         super.init()
         
-//                Task {
-//                    do {
-//                        try await authController.signOut()
-//                        isUserSignedIn = false
-//        
-//                    }
-//                    catch {
-//                        fatalError("Firebase Authentication Failed with Error \(String(describing: error))")
-//                    }
-//        
-//        
-//                }
+                Task {
+                    do {
+                        try await authController.signOut()
+                        isUserSignedIn = false
+        
+                    }
+                    catch {
+                        fatalError("Firebase Authentication Failed with Error \(String(describing: error))")
+                    }
+        
+        
+                }
 ////        
     }
     
@@ -67,7 +74,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
                     }
                 }
                 
-                currentSender = Sender( senderId: currentUser.uid, displayName: currentUserLogs.Fname)
+                currentSender = Sender( senderId: currentUser!.uid, displayName: currentUserLogs.Fname!)
             }catch{
                 print(error)
             }
@@ -82,6 +89,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 let authResult = try await authController.createUser(withEmail: email, password: password)
                 currentUser = authResult.user
                 isUserSignedIn = true
+                currentUserDetails = try await addUser(email: email, id: currentUser!.uid, Fname: Fname, Lname: Lname)
                 _ = try await addUserLogs(logID: currentUser!.uid, Fname: Fname, Lname: Lname)
                 self.setUpLogsListener()
                 self.listeners.invoke { (listener) in
@@ -126,6 +134,28 @@ class FirebaseController: NSObject, DatabaseProtocol {
         listeners.removeDelegate(listener)
     }
     
+    
+    func addUser(email: String, id: String, Fname: String, Lname: String) async throws -> User{
+        
+        userRef = database.collection("Users")
+        var user = User()
+        user.UserID = id
+        user.email = email
+        user.Fname = Fname
+        user.Lname = Lname
+        
+        
+        var data: [String: Any] = [
+                "userEmail": email,
+                "userUID": id
+            ]
+
+        if let usersRef = try await userRef?.addDocument(data: data) {
+            user.id = usersRef.documentID
+            }
+        
+        return user
+    }
     
     func addlog(title: String, divetype: DiveType, DiveLocation: String, DiveDate: String) -> diveLogs {
         
@@ -300,6 +330,9 @@ class FirebaseController: NSObject, DatabaseProtocol {
         
         
     }
+    
+    
+
     
     func signOutUser() {
         do{

@@ -42,6 +42,7 @@
 		07EEDD852BDA964300172BF2 /* DiveSiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EEDD842BDA964300172BF2 /* DiveSiteViewController.swift */; };
 		07F979692BE2526000F52DC8 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F979682BE2526000F52DC8 /* MapViewController.swift */; };
 		07F9796B2BE253DB00F52DC8 /* LocationAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F9796A2BE253DB00F52DC8 /* LocationAnnotation.swift */; };
+		275150C02C05BCCB002EB8C5 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275150BF2C05BCCB002EB8C5 /* Users.swift */; };
 		275F443E2BD7B24F00E136CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275F443D2BD7B24F00E136CD /* AppDelegate.swift */; };
 		275F44402BD7B24F00E136CD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275F443F2BD7B24F00E136CD /* SceneDelegate.swift */; };
 		275F44422BD7B24F00E136CD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275F44412BD7B24F00E136CD /* ViewController.swift */; };
@@ -82,6 +83,7 @@
 		07EEDD842BDA964300172BF2 /* DiveSiteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiveSiteViewController.swift; sourceTree = "<group>"; };
 		07F979682BE2526000F52DC8 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		07F9796A2BE253DB00F52DC8 /* LocationAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAnnotation.swift; sourceTree = "<group>"; };
+		275150BF2C05BCCB002EB8C5 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		275F443A2BD7B24F00E136CD /* MyDivingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyDivingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		275F443D2BD7B24F00E136CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		275F443F2BD7B24F00E136CD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 				07BCE9FD2BEBB96B008DB0CB /* LogBookTableViewController.swift */,
 				07BCE9FF2BEBC362008DB0CB /* diveLogs.swift */,
 				07BCEA012BEBC864008DB0CB /* LogBookWarningViewCell.swift */,
+				275150BF2C05BCCB002EB8C5 /* Users.swift */,
 				07BCEA032BEC5918008DB0CB /* userLogs.swift */,
 				07BCEA052BEC6BB8008DB0CB /* LoginPageViewController.swift */,
 				07BCEA072BEC6F87008DB0CB /* CreateLogViewController.swift */,
@@ -222,6 +225,7 @@
 				TargetAttributes = {
 					275F44392BD7B24F00E136CD = {
 						CreatedOnToolsVersion = 15.1;
+						LastSwiftMigration = 1510;
 					};
 				};
 			};
@@ -292,6 +296,7 @@
 				07BCEA042BEC5918008DB0CB /* userLogs.swift in Sources */,
 				275F44402BD7B24F00E136CD /* SceneDelegate.swift in Sources */,
 				0705564C2BDD6419001719CB /* CurrentLocationViewController.swift in Sources */,
+				275150C02C05BCCB002EB8C5 /* Users.swift in Sources */,
 				07BCEA062BEC6BB8008DB0CB /* LoginPageViewController.swift in Sources */,
 				07BCE9FE2BEBB96B008DB0CB /* LogBookTableViewController.swift in Sources */,
 				072D21802BF4BA1E0068E6B3 /* ViewDiveSiteViewController.swift in Sources */,
@@ -448,6 +453,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = WA9774898R;
@@ -466,6 +472,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = monash.edu.MyDivingApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -476,6 +483,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = WA9774898R;

@@ -6,6 +6,10 @@
 //
 
 import UIKit
+class userChannels: NSObject{
+    
+    var userChannels: [Channel]?
+}
 
 class Channel: NSObject {
     

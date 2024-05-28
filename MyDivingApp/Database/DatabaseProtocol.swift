@@ -29,10 +29,10 @@ protocol DatabaseProtocol: AnyObject {
     
     func isSignedIn() -> Bool
     var currentUser: FirebaseAuth.User?  {get}
-
+    
     
     var currentUserLogs: UserLogs {get}
-    
+    var currentUserDetails: User {get set}
     var currentSender: Sender? { get set }
 }
 
