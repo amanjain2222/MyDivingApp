@@ -12,6 +12,12 @@
 		072303922C02F784003F41AC /* FishSpeciesListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072303912C02F784003F41AC /* FishSpeciesListTableViewController.swift */; };
 		072303942C0320AF003F41AC /* viewFishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072303932C0320AF003F41AC /* viewFishViewController.swift */; };
 		072303982C0331D8003F41AC /* UIViewController+displayMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072303972C0331D8003F41AC /* UIViewController+displayMessage.swift */; };
+		0723039A2C045D2A003F41AC /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072303992C045D29003F41AC /* Channel.swift */; };
+		0723039C2C04D4E8003F41AC /* Sender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0723039B2C04D4E7003F41AC /* Sender.swift */; };
+		0723039E2C04D56A003F41AC /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0723039D2C04D56A003F41AC /* ChatMessage.swift */; };
+		072303A02C04D6CF003F41AC /* ChannelsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0723039F2C04D6CF003F41AC /* ChannelsTableViewController.swift */; };
+		072303A22C04DAAA003F41AC /* ChatMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072303A12C04DAAA003F41AC /* ChatMessageViewController.swift */; };
+		072303A52C04DB86003F41AC /* MessageKit in Frameworks */ = {isa = PBXBuildFile; productRef = 072303A42C04DB86003F41AC /* MessageKit */; };
 		072D217A2BF457F90068E6B3 /* profileViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D21792BF457F90068E6B3 /* profileViewTableViewCell.swift */; };
 		072D217E2BF478CF0068E6B3 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D217D2BF478CF0068E6B3 /* SignUpViewController.swift */; };
 		072D21802BF4BA1E0068E6B3 /* ViewDiveSiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D217F2BF4BA1E0068E6B3 /* ViewDiveSiteViewController.swift */; };
@@ -50,6 +56,11 @@
 		072303912C02F784003F41AC /* FishSpeciesListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishSpeciesListTableViewController.swift; sourceTree = "<group>"; };
 		072303932C0320AF003F41AC /* viewFishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = viewFishViewController.swift; sourceTree = "<group>"; };
 		072303972C0331D8003F41AC /* UIViewController+displayMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+displayMessage.swift"; sourceTree = "<group>"; };
+		072303992C045D29003F41AC /* Channel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
+		0723039B2C04D4E7003F41AC /* Sender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sender.swift; sourceTree = "<group>"; };
+		0723039D2C04D56A003F41AC /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
+		0723039F2C04D6CF003F41AC /* ChannelsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelsTableViewController.swift; sourceTree = "<group>"; };
+		072303A12C04DAAA003F41AC /* ChatMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageViewController.swift; sourceTree = "<group>"; };
 		072D21792BF457F90068E6B3 /* profileViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileViewTableViewCell.swift; sourceTree = "<group>"; };
 		072D217D2BF478CF0068E6B3 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		072D217F2BF4BA1E0068E6B3 /* ViewDiveSiteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDiveSiteViewController.swift; sourceTree = "<group>"; };
@@ -89,6 +100,7 @@
 				07B112FE2BD7B8C200FFECC5 /* FirebaseAuth in Frameworks */,
 				07B113002BD7B8C200FFECC5 /* FirebaseFirestore in Frameworks */,
 				07B113022BD7B8C200FFECC5 /* FirebaseFirestoreSwift in Frameworks */,
+				072303A52C04DB86003F41AC /* MessageKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,6 +175,11 @@
 				072303912C02F784003F41AC /* FishSpeciesListTableViewController.swift */,
 				072303932C0320AF003F41AC /* viewFishViewController.swift */,
 				072303972C0331D8003F41AC /* UIViewController+displayMessage.swift */,
+				072303992C045D29003F41AC /* Channel.swift */,
+				0723039B2C04D4E7003F41AC /* Sender.swift */,
+				0723039D2C04D56A003F41AC /* ChatMessage.swift */,
+				0723039F2C04D6CF003F41AC /* ChannelsTableViewController.swift */,
+				072303A12C04DAAA003F41AC /* ChatMessageViewController.swift */,
 			);
 			path = MyDivingApp;
 			sourceTree = "<group>";
@@ -187,6 +204,7 @@
 				07B112FD2BD7B8C200FFECC5 /* FirebaseAuth */,
 				07B112FF2BD7B8C200FFECC5 /* FirebaseFirestore */,
 				07B113012BD7B8C200FFECC5 /* FirebaseFirestoreSwift */,
+				072303A42C04DB86003F41AC /* MessageKit */,
 			);
 			productName = MyDivingApp;
 			productReference = 275F443A2BD7B24F00E136CD /* MyDivingApp.app */;
@@ -218,6 +236,7 @@
 			mainGroup = 275F44312BD7B24F00E136CD;
 			packageReferences = (
 				07B112FC2BD7B8C200FFECC5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				072303A32C04DB86003F41AC /* XCRemoteSwiftPackageReference "MessageKit" */,
 			);
 			productRefGroup = 275F443B2BD7B24F00E136CD /* Products */;
 			projectDirPath = "";
@@ -251,6 +270,8 @@
 				07BCE9F52BEB8678008DB0CB /* DatabaseProtocol.swift in Sources */,
 				07F979692BE2526000F52DC8 /* MapViewController.swift in Sources */,
 				070B0B802BDA9F640098EB91 /* FirebaseController.swift in Sources */,
+				0723039E2C04D56A003F41AC /* ChatMessage.swift in Sources */,
+				0723039C2C04D4E8003F41AC /* Sender.swift in Sources */,
 				07BF44E92BD8BD490062EFD0 /* DiveSites.swift in Sources */,
 				275F44422BD7B24F00E136CD /* ViewController.swift in Sources */,
 				07EEDD852BDA964300172BF2 /* DiveSiteViewController.swift in Sources */,
@@ -258,11 +279,14 @@
 				07BCEA002BEBC362008DB0CB /* diveLogs.swift in Sources */,
 				07A3423A2BF5A35900A4FF35 /* FishInfoViewController.swift in Sources */,
 				07BF44ED2BD8DAF00062EFD0 /* DiveSitesSearchTableViewController.swift in Sources */,
+				072303A02C04D6CF003F41AC /* ChannelsTableViewController.swift in Sources */,
+				072303A22C04DAAA003F41AC /* ChatMessageViewController.swift in Sources */,
 				072303982C0331D8003F41AC /* UIViewController+displayMessage.swift in Sources */,
 				072D217A2BF457F90068E6B3 /* profileViewTableViewCell.swift in Sources */,
 				072303922C02F784003F41AC /* FishSpeciesListTableViewController.swift in Sources */,
 				07BCEA082BEC6F87008DB0CB /* CreateLogViewController.swift in Sources */,
 				275F443E2BD7B24F00E136CD /* AppDelegate.swift in Sources */,
+				0723039A2C045D2A003F41AC /* Channel.swift in Sources */,
 				07BCE9FC2BEB8F46008DB0CB /* MoreScreenTableViewController.swift in Sources */,
 				072303942C0320AF003F41AC /* viewFishViewController.swift in Sources */,
 				07BCEA042BEC5918008DB0CB /* userLogs.swift in Sources */,
@@ -499,6 +523,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		072303A32C04DB86003F41AC /* XCRemoteSwiftPackageReference "MessageKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MessageKit/MessageKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.2.0;
+			};
+		};
 		07B112FC2BD7B8C200FFECC5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -510,6 +542,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		072303A42C04DB86003F41AC /* MessageKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 072303A32C04DB86003F41AC /* XCRemoteSwiftPackageReference "MessageKit" */;
+			productName = MessageKit;
+		};
 		07B112FD2BD7B8C200FFECC5 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 07B112FC2BD7B8C200FFECC5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

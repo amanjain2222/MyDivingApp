@@ -10,9 +10,6 @@ import Firebase
 import FirebaseFirestoreSwift
 
 class FirebaseController: NSObject, DatabaseProtocol {
-
-    
-    
     
     var listeners = MulticastDelegate<DatabaseListener>()
     var logsList: [diveLogs]
@@ -24,6 +21,8 @@ class FirebaseController: NSObject, DatabaseProtocol {
     var userLname: String?
     var userEmail: String?
     var currentUserLogs: UserLogs
+    
+    var currentSender: Sender?
     
     var logRef: CollectionReference?
     
@@ -58,7 +57,6 @@ class FirebaseController: NSObject, DatabaseProtocol {
             do{
                 let authResult = try await authController.signIn(withEmail: email, password: password)
                 currentUser = authResult.user
-                
                 isUserSignedIn = true
                 self.setUpLogsListener()
                 self.listeners.invoke { (listener) in
@@ -68,6 +66,8 @@ class FirebaseController: NSObject, DatabaseProtocol {
                         
                     }
                 }
+                
+                currentSender = Sender( senderId: currentUser.uid, displayName: currentUserLogs.Fname)
             }catch{
                 print(error)
             }

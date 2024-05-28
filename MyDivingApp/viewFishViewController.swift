@@ -26,37 +26,37 @@ class viewFishViewController: UIViewController {
             
         }
         
-        wikiUrl.text = "\(String(describing: (fish?.url)))"
+        wikiUrl.text = "\((fish?.url) ?? "Not Available")"
         
-        synonym.text = "Synonyms: \(String(describing: (fish?.synonyms)))"
+        synonym.text = "Synonyms: \((fish?.synonyms) ?? "Not Available")"
         
-        species.text = "Species: \(String(describing: (fish?.species)))"
+        species.text = "Species: \((fish?.species) ?? "Not Available")"
         
-        species2.text = "species: \(String(describing: (fish?.species2)))"
+        species2.text = "species: \((fish?.species2) ?? "Not Available")"
         
-        binomial_name.text = "Bionomial name: \(String(describing: (fish?.binomial_name)))"
+        binomial_name.text = "Bionomial name: \((fish?.binomial_name) ?? "Not Available")"
         
-        conservation_stat.text = "Conservation Status: \(String(describing: (fish?.conservation_status)))"
+        conservation_stat.text = "Conservation Status: \((fish?.conservation_status) ?? "Not Available")"
         
-        domein.text = "Domain: \(String(describing: (fish?.domain)))"
+        domein.text = "Domain: \((fish?.domain) ?? "Not Available")"
         
-        kingdom.text = "Kingdom: \(String(describing: (fish?.kingdom)))"
+        kingdom.text = "Kingdom: \((fish?.kingdom) ?? "Not Available" )"
         
-        phylum.text = "Phylum: \(String(describing: (fish?.phylum)))"
+        phylum.text = "Phylum: \((fish?.phylum) ?? "Not Available")"
         
-        fishClass.text = "Class: \(String(describing: (fish?.fishClass)))"
+        fishClass.text = "Class: \((fish?.fishClass) ?? "Not Available")"
         
-        superOrder.text = "Super-order: \(String(describing: (fish?.superorder)))"
+        superOrder.text = "Super-order: \((fish?.superorder) ?? "Not Available")"
         
-        order.text = "Order: \(String(describing: (fish?.order)))"
+        order.text = "Order: \((fish?.order) ?? "Not Available")"
         
-        family.text = "Family: \(String(describing: (fish?.family)))"
+        family.text = "Family: \((fish?.family) ?? "Not Available")"
         
-        tribe.text = "Tribe: \(String(describing: (fish?.tribe)))"
+        tribe.text = "Tribe: \((fish?.tribe) ?? "Not Available")"
         
-        genus.text = "Genus: \(String(describing: (fish?.genus)))"
+        genus.text = "Genus: \((fish?.genus) ?? "Not Available")"
         
-        subgenus.text = "Sub-genus: \(String(describing: (fish?.subgenus)))"
+        subgenus.text = "Sub-genus: \((fish?.subgenus) ?? "Not Available")"
         
         
         

@@ -32,6 +32,8 @@ protocol DatabaseProtocol: AnyObject {
 
     
     var currentUserLogs: UserLogs {get}
+    
+    var currentSender: Sender? { get set }
 }
 
 
