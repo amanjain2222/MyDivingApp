@@ -365,6 +365,10 @@ class FirebaseController: NSObject, DatabaseProtocol {
                     let wasSuccessful = false
                     listener.onAuthenticationChange(ifSucessful: wasSuccessful)
                 }
+                if listener.listenerType == ListenerType.chat{
+                 
+                    listener.onChatChange()
+                }
             }
 
         }catch{

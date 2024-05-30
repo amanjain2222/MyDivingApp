@@ -12,7 +12,10 @@ import Firebase
 class ChannelsTableViewController: UITableViewController, DatabaseListener {
     func onChatChange() {
         currentuser = databaseController!.currentUserDetails
+        self.channels.removeAll()
         self.tableView.reloadData()
+        addChannelButton.isHidden = true
+        
         
         if databaseController!.isSignedIn(){
             databaseListener = channelsRef?.addSnapshotListener() {
@@ -23,26 +26,27 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
                     return
                 }
                 
-                self.channels.removeAll()
-                
-                querySnapshot?.documents.forEach() {
-                    snapshot in
+                if let documents = querySnapshot?.documents {
                     
-                    let id = snapshot.documentID
-                    let name = snapshot["name"] as! String
-                    let users = snapshot["channelUsers"] as! [String]
-                    let channelUsernames = snapshot["channelUsernames"] as! [String]
-                    let channel = Channel()
-                    channel.name = name
-                    channel.id = id
-                    channel.channelUsers = users
-                    channel.channelUsernames = channelUsernames
-                    if channel.channelUsers.contains((self.currentuser?.email)!){
-                        self.channels.append(channel)
+                    for snapshot in documents {
+                        
+                        let id = snapshot.documentID
+                        let name = snapshot["name"] as! String
+                        let users = snapshot["channelUsers"] as! [String]
+                        let channelUsernames = snapshot["channelUsernames"] as! [String]
+                        let channel = Channel()
+                        channel.name = name
+                        channel.id = id
+                        channel.channelUsers = users
+                        channel.channelUsernames = channelUsernames
+                        if channel.channelUsers.contains((self.currentuser?.email)!){
+                            self.channels.append(channel)
+                        }
                     }
+                    
+                    self.tableView.reloadData()
+
                 }
-                
-                self.tableView.reloadData()
                 
             }
             
