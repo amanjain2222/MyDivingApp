@@ -34,6 +34,11 @@ protocol DatabaseProtocol: AnyObject {
     var currentUserLogs: UserLogs {get}
     var currentUserDetails: User {get set}
     var currentSender: Sender? { get set }
+    
+    func findUserByEmail(_ email: String) async throws -> User?
+    
+    func addChannelHelper(id: String, name: String, channelUsers: [String], channelUserNames: [String]) -> Channel?
+    func deleteChannel(channel: Channel)
 }
 
 
@@ -50,6 +55,7 @@ enum ListenerType {
     case authentication
     case logs
     case Userlogs
+    case chat
 }
 
 protocol DatabaseListener: AnyObject {
@@ -57,4 +63,5 @@ protocol DatabaseListener: AnyObject {
     func onAuthenticationChange(ifSucessful: Bool)
     func onAllLogsChange(change: DatabaseChange, logs: [diveLogs])
     func onUserLogsChange(change: DatabaseChange, logs: [diveLogs])
+    func onChatChange()
 }

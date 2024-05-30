@@ -8,6 +8,10 @@
 import UIKit
 
 class MoreScreenTableViewController: UITableViewController, DatabaseListener {
+    func onChatChange() {
+        
+    }
+    
     
     var listenerType: ListenerType = .authentication
     
@@ -77,7 +81,7 @@ class MoreScreenTableViewController: UITableViewController, DatabaseListener {
         if indexPath.section == Section_Options {
             if indexPath.row == 0 {
                 let profileInfoCell = tableView.dequeueReusableCell(withIdentifier: "profileCell", for: indexPath) as! profileViewTableViewCell
-                profileInfoCell.username.text = "\(databaseController?.currentUserLogs.Fname ?? "Anonymous") \( databaseController?.currentUserLogs.Lname ?? "User")"
+                profileInfoCell.username.text = "\(databaseController?.currentUserDetails.Fname ?? "Anonymous") \( databaseController?.currentUserDetails.Lname ?? "User")"
                 profileInfoCell.userEmail.text = databaseController?.currentUser?.email
                 
                 return profileInfoCell

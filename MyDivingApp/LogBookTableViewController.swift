@@ -8,6 +8,10 @@
 import UIKit
 
 class LogBookTableViewController: UITableViewController, DatabaseListener {
+    func onChatChange() {
+        
+    }
+    
     
     func onUserLogsChange(change: DatabaseChange, logs: [diveLogs]) {
         allLogs = logs

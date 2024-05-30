@@ -21,10 +21,13 @@ class ChatMessageViewController: MessagesViewController, MessagesDataSource, Mes
     
     var channelRef: CollectionReference?
     var databaseListener: ListenerRegistration?
-    
     var currentSender: SenderType {
         return Sender(senderId: "",displayName: "")
     }
+    
+    
+    var currentuser: User?
+    var oppositeUserName: String?
     
     let formatter: DateFormatter = {
     let formatter = DateFormatter()
@@ -46,8 +49,9 @@ class ChatMessageViewController: MessagesViewController, MessagesDataSource, Mes
         
         if currentChannel != nil {
         let database = Firestore.firestore()
-            channelRef = database.collection("channels").document(currentChannel!.id!).collection("messages")
-            navigationItem.title = "\(currentChannel!.name)"
+            channelRef = database.collection("Channels").document(currentChannel!.id!).collection("messages")
+            
+            navigationItem.title = "\(oppositeUserName ?? "Anon user")"
         }
     }
     

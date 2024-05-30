@@ -10,6 +10,8 @@ import Firebase
 import FirebaseFirestoreSwift
 
 class FirebaseController: NSObject, DatabaseProtocol {
+
+    
     
     var listeners = MulticastDelegate<DatabaseListener>()
     var logsList: [diveLogs]
@@ -55,7 +57,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
         
         
                 }
-////        
+       
     }
     
     
@@ -65,16 +67,21 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 let authResult = try await authController.signIn(withEmail: email, password: password)
                 currentUser = authResult.user
                 isUserSignedIn = true
+                currentUserDetails = try await findUserByEmail(email)!
                 self.setUpLogsListener()
                 self.listeners.invoke { (listener) in
                     if listener.listenerType == ListenerType.authentication || listener.listenerType == ListenerType.Userlogs {
                         let wasSuccessful = true
                         listener.onAuthenticationChange(ifSucessful: wasSuccessful)
                         
+                    }  
+                    if listener.listenerType == ListenerType.chat{
+                        listener.onChatChange()
                     }
+                  
                 }
-                
-                currentSender = Sender( senderId: currentUser!.uid, displayName: currentUserLogs.Fname!)
+    
+
             }catch{
                 print(error)
             }
@@ -96,6 +103,10 @@ class FirebaseController: NSObject, DatabaseProtocol {
                     if listener.listenerType == ListenerType.authentication || listener.listenerType == ListenerType.Userlogs {
                         let wasSuccessful = true
                         listener.onAuthenticationChange(ifSucessful: wasSuccessful)
+                    }
+                    if listener.listenerType == ListenerType.chat{
+                     
+                        listener.onChatChange()
                     }
                 }
                 
@@ -138,16 +149,19 @@ class FirebaseController: NSObject, DatabaseProtocol {
     func addUser(email: String, id: String, Fname: String, Lname: String) async throws -> User{
         
         userRef = database.collection("Users")
-        var user = User()
+        let user = User()
         user.UserID = id
         user.email = email
         user.Fname = Fname
         user.Lname = Lname
         
         
-        var data: [String: Any] = [
+        let data: [String: Any] = [
                 "userEmail": email,
-                "userUID": id
+                "userUID": id,
+                "Fname": Fname,
+                "Lname": Lname
+                
             ]
 
         if let usersRef = try await userRef?.addDocument(data: data) {
@@ -311,6 +325,10 @@ class FirebaseController: NSObject, DatabaseProtocol {
         currentUserLogs.Lname = snapshot.data()["Lname"] as? String
         currentUserLogs.id = snapshot.documentID
         
+//        currentUserDetails.UserID = currentUser?.uid
+//        currentUserDetails.Fname = currentUserLogs.Fname
+//        currentUserDetails.Lname = currentUserLogs.Lname
+        
         if let logsReferences = snapshot.data()["logs"] as? [DocumentReference] {
             
             for reference in logsReferences {
@@ -356,6 +374,77 @@ class FirebaseController: NSObject, DatabaseProtocol {
     
     func isSignedIn() -> Bool {
         return isUserSignedIn
+    }
+    
+    func findUserByEmail(_ email: String) async throws -> User? {
+        
+        let userRef = database.collection("Users")
+        do {
+            let querySnapshot = try await userRef.whereField("userEmail", isEqualTo: email).getDocuments()
+            
+            guard let userSnapshot = querySnapshot.documents.first else {
+                print("No user found with the email: \(email)")
+                return nil
+            }
+            
+            return parseUserSnapshot(snapshot: userSnapshot)
+        } catch {
+            print("Error fetching user: \(error)")
+            throw error
+        }
+    }
+
+    
+    func parseUserSnapshot(snapshot: QueryDocumentSnapshot) -> User? {
+        
+        let currentUser = User()
+        currentUser.UserID = snapshot.data()["userUID"] as? String
+        currentUser.Fname = snapshot.data()["Fname"] as? String
+        currentUser.Lname = snapshot.data()["Lname"] as? String
+        currentUser.email = snapshot.data()["userEmail"] as? String
+        
+        return currentUser
+    }
+    
+    func addChannelHelper(id: String, name: String, channelUsers: [String], channelUserNames: [String]) -> Channel?{
+        let channel = Channel()
+        channel.name = name
+        channel.channelUsers = channelUsers
+        channel.channelUsernames = channelUserNames
+        
+        let data: [String: Any] = [
+                    "name": name,
+                    "channelUsers": channelUsers,
+                    "channelUsernames": channelUserNames
+            ]
+        channelsRef = database.collection("Channels")
+//        self.channelsRef?.addDocument(data: data)
+        do {
+        if let channelRef = try channelsRef?.addDocument(data: data) {
+            channel.id = channelRef.documentID
+            }
+        } catch {
+        print("Failed to serialize hero")
+        }
+        
+        self.listeners.invoke { (listener) in
+            if listener.listenerType == ListenerType.chat {
+                listener.onChatChange()
+                
+            }
+        }
+
+        return channel
+    }
+    
+    
+    func deleteChannel(channel: Channel){
+        
+        if let channelID = channel.id {
+            channelsRef?.document(channelID).delete()
+        }
+        
+        
     }
     
 

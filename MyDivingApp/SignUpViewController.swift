@@ -8,6 +8,10 @@
 import UIKit
 
 class SignUpViewController: UIViewController, DatabaseListener {
+    func onChatChange() {
+        
+    }
+    
     var listenerType: ListenerType = .authentication
     
     func onAuthenticationChange(ifSucessful: Bool) {
