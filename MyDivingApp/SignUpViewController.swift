@@ -8,7 +8,7 @@
 import UIKit
 
 class SignUpViewController: UIViewController, DatabaseListener {
-    func onChatChange() {
+    func onChatChange(change: DatabaseChange, userChannels: [Channel]) {
         
     }
     

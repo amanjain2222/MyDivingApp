@@ -10,51 +10,13 @@ import FirebaseFirestore
 import Firebase
 
 class ChannelsTableViewController: UITableViewController, DatabaseListener {
-    func onChatChange() {
-        currentuser = databaseController!.currentUserDetails
-        self.channels.removeAll()
-        self.tableView.reloadData()
-        addChannelButton.isHidden = true
-        
-        
-        if databaseController!.isSignedIn(){
-            databaseListener = channelsRef?.addSnapshotListener() {
-                (querySnapshot, error) in
-                
-                if let error = error {
-                    print(error)
-                    return
-                }
-                
-                if let documents = querySnapshot?.documents {
-                    
-                    for snapshot in documents {
-                        
-                        let id = snapshot.documentID
-                        let name = snapshot["name"] as! String
-                        let users = snapshot["channelUsers"] as! [String]
-                        let channelUsernames = snapshot["channelUsernames"] as! [String]
-                        let channel = Channel()
-                        channel.name = name
-                        channel.id = id
-                        channel.channelUsers = users
-                        channel.channelUsernames = channelUsernames
-                        if channel.channelUsers.contains((self.currentuser?.email)!){
-                            self.channels.append(channel)
-                        }
-                    }
-                    
-                    self.tableView.reloadData()
+    func onChatChange(change: DatabaseChange, userChannels: [Channel]) {
 
-                }
-                
-            }
-            
-            currentSender = Sender(senderId: databaseController!.currentUserDetails.UserID! , displayName: databaseController!.currentUserDetails.Fname!)
-            addChannelButton.isHidden = false
-            self.tableView.reloadData()
-            
-        }
+        currentuser = databaseController!.currentUserDetails
+        self.channels = userChannels
+        currentSender = Sender(senderId: databaseController!.currentUserDetails.UserID! , displayName: databaseController!.currentUserDetails.Fname!)
+        self.tableView.reloadData()
+
     }
     
     
@@ -63,7 +25,11 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
     
     func onAuthenticationChange(ifSucessful: Bool) {
         
-        
+        if databaseController!.isSignedIn(){
+            addChannelButton.isHidden = false
+        }else{
+            addChannelButton.isHidden = true
+        }
     }
     
     func onAllLogsChange(change: DatabaseChange, logs: [diveLogs]) {
@@ -96,9 +62,8 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
         
         let database = Firestore.firestore()
         channelsRef = database.collection("Channels")
-        addChannelButton.isHidden = true
         databaseController?.addListener(listener: self)
-
+        
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -109,7 +74,7 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-    
+     
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -157,7 +122,7 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
 //            var content = cell.defaultContentConfiguration()
 //            content.text = "Sign in before using chat"
 //            cell.contentConfiguration = content
-            
+            cell.selectionStyle = .none
             return cell
             
         }
@@ -199,6 +164,14 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
             // Delete the row from the data source
             self.databaseController?.deleteChannel(channel: channels[indexPath.row])
         }
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        if databaseController?.isSignedIn() == false{
+            return nil
+        }
+        return indexPath
     }
     
 
@@ -243,27 +216,21 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
         
         let addAction = UIAlertAction(title: "Create", style: .default) { _ in
             
-            // set channlName to the receivers name and nott the email entered by the current sender as its done now
+            
             Task{
                 let requestedUser = try await self.databaseController?.findUserByEmail(alertController.textFields![0].text!)
-                
                 let channelName = requestedUser?.Fname
+                
                 var doesExist = false
                 for channel in self.channels {
-                    // this logic is not right
                     if channel.name!.lowercased() == channelName!.lowercased() {
-                        for userid in channel.channelUsers{
-                            if (userid != self.currentSender!.senderId) || (userid != requestedUser?.UserID){
-                                doesExist = true
-                                break
-                            }
-                        }
+                        doesExist = true
                     }
                 }
                 
                 if !doesExist {
                     
-                    _ = self.databaseController?.addChannelHelper(id: self.currentSender!.senderId , name: (requestedUser?.Fname)!, channelUsers: [(self.currentuser?.email)!, (requestedUser?.email)!], channelUserNames: [(self.currentuser?.Fname)!, (requestedUser?.Fname)!] )
+                    _ = self.databaseController?.addChannelHelper(name: (requestedUser?.Fname)!, channelUsers: [(self.currentuser?.email)!, (requestedUser?.email)!], channelUserNames: [(self.currentuser?.Fname)!, (requestedUser?.Fname)!] )
                 }
             }
             

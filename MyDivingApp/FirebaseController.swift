@@ -11,8 +11,6 @@ import FirebaseFirestoreSwift
 
 class FirebaseController: NSObject, DatabaseProtocol {
 
-    
-    
     var listeners = MulticastDelegate<DatabaseListener>()
     var logsList: [diveLogs]
     var authController: Auth
@@ -36,6 +34,8 @@ class FirebaseController: NSObject, DatabaseProtocol {
     
     var channelsRef: CollectionReference?
     
+    var userChannels: [Channel]
+    
     override init(){
         FirebaseApp.configure()
         authController = Auth.auth()
@@ -43,6 +43,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
         currentUserLogs = UserLogs()
         logsList = [diveLogs]()
         currentUserDetails = User()
+        userChannels = [Channel]()
         super.init()
         
                 Task {
@@ -69,14 +70,12 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 isUserSignedIn = true
                 currentUserDetails = try await findUserByEmail(email)!
                 self.setUpLogsListener()
+                self.setUpChannelsListener()
                 self.listeners.invoke { (listener) in
-                    if listener.listenerType == ListenerType.authentication || listener.listenerType == ListenerType.Userlogs {
+                    if listener.listenerType == ListenerType.authentication || listener.listenerType == ListenerType.Userlogs || listener.listenerType == ListenerType.chat {
                         let wasSuccessful = true
                         listener.onAuthenticationChange(ifSucessful: wasSuccessful)
                         
-                    }  
-                    if listener.listenerType == ListenerType.chat{
-                        listener.onChatChange()
                     }
                   
                 }
@@ -99,14 +98,11 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 currentUserDetails = try await addUser(email: email, id: currentUser!.uid, Fname: Fname, Lname: Lname)
                 _ = try await addUserLogs(logID: currentUser!.uid, Fname: Fname, Lname: Lname)
                 self.setUpLogsListener()
+                self.setUpChannelsListener()
                 self.listeners.invoke { (listener) in
-                    if listener.listenerType == ListenerType.authentication || listener.listenerType == ListenerType.Userlogs {
+                    if listener.listenerType == ListenerType.authentication || listener.listenerType == ListenerType.Userlogs || listener.listenerType == ListenerType.chat {
                         let wasSuccessful = true
                         listener.onAuthenticationChange(ifSucessful: wasSuccessful)
-                    }
-                    if listener.listenerType == ListenerType.chat{
-                     
-                        listener.onChatChange()
                     }
                 }
                 
@@ -325,10 +321,6 @@ class FirebaseController: NSObject, DatabaseProtocol {
         currentUserLogs.Lname = snapshot.data()["Lname"] as? String
         currentUserLogs.id = snapshot.documentID
         
-//        currentUserDetails.UserID = currentUser?.uid
-//        currentUserDetails.Fname = currentUserLogs.Fname
-//        currentUserDetails.Lname = currentUserLogs.Lname
-        
         if let logsReferences = snapshot.data()["logs"] as? [DocumentReference] {
             
             for reference in logsReferences {
@@ -349,6 +341,50 @@ class FirebaseController: NSObject, DatabaseProtocol {
         
     }
     
+    func setUpChannelsListener(){
+        
+        channelsRef = database.collection("Channels")
+        channelsRef?.addSnapshotListener{
+            (querySnapshot,error) in
+            
+            guard let querySnapshot = querySnapshot else {
+                           print("Error fetching teams: \(error!)")
+                       return
+                       }
+            self.parseChannelSnapshot(snapshot: querySnapshot)
+        }
+    }
+
+    func parseChannelSnapshot(snapshot: QuerySnapshot){
+        snapshot.documentChanges.forEach { (change) in
+            var userchannel: Channel
+            do{
+                userchannel = try change.document.data(as: Channel.self)
+            }catch {
+                fatalError("Unable to decode channel: \(error.localizedDescription)")
+            }
+            
+            if change.type == .added  && userchannel.channelUsers.contains((currentUser?.email)!){
+                            userChannels.insert(userchannel, at: Int(change.newIndex))
+                        }else if change.type == .modified && userchannel.channelUsers.contains((currentUser?.email)!){
+                            userChannels.remove(at: Int(change.oldIndex))
+                            userChannels.insert(userchannel, at: Int(change.newIndex))
+                        }else if change.type == .removed && userchannel.channelUsers.contains((currentUser?.email)!){
+                            userChannels.remove(at: Int(change.oldIndex))
+                        }
+            
+            
+                    }
+        
+        listeners.invoke { (listener) in
+            if listener.listenerType == ListenerType.chat || listener.listenerType == ListenerType.all {
+                listener.onChatChange(change: .update, userChannels: userChannels)
+            }
+        }
+
+        }
+        
+    
     
 
     
@@ -359,16 +395,18 @@ class FirebaseController: NSObject, DatabaseProtocol {
             isUserSignedIn = false
             currentUserLogs = UserLogs()
             currentUser = nil
-            
+            userChannels = []
             self.listeners.invoke { (listener) in
-                if listener.listenerType == ListenerType.authentication || listener.listenerType == ListenerType.Userlogs {
+                if listener.listenerType == ListenerType.authentication || listener.listenerType == ListenerType.Userlogs || listener.listenerType == ListenerType.chat{
                     let wasSuccessful = false
                     listener.onAuthenticationChange(ifSucessful: wasSuccessful)
                 }
+                
                 if listener.listenerType == ListenerType.chat{
-                 
-                    listener.onChatChange()
+                    
+                    listener.onChatChange(change: .update, userChannels: userChannels)
                 }
+
             }
 
         }catch{
@@ -410,7 +448,8 @@ class FirebaseController: NSObject, DatabaseProtocol {
         return currentUser
     }
     
-    func addChannelHelper(id: String, name: String, channelUsers: [String], channelUserNames: [String]) -> Channel?{
+    func addChannelHelper(name: String, channelUsers: [String], channelUserNames: [String]) -> Channel?{
+
         let channel = Channel()
         channel.name = name
         channel.channelUsers = channelUsers
@@ -422,7 +461,6 @@ class FirebaseController: NSObject, DatabaseProtocol {
                     "channelUsernames": channelUserNames
             ]
         channelsRef = database.collection("Channels")
-//        self.channelsRef?.addDocument(data: data)
         do {
         if let channelRef = try channelsRef?.addDocument(data: data) {
             channel.id = channelRef.documentID
@@ -431,17 +469,10 @@ class FirebaseController: NSObject, DatabaseProtocol {
         print("Failed to serialize hero")
         }
         
-        self.listeners.invoke { (listener) in
-            if listener.listenerType == ListenerType.chat {
-                listener.onChatChange()
-                
-            }
-        }
-
         return channel
     }
     
-    
+
     func deleteChannel(channel: Channel){
         
         if let channelID = channel.id {

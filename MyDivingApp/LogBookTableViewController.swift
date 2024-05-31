@@ -8,7 +8,7 @@
 import UIKit
 
 class LogBookTableViewController: UITableViewController, DatabaseListener {
-    func onChatChange() {
+    func onChatChange(change: DatabaseChange, userChannels: [Channel]) {
         
     }
     
@@ -181,6 +181,13 @@ class LogBookTableViewController: UITableViewController, DatabaseListener {
         performSegue(withIdentifier: "showDive", sender: nil)
     }
 
+    
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        if databaseController?.isSignedIn() == false{
+            return nil
+        }
+        return indexPath 
+    }
     
     // MARK: - Navigation
 

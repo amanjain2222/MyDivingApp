@@ -8,7 +8,7 @@
 import UIKit
 
 class LoginPageViewController: UIViewController, DatabaseListener {
-    func onChatChange() {
+    func onChatChange(change: DatabaseChange, userChannels: [Channel]) {
         
     }
     

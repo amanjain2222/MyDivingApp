@@ -53,6 +53,8 @@ class ChatMessageViewController: MessagesViewController, MessagesDataSource, Mes
             
             navigationItem.title = "\(oppositeUserName ?? "Anon user")"
         }
+        
+        tabBarController?.tabBar.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {

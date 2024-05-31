@@ -13,7 +13,7 @@ class userChannels: NSObject{
     var userChannels: [Channel]?
 }
 
-class Channel: NSObject {
+class Channel: NSObject, Codable {
     
     @DocumentID var id: String?
     var name: String?

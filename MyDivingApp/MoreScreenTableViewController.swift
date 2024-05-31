@@ -8,7 +8,7 @@
 import UIKit
 
 class MoreScreenTableViewController: UITableViewController, DatabaseListener {
-    func onChatChange() {
+    func onChatChange(change: DatabaseChange, userChannels: [Channel]) {
         
     }
     

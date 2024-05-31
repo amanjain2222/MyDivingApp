@@ -37,7 +37,7 @@ protocol DatabaseProtocol: AnyObject {
     
     func findUserByEmail(_ email: String) async throws -> User?
     
-    func addChannelHelper(id: String, name: String, channelUsers: [String], channelUserNames: [String]) -> Channel?
+    func addChannelHelper(name: String, channelUsers: [String], channelUserNames: [String]) -> Channel?
     func deleteChannel(channel: Channel)
 }
 
@@ -63,5 +63,5 @@ protocol DatabaseListener: AnyObject {
     func onAuthenticationChange(ifSucessful: Bool)
     func onAllLogsChange(change: DatabaseChange, logs: [diveLogs])
     func onUserLogsChange(change: DatabaseChange, logs: [diveLogs])
-    func onChatChange()
+    func onChatChange(change: DatabaseChange, userChannels: [Channel])
 }
