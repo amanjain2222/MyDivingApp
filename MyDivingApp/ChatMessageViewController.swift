@@ -173,7 +173,7 @@ class ChatMessageViewController: MessagesViewController, MessagesDataSource, Mes
                 
                 var channelUsers:[User] = []
 
-                for user in self.currentChannel!.users! {
+                for user in self.currentChannel!.Users! {
                     if requestedUser?.email == user.email {
                         doesExist = true
                         channelUsers.append(user)

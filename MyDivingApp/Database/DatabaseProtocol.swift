@@ -37,6 +37,8 @@ protocol DatabaseProtocol: AnyObject {
     
     func findUserByEmail(_ email: String) async throws -> User?
     
+    func getUsersFromReferance(Referances: [DocumentReference])async  -> [User]?
+    
     func addChannelHelper(name: String, users:[User]) -> Channel?
     func deleteChannel(channel: Channel)
 }

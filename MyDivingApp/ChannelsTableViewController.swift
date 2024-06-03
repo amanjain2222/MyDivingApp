@@ -113,7 +113,7 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
             var content = cell.defaultContentConfiguration()
             
             
-            let users = currentChannel.users
+            let users = currentChannel.Users
             for user in users!{
                 if user.Fname != currentuser?.Fname{
                     let oppositeUserName = user.Fname
@@ -121,6 +121,14 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
                 }
             }
             
+//            if let userChannelUsers = databaseController?.getUsersFromReferance(Referances: currentChannel.userReferances!){
+//                for user in userChannelUsers{
+//                    if user.Fname != currentuser?.Fname{
+//                        let oppositeUserName = user.Fname
+//                        content.text = oppositeUserName
+//                    }
+//                }
+//            }
             cell.contentConfiguration = content
             
             return cell
@@ -265,7 +273,7 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
             let destinationVC = segue.destination as! ChatMessageViewController
             destinationVC.sender = currentSender
             destinationVC.currentChannel = channel
-            let users = channel.users
+            let users = channel.Users
             for user in users! {
                 if user.Fname != currentuser?.Fname{
                     let oppositeUserName = user.Fname

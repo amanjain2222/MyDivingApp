@@ -7,14 +7,14 @@
 
 import UIKit
 import FirebaseFirestoreSwift
-
 import Firebase
 
 class Channel: NSObject, Codable {
     
     @DocumentID var id: String?
     var name: String?
-    var users: [User]?
+    var userReferances: [DocumentReference]?
+    var Users: [User]?
 //    var channelUsers: [String] = []
 //    var channelUsernames: [String] = []
     

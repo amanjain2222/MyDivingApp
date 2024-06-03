@@ -14,8 +14,8 @@
             filePath = "MyDivingApp/ChannelsTableViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -50,6 +50,523 @@
             endingLineNumber = "186"
             landmarkName = "tableView(_:willSelectRowAt:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BC610F48-B80B-4CA4-B942-97BF77CD4AF2"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyDivingApp/FirebaseController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "394"
+            endingLineNumber = "394"
+            landmarkName = "FirebaseController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "BC610F48-B80B-4CA4-B942-97BF77CD4AF2 - 5c53d70674302750"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.FIRDocumentChange) -&gt; () in MyDivingApp.FirebaseController.parseChannelSnapshot(snapshot: __C.FIRQuerySnapshot) -&gt; ()"
+                  moduleName = "MyDivingApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/ajai0035/Desktop/mydivingapp/MyDivingApp/FirebaseController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "371"
+                  endingLineNumber = "371"
+                  offsetFromSymbolStart = "684">
+               </Location>
+               <Location
+                  uuid = "BC610F48-B80B-4CA4-B942-97BF77CD4AF2 - 5c53d70674302750"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.FIRDocumentChange) -&gt; () in MyDivingApp.FirebaseController.parseChannelSnapshot(snapshot: __C.FIRQuerySnapshot) -&gt; ()"
+                  moduleName = "MyDivingApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/ajai0035/Desktop/mydivingapp/MyDivingApp/FirebaseController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "371"
+                  endingLineNumber = "371"
+                  offsetFromSymbolStart = "432">
+               </Location>
+               <Location
+                  uuid = "BC610F48-B80B-4CA4-B942-97BF77CD4AF2 - 5c53d70674302750"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.FIRDocumentChange) -&gt; () in MyDivingApp.FirebaseController.parseChannelSnapshot(snapshot: __C.FIRQuerySnapshot) -&gt; ()"
+                  moduleName = "MyDivingApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/ajai0035/Desktop/mydivingapp/MyDivingApp/FirebaseController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "371"
+                  endingLineNumber = "371"
+                  offsetFromSymbolStart = "384">
+               </Location>
+               <Location
+                  uuid = "BC610F48-B80B-4CA4-B942-97BF77CD4AF2 - 5c53d70674302267"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.FIRDocumentChange) -&gt; () in MyDivingApp.FirebaseController.parseChannelSnapshot(snapshot: __C.FIRQuerySnapshot) -&gt; ()"
+                  moduleName = "MyDivingApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/ajai0035/Desktop/mydivingapp/MyDivingApp/FirebaseController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "394"
+                  endingLineNumber = "394"
+                  offsetFromSymbolStart = "288">
+               </Location>
+               <Location
+                  uuid = "BC610F48-B80B-4CA4-B942-97BF77CD4AF2 - 5c53d70674302267"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.FIRDocumentChange) -&gt; () in MyDivingApp.FirebaseController.parseChannelSnapshot(snapshot: __C.FIRQuerySnapshot) -&gt; ()"
+                  moduleName = "MyDivingApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/ajai0035/Desktop/mydivingapp/MyDivingApp/FirebaseController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "394"
+                  endingLineNumber = "394"
+                  offsetFromSymbolStart = "228">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8D46207E-131C-44E2-960B-1261CA2D1D4A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyDivingApp/FirebaseController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "392"
+            endingLineNumber = "392"
+            landmarkName = "FirebaseController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "8D46207E-131C-44E2-960B-1261CA2D1D4A - 5c53d7067430271e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.FIRDocumentChange) -&gt; () in MyDivingApp.FirebaseController.parseChannelSnapshot(snapshot: __C.FIRQuerySnapshot) -&gt; ()"
+                  moduleName = "MyDivingApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/ajai0035/Desktop/mydivingapp/MyDivingApp/FirebaseController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "369"
+                  endingLineNumber = "369"
+                  offsetFromSymbolStart = "396">
+               </Location>
+               <Location
+                  uuid = "8D46207E-131C-44E2-960B-1261CA2D1D4A - 5c53d70674302750"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.FIRDocumentChange) -&gt; () in MyDivingApp.FirebaseController.parseChannelSnapshot(snapshot: __C.FIRQuerySnapshot) -&gt; ()"
+                  moduleName = "MyDivingApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/ajai0035/Desktop/mydivingapp/MyDivingApp/FirebaseController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "371"
+                  endingLineNumber = "371"
+                  offsetFromSymbolStart = "384">
+               </Location>
+               <Location
+                  uuid = "8D46207E-131C-44E2-960B-1261CA2D1D4A - 5c53d7067430271e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.FIRDocumentChange) -&gt; () in MyDivingApp.FirebaseController.parseChannelSnapshot(snapshot: __C.FIRQuerySnapshot) -&gt; ()"
+                  moduleName = "MyDivingApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/ajai0035/Desktop/mydivingapp/MyDivingApp/FirebaseController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "369"
+                  endingLineNumber = "369"
+                  offsetFromSymbolStart = "256">
+               </Location>
+               <Location
+                  uuid = "8D46207E-131C-44E2-960B-1261CA2D1D4A - 5c53d70674302267"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.FIRDocumentChange) -&gt; () in MyDivingApp.FirebaseController.parseChannelSnapshot(snapshot: __C.FIRQuerySnapshot) -&gt; ()"
+                  moduleName = "MyDivingApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/ajai0035/Desktop/mydivingapp/MyDivingApp/FirebaseController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "394"
+                  endingLineNumber = "394"
+                  offsetFromSymbolStart = "228">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B78AA918-0A97-43D6-8AC5-0527CF357EA0"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyDivingApp/FirebaseController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "560"
+            endingLineNumber = "560"
+            landmarkName = "addChannelHelper(name:users:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B78AA918-0A97-43D6-8AC5-0527CF357EA0 - 4a3d0765e1fd8c8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MyDivingApp.FirebaseController.addChannelHelper(name: Swift.String, users: Swift.Array&lt;MyDivingApp.User&gt;) -&gt; Swift.Optional&lt;MyDivingApp.Channel&gt;"
+                  moduleName = "MyDivingApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/ajai0035/Desktop/mydivingapp/MyDivingApp/FirebaseController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "506"
+                  endingLineNumber = "506"
+                  offsetFromSymbolStart = "200">
+               </Location>
+               <Location
+                  uuid = "B78AA918-0A97-43D6-8AC5-0527CF357EA0 - 4a3d0765e1fa175"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MyDivingApp.FirebaseController.addChannelHelper(name: Swift.String, users: Swift.Array&lt;MyDivingApp.User&gt;) -&gt; Swift.Optional&lt;MyDivingApp.Channel&gt;"
+                  moduleName = "MyDivingApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/ajai0035/Desktop/mydivingapp/MyDivingApp/FirebaseController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "573"
+                  endingLineNumber = "573"
+                  offsetFromSymbolStart = "200">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "95E10AF9-2449-4367-BE82-7CA01388595C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyDivingApp/FirebaseController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "421"
+            endingLineNumber = "421"
+            landmarkName = "FirebaseController"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "89742690-2CCB-4964-A988-DA06E60E6AB4"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyDivingApp/FirebaseController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "475"
+            endingLineNumber = "475"
+            landmarkName = "getUsersFromReferance(Referances:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "89742690-2CCB-4964-A988-DA06E60E6AB4 - 38e24a475bb387ae"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MyDivingApp.FirebaseController.getUsersFromReferance(Referances: Swift.Array&lt;__C.FIRDocumentReference&gt;) -&gt; Swift.Optional&lt;Swift.Array&lt;MyDivingApp.User&gt;&gt;"
+                  moduleName = "MyDivingApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/ajai0035/Desktop/mydivingapp/MyDivingApp/FirebaseController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "407"
+                  endingLineNumber = "407"
+                  offsetFromSymbolStart = "156">
+               </Location>
+               <Location
+                  uuid = "89742690-2CCB-4964-A988-DA06E60E6AB4 - d282b906b9eb430b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;__C.FIRDocumentSnapshot&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MyDivingApp.FirebaseController.getUsersFromReferance(Referances: Swift.Array&lt;__C.FIRDocumentReference&gt;) -&gt; Swift.Optional&lt;Swift.Array&lt;MyDivingApp.User&gt;&gt;"
+                  moduleName = "MyDivingApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/ajai0035/Desktop/mydivingapp/MyDivingApp/FirebaseController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "407"
+                  endingLineNumber = "407"
+                  offsetFromSymbolStart = "108">
+               </Location>
+               <Location
+                  uuid = "89742690-2CCB-4964-A988-DA06E60E6AB4 - 3e388c49de47345f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for MyDivingApp.FirebaseController.getUsersFromReferance(Referances: Swift.Array&lt;__C.FIRDocumentReference&gt;) async -&gt; Swift.Optional&lt;Swift.Array&lt;MyDivingApp.User&gt;&gt;"
+                  moduleName = "MyDivingApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/ajai0035/Desktop/mydivingapp/MyDivingApp/FirebaseController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "474"
+                  endingLineNumber = "474"
+                  offsetFromSymbolStart = "200">
+               </Location>
+               <Location
+                  uuid = "89742690-2CCB-4964-A988-DA06E60E6AB4 - fc7e68bc9a0583a5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;__C.FIRDocumentSnapshot&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MyDivingApp.FirebaseController.getUsersFromReferance(Referances: Swift.Array&lt;__C.FIRDocumentReference&gt;) async -&gt; Swift.Optional&lt;Swift.Array&lt;MyDivingApp.User&gt;&gt;"
+                  moduleName = "MyDivingApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/ajai0035/Desktop/mydivingapp/MyDivingApp/FirebaseController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "474"
+                  endingLineNumber = "474"
+                  offsetFromSymbolStart = "108">
+               </Location>
+               <Location
+                  uuid = "89742690-2CCB-4964-A988-DA06E60E6AB4 - fc7e68bc9a0583a5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;__C.FIRDocumentSnapshot&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MyDivingApp.FirebaseController.getUsersFromReferance(Referances: Swift.Array&lt;__C.FIRDocumentReference&gt;) async -&gt; Swift.Optional&lt;Swift.Array&lt;MyDivingApp.User&gt;&gt;"
+                  moduleName = "MyDivingApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/ajai0035/Desktop/mydivingapp/MyDivingApp/FirebaseController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "474"
+                  endingLineNumber = "474"
+                  offsetFromSymbolStart = "104">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AEDB4B59-36BD-404D-8B2D-C56E8DE75FD6"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyDivingApp/FirebaseController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "591"
+            endingLineNumber = "591"
+            landmarkName = "addChannelHelper(name:users:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "AEDB4B59-36BD-404D-8B2D-C56E8DE75FD6 - 4a3d0765e1fa4c9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MyDivingApp.FirebaseController.addChannelHelper(name: Swift.String, users: Swift.Array&lt;MyDivingApp.User&gt;) -&gt; Swift.Optional&lt;MyDivingApp.Channel&gt;"
+                  moduleName = "MyDivingApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/ajai0035/Desktop/mydivingapp/MyDivingApp/FirebaseController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "537"
+                  endingLineNumber = "537"
+                  offsetFromSymbolStart = "2576">
+               </Location>
+               <Location
+                  uuid = "AEDB4B59-36BD-404D-8B2D-C56E8DE75FD6 - 4a3d0765e1fad76"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MyDivingApp.FirebaseController.addChannelHelper(name: Swift.String, users: Swift.Array&lt;MyDivingApp.User&gt;) -&gt; Swift.Optional&lt;MyDivingApp.Channel&gt;"
+                  moduleName = "MyDivingApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/ajai0035/Desktop/mydivingapp/MyDivingApp/FirebaseController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "604"
+                  endingLineNumber = "604"
+                  offsetFromSymbolStart = "2576">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FB946BBD-0459-4C9A-857F-6EA2A3E792BF"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyDivingApp/FirebaseController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "481"
+            endingLineNumber = "481"
+            landmarkName = "getUsersFromReferance(Referances:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "FB946BBD-0459-4C9A-857F-6EA2A3E792BF - 38e24a475bb387cd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MyDivingApp.FirebaseController.getUsersFromReferance(Referances: Swift.Array&lt;__C.FIRDocumentReference&gt;) -&gt; Swift.Optional&lt;Swift.Array&lt;MyDivingApp.User&gt;&gt;"
+                  moduleName = "MyDivingApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/ajai0035/Desktop/mydivingapp/MyDivingApp/FirebaseController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "410"
+                  endingLineNumber = "410"
+                  offsetFromSymbolStart = "320">
+               </Location>
+               <Location
+                  uuid = "FB946BBD-0459-4C9A-857F-6EA2A3E792BF - d282b906b9eb430b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;__C.FIRDocumentSnapshot&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MyDivingApp.FirebaseController.getUsersFromReferance(Referances: Swift.Array&lt;__C.FIRDocumentReference&gt;) -&gt; Swift.Optional&lt;Swift.Array&lt;MyDivingApp.User&gt;&gt;"
+                  moduleName = "MyDivingApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/ajai0035/Desktop/mydivingapp/MyDivingApp/FirebaseController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "407"
+                  endingLineNumber = "407"
+                  offsetFromSymbolStart = "108">
+               </Location>
+               <Location
+                  uuid = "FB946BBD-0459-4C9A-857F-6EA2A3E792BF - 3e388c49de4735e2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for MyDivingApp.FirebaseController.getUsersFromReferance(Referances: Swift.Array&lt;__C.FIRDocumentReference&gt;) async -&gt; Swift.Optional&lt;Swift.Array&lt;MyDivingApp.User&gt;&gt;"
+                  moduleName = "MyDivingApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/ajai0035/Desktop/mydivingapp/MyDivingApp/FirebaseController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "477"
+                  endingLineNumber = "477"
+                  offsetFromSymbolStart = "384">
+               </Location>
+               <Location
+                  uuid = "FB946BBD-0459-4C9A-857F-6EA2A3E792BF - fc7e68bc9a0583a5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;__C.FIRDocumentSnapshot&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MyDivingApp.FirebaseController.getUsersFromReferance(Referances: Swift.Array&lt;__C.FIRDocumentReference&gt;) async -&gt; Swift.Optional&lt;Swift.Array&lt;MyDivingApp.User&gt;&gt;"
+                  moduleName = "MyDivingApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/ajai0035/Desktop/mydivingapp/MyDivingApp/FirebaseController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "474"
+                  endingLineNumber = "474"
+                  offsetFromSymbolStart = "108">
+               </Location>
+               <Location
+                  uuid = "FB946BBD-0459-4C9A-857F-6EA2A3E792BF - fc7e68bc9a0583a5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;__C.FIRDocumentSnapshot&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MyDivingApp.FirebaseController.getUsersFromReferance(Referances: Swift.Array&lt;__C.FIRDocumentReference&gt;) async -&gt; Swift.Optional&lt;Swift.Array&lt;MyDivingApp.User&gt;&gt;"
+                  moduleName = "MyDivingApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/ajai0035/Desktop/mydivingapp/MyDivingApp/FirebaseController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "474"
+                  endingLineNumber = "474"
+                  offsetFromSymbolStart = "104">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A5903E7F-AF93-4EA9-951D-8ACFDD371D53"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyDivingApp/FirebaseController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "477"
+            endingLineNumber = "477"
+            landmarkName = "getUsersFromReferance(Referances:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A5903E7F-AF93-4EA9-951D-8ACFDD371D53 - 38e24a475bb387ec"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MyDivingApp.FirebaseController.getUsersFromReferance(Referances: Swift.Array&lt;__C.FIRDocumentReference&gt;) -&gt; Swift.Optional&lt;Swift.Array&lt;MyDivingApp.User&gt;&gt;"
+                  moduleName = "MyDivingApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/ajai0035/Desktop/mydivingapp/MyDivingApp/FirebaseController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "409"
+                  endingLineNumber = "409"
+                  offsetFromSymbolStart = "188">
+               </Location>
+               <Location
+                  uuid = "A5903E7F-AF93-4EA9-951D-8ACFDD371D53 - 3e388c49de473401"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for MyDivingApp.FirebaseController.getUsersFromReferance(Referances: Swift.Array&lt;__C.FIRDocumentReference&gt;) async -&gt; Swift.Optional&lt;Swift.Array&lt;MyDivingApp.User&gt;&gt;"
+                  moduleName = "MyDivingApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/ajai0035/Desktop/mydivingapp/MyDivingApp/FirebaseController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "476"
+                  endingLineNumber = "476"
+                  offsetFromSymbolStart = "232">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
