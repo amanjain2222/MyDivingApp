@@ -156,14 +156,15 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 "userEmail": email,
                 "userUID": id,
                 "Fname": Fname,
-                "Lname": Lname
+                "Lname": Lname,
                 
             ]
 
         if let usersRef = try await userRef?.addDocument(data: data) {
             user.id = usersRef.documentID
             }
-        
+
+        try await UserlogRef?.document(user.id!).setData(["id": user.id])
         return user
     }
     
@@ -364,12 +365,22 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 fatalError("Unable to decode channel: \(error.localizedDescription)")
             }
             
-            if change.type == .added  && userchannel.channelUsers.contains((currentUser?.email)!){
+            var channelBelongToUser: Bool = false
+            if let channelUsers = userchannel.users{
+                for user in channelUsers{
+                    if user.email == (currentUser?.email)!{
+                        channelBelongToUser = true
+                        break
+                    }
+                }
+            }
+            
+            if change.type == .added  && channelBelongToUser{
                             userChannels.insert(userchannel, at: Int(change.newIndex))
-                        }else if change.type == .modified && userchannel.channelUsers.contains((currentUser?.email)!){
+                        }else if change.type == .modified && channelBelongToUser{
                             userChannels.remove(at: Int(change.oldIndex))
                             userChannels.insert(userchannel, at: Int(change.newIndex))
-                        }else if change.type == .removed && userchannel.channelUsers.contains((currentUser?.email)!){
+                        }else if change.type == .removed && channelBelongToUser{
                             userChannels.remove(at: Int(change.oldIndex))
                         }
             
@@ -420,9 +431,9 @@ class FirebaseController: NSObject, DatabaseProtocol {
     
     func findUserByEmail(_ email: String) async throws -> User? {
         
-        let userRef = database.collection("Users")
+        userRef = database.collection("Users")
         do {
-            let querySnapshot = try await userRef.whereField("userEmail", isEqualTo: email).getDocuments()
+            let querySnapshot = try await userRef!.whereField("userEmail", isEqualTo: email).getDocuments()
             
             guard let userSnapshot = querySnapshot.documents.first else {
                 print("No user found with the email: \(email)")
@@ -444,29 +455,36 @@ class FirebaseController: NSObject, DatabaseProtocol {
         currentUser.Fname = snapshot.data()["Fname"] as? String
         currentUser.Lname = snapshot.data()["Lname"] as? String
         currentUser.email = snapshot.data()["userEmail"] as? String
-        
+        currentUser.id = snapshot.documentID
         return currentUser
     }
     
-    func addChannelHelper(name: String, channelUsers: [String], channelUserNames: [String]) -> Channel?{
+    func addChannelHelper(name: String, users:[User]) -> Channel?{
 
         let channel = Channel()
         channel.name = name
-        channel.channelUsers = channelUsers
-        channel.channelUsernames = channelUserNames
-        
+        channel.users = users
+
         let data: [String: Any] = [
                     "name": name,
-                    "channelUsers": channelUsers,
-                    "channelUsernames": channelUserNames
+                    "users": []
             ]
+        
         channelsRef = database.collection("Channels")
+        
         do {
         if let channelRef = try channelsRef?.addDocument(data: data) {
             channel.id = channelRef.documentID
             }
         } catch {
-        print("Failed to serialize hero")
+        print("Failed to serialize channel")
+        }
+        
+        
+        for user in users{
+            if let newUserReferance = userRef?.document(user.UserID!) {
+                channelsRef?.document(channel.id!).updateData(["users" : FieldValue.arrayUnion([newUserReferance])])
+            }
         }
         
         return channel
@@ -480,6 +498,15 @@ class FirebaseController: NSObject, DatabaseProtocol {
         }
         
         
+    }
+    
+    func getChannelByID(_ id: String) -> Channel? {
+        for channel in userChannels {
+            if channel.id == id {
+                return channel
+            }
+        }
+        return nil
     }
     
 

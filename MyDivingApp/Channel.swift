@@ -8,17 +8,15 @@
 import UIKit
 import FirebaseFirestoreSwift
 
-class userChannels: NSObject{
-    
-    var userChannels: [Channel]?
-}
+import Firebase
 
 class Channel: NSObject, Codable {
     
     @DocumentID var id: String?
     var name: String?
-    var channelUsers: [String] = []
-    var channelUsernames: [String] = []
+    var users: [User]?
+//    var channelUsers: [String] = []
+//    var channelUsernames: [String] = []
     
 //    init(id: String, name: String, channelUsers: [String]?) {
 //        self.id = id

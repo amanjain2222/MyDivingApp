@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="JHx-yD-P4k">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="JHx-yD-P4k">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Map view configurations" minToolsVersion="14.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -94,15 +94,6 @@
                                     <action selector="CloseButton:" destination="FBC-W1-r4W" eventType="touchUpInside" id="8OP-iI-gm1"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vjk-g9-cfC">
-                                <rect key="frame" x="30" y="248" width="186" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Use Current Location"/>
-                                <connections>
-                                    <action selector="useCurrentLocation:" destination="FBC-W1-r4W" eventType="touchUpInside" id="OWa-cA-iyK"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="1XI-2B-dBi"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -119,7 +110,6 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="CurrentLocation" destination="Uj1-1U-Q9c" id="IiM-Su-qZH"/>
-                        <outlet property="useCurrentLocationButton" destination="Vjk-g9-cfC" id="K2F-IV-7uO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uen-eQ-yFR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -975,6 +965,7 @@
                                     <constraint firstAttribute="bottom" secondItem="BDZ-kf-kqL" secondAttribute="bottom" id="6pI-6C-gp4"/>
                                     <constraint firstItem="BDZ-kf-kqL" firstAttribute="top" secondItem="LGd-ul-xGN" secondAttribute="top" id="9Y0-SW-cMT"/>
                                     <constraint firstItem="BDZ-kf-kqL" firstAttribute="leading" secondItem="LGd-ul-xGN" secondAttribute="leading" id="FnI-z0-vob"/>
+                                    <constraint firstItem="BDZ-kf-kqL" firstAttribute="width" secondItem="LGd-ul-xGN" secondAttribute="width" id="e42-Ys-foH"/>
                                     <constraint firstItem="BDZ-kf-kqL" firstAttribute="trailing" secondItem="LGd-ul-xGN" secondAttribute="trailing" id="nvL-Hl-N9K"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="Fuf-sM-Cbn"/>
@@ -986,7 +977,6 @@
                         <constraints>
                             <constraint firstItem="LGd-ul-xGN" firstAttribute="top" secondItem="ITN-Dg-g6c" secondAttribute="top" id="Xen-qt-whh"/>
                             <constraint firstAttribute="bottom" secondItem="LGd-ul-xGN" secondAttribute="bottom" id="cUs-Ow-YJT"/>
-                            <constraint firstItem="BDZ-kf-kqL" firstAttribute="width" secondItem="LGd-ul-xGN" secondAttribute="width" id="e42-Ys-foH"/>
                             <constraint firstItem="LGd-ul-xGN" firstAttribute="trailing" secondItem="ITN-Dg-g6c" secondAttribute="trailing" id="kpg-a5-DXg"/>
                             <constraint firstItem="LGd-ul-xGN" firstAttribute="leading" secondItem="ITN-Dg-g6c" secondAttribute="leading" id="y3u-gM-rOV"/>
                         </constraints>
@@ -1117,6 +1107,7 @@
         <!--Chat Message View Controller-->
         <scene sceneID="KJJ-3i-7Yd">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rpQ-8B-uJT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController id="f1k-Cb-2Vn" customClass="ChatMessageViewController" customModule="MyDivingApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="yVk-kb-0yT">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
@@ -1124,9 +1115,14 @@
                         <viewLayoutGuide key="safeArea" id="uvx-RO-bQC"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="RAY-wZ-gP3"/>
+                    <navigationItem key="navigationItem" id="RAY-wZ-gP3">
+                        <barButtonItem key="rightBarButtonItem" springLoaded="YES" style="plain" systemItem="add" id="4Qv-pZ-igy">
+                            <connections>
+                                <action selector="addGroupMember:" destination="f1k-Cb-2Vn" id="oIA-8Z-qi7"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="rpQ-8B-uJT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="592" y="3201"/>
         </scene>
@@ -1200,13 +1196,13 @@
         <image name="message.fill" catalog="system" width="128" height="114"/>
         <image name="person.crop.circle.fill" catalog="system" width="128" height="123"/>
         <systemColor name="opaqueSeparatorColor">
-            <color red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray5Color">
-            <color red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="underPageBackgroundColor">
             <color red="0.70980392156862748" green="0.71764705882352942" blue="0.74117647058823533" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

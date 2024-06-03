@@ -29,6 +29,8 @@ class ChatMessageViewController: MessagesViewController, MessagesDataSource, Mes
     var currentuser: User?
     var oppositeUserName: String?
     
+    weak var databaseController: DatabaseProtocol?
+    
     let formatter: DateFormatter = {
     let formatter = DateFormatter()
         formatter.timeZone = .current
@@ -38,6 +40,9 @@ class ChatMessageViewController: MessagesViewController, MessagesDataSource, Mes
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        databaseController = appDelegate?.databaseController
+
         
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
@@ -144,5 +149,56 @@ class ChatMessageViewController: MessagesViewController, MessagesDataSource, Mes
         return .bubbleTail(tail, .curved)
     }
 
+    
+    
+  
+    @IBAction func addGroupMember(_ sender: Any) {
+        
+        let alertController = UIAlertController(title: "Add Member To This Chat", message: "Search Email of the person you want to add", preferredStyle: .alert)
+        alertController.addTextField()
+        
+        
+        
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        let addAction = UIAlertAction(title: "Add", style: .default) { _ in
+            
+            
+            Task{
+                let requestedUser = try await self.databaseController?.findUserByEmail(alertController.textFields![0].text!)
+                let channelName = requestedUser?.Fname
+                
+                var doesExist = false
+                
+                var channelUsers:[User] = []
+
+                for user in self.currentChannel!.users! {
+                    if requestedUser?.email == user.email {
+                        doesExist = true
+                        channelUsers.append(user)
+                    }
+
+                }
+                channelUsers.append(requestedUser!)
+                
+                
+                
+                if !doesExist {
+                    
+                    _ = self.databaseController?.addChannelHelper(name: (requestedUser?.Fname)!, users: channelUsers )
+                }
+            }
+            
+            
+        }
+        
+        
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(addAction)
+        self.present(alertController, animated: false, completion: nil)
+        
+    }
 }
 

@@ -37,7 +37,7 @@ protocol DatabaseProtocol: AnyObject {
     
     func findUserByEmail(_ email: String) async throws -> User?
     
-    func addChannelHelper(name: String, channelUsers: [String], channelUserNames: [String]) -> Channel?
+    func addChannelHelper(name: String, users:[User]) -> Channel?
     func deleteChannel(channel: Channel)
 }
 

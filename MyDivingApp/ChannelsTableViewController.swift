@@ -64,6 +64,11 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
         channelsRef = database.collection("Channels")
         databaseController?.addListener(listener: self)
         
+        if databaseController!.isSignedIn(){
+            addChannelButton.isHidden = false
+        }else{
+            addChannelButton.isHidden = true
+        }
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -74,6 +79,7 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = false
      
     }
     
@@ -106,10 +112,11 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
             let currentChannel = channels[indexPath.row]
             var content = cell.defaultContentConfiguration()
             
-            let userNames = currentChannel.channelUsernames
-            for userName in userNames {
-                if userName != currentuser?.Fname{
-                    let oppositeUserName = userName
+            
+            let users = currentChannel.users
+            for user in users!{
+                if user.Fname != currentuser?.Fname{
+                    let oppositeUserName = user.Fname
                     content.text = oppositeUserName
                 }
             }
@@ -228,9 +235,10 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
                     }
                 }
                 
+                
                 if !doesExist {
                     
-                    _ = self.databaseController?.addChannelHelper(name: (requestedUser?.Fname)!, channelUsers: [(self.currentuser?.email)!, (requestedUser?.email)!], channelUserNames: [(self.currentuser?.Fname)!, (requestedUser?.Fname)!] )
+                    _ = self.databaseController?.addChannelHelper(name: (requestedUser?.Fname)!, users: [self.currentuser!, requestedUser!])
                 }
             }
             
@@ -257,10 +265,10 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
             let destinationVC = segue.destination as! ChatMessageViewController
             destinationVC.sender = currentSender
             destinationVC.currentChannel = channel
-            let userNames = channel.channelUsernames
-            for userName in userNames {
-                if userName != currentuser?.Fname{
-                    let oppositeUserName = userName
+            let users = channel.users
+            for user in users! {
+                if user.Fname != currentuser?.Fname{
+                    let oppositeUserName = user.Fname
                     destinationVC.oppositeUserName = oppositeUserName
                 }
             }
