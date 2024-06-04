@@ -71,7 +71,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 isUserSignedIn = true
                 currentUserDetails = try await findUserByEmail(email)!
                 self.setUpLogsListener()
-                await self.setUpChannelsListener()
+                self.setUpChannelsListener()
                 self.listeners.invoke { (listener) in
                     if listener.listenerType == ListenerType.authentication || listener.listenerType == ListenerType.Userlogs || listener.listenerType == ListenerType.chat {
                         let wasSuccessful = true
@@ -99,7 +99,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 currentUserDetails = try await addUser(email: email, id: currentUser!.uid, Fname: Fname, Lname: Lname)
                 _ = try await addUserLogs(logID: currentUser!.uid, Fname: Fname, Lname: Lname)
                 self.setUpLogsListener()
-               await self.setUpChannelsListener()
+                self.setUpChannelsListener()
                 self.listeners.invoke { (listener) in
                     if listener.listenerType == ListenerType.authentication || listener.listenerType == ListenerType.Userlogs || listener.listenerType == ListenerType.chat {
                         let wasSuccessful = true
@@ -343,151 +343,96 @@ class FirebaseController: NSObject, DatabaseProtocol {
         
     }
     
-//    func setUpChannelsListener() {
-//        
-//        channelsRef = database.collection("Channels")
-//        channelsRef?.addSnapshotListener {
-//            (querySnapshot,error) in
-//            
-//            guard let querySnapshot = querySnapshot else {
-//                           print("Error fetching teams: \(error!)")
-//                       return
-//                       }
-//           await self.parseChannelSnapshot(snapshot: querySnapshot)
-//        }
-//    }
-    
-    func setUpChannelsListener() async {
+    func setUpChannelsListener() {
+        
         channelsRef = database.collection("Channels")
-        channelsRef?.addSnapshotListener { [weak self] querySnapshot, error in
-            guard let self = self else { return }
-            
-            if let error = error {
-                print("Error fetching teams: \(error)")
-                return
-            }
+        channelsRef?.addSnapshotListener {
+            (querySnapshot,error) in
             
             guard let querySnapshot = querySnapshot else {
-                print("No data fetched")
-                return
-            }
-            
-            Task {
-                await self.parseChannelSnapshot(snapshot: querySnapshot)
-            }
+                           print("Error fetching teams: \(error!)")
+                       return
+                       }
+           self.parseChannelSnapshot(snapshot: querySnapshot)
         }
     }
+    
 
 
-//    func parseChannelSnapshot(snapshot: QuerySnapshot) async{
-//    
-//        snapshot.documentChanges.forEach { (change) in
-//            var userchannel: Channel
-//            do{
-//                userchannel = try change.document.data(as: Channel.self)
-//            }catch {
-//                fatalError("Unable to decode channel: \(error.localizedDescription)")
-//            }
-//            
-//  //          deleteChannel(channel: userchannel)
-//            
-//                if let userChannelUsers = await getUsersFromReferance(Referances: userchannel.userReferances!){
-//                    userchannel.Users = userChannelUsers
-//                }
-//                var channelBelongToUser: Bool = false
-//                
-//                for user in userchannel.Users! {
-//                    if user.email == (currentUser?.email)!{
-//                        channelBelongToUser = true
-//                        break
-//                    }
-//                }
-//                
-//                
-//                
-//                if change.type == .added  && channelBelongToUser{
-//                    userChannels.insert(userchannel, at: Int(change.newIndex))
-//                }else if change.type == .modified && channelBelongToUser{
-//                    userChannels.remove(at: Int(change.oldIndex))
-//                    userChannels.insert(userchannel, at: Int(change.newIndex))
-//                }else if change.type == .removed && channelBelongToUser{
-//                    userChannels.remove(at: Int(change.oldIndex))
-//                }
-//                
-//            
-//                    }
-////        
-//        listeners.invoke { (listener) in
-//            if listener.listenerType == ListenerType.chat || listener.listenerType == ListenerType.all {
-//                listener.onChatChange(change: .update, userChannels: userChannels)
-//            }
-//        }
-//
-//        }
-//        
-    func parseChannelSnapshot(snapshot: QuerySnapshot) async {
-        var userChannels: [Channel] = []
-        
-        for change in snapshot.documentChanges {
-            var userchannel: Channel
-            do {
-                userchannel = try change.document.data(as: Channel.self)
-            } catch {
-                fatalError("Unable to decode channel: \(error.localizedDescription)")
-            }
-            
-            if let userChannelUsers = await getUsersFromReferance(Referances: userchannel.userReferances!) {
-                userchannel.Users = userChannelUsers
-            }
-            
-            let channelBelongToUser = userchannel.Users?.contains { $0.email == currentUser?.email } ?? false
-            
-            switch change.type {
-            case .added:
-                if channelBelongToUser {
-                    userChannels.insert(userchannel, at: Int(change.newIndex))
+    func parseChannelSnapshot(snapshot: QuerySnapshot) {
+    
+        snapshot.documentChanges.forEach { (change) in
+            Task{
+                     
+                var userchannel: Channel
+                do{
+                    userchannel = try change.document.data(as: Channel.self)
+                }catch {
+                    fatalError("Unable to decode channel: \(error.localizedDescription)")
                 }
-            case .modified:
-                if channelBelongToUser {
+                
+                //          deleteChannel(channel: userchannel)
+                
+                if let userChannelUsers = await getUsersFromReferance(Referances: userchannel.userReferances!){
+                    userchannel.Users = userChannelUsers
+                }
+                
+                
+                var channelBelongToUser: Bool = false
+                
+                for user in userchannel.Users! {
+                    if user.email == (currentUser?.email)!{
+                        channelBelongToUser = true
+                        break
+                    }
+                }
+                
+                
+                if change.type == .added  && channelBelongToUser{
+                    userChannels.insert(userchannel, at: Int(change.newIndex))
+                }else if change.type == .modified && channelBelongToUser{
                     userChannels.remove(at: Int(change.oldIndex))
                     userChannels.insert(userchannel, at: Int(change.newIndex))
-                }
-            case .removed:
-                if channelBelongToUser {
+                }else if change.type == .removed && channelBelongToUser{
                     userChannels.remove(at: Int(change.oldIndex))
                 }
-            @unknown default:
-                fatalError("Unhandled document change type.")
+                
+                listeners.invoke { (listener) in
+                    if listener.listenerType == ListenerType.chat || listener.listenerType == ListenerType.all {
+                        listener.onChatChange(change: .update, userChannels: userChannels)
+                    }
+                }
+                
             }
         }
         
-        listeners.invoke { listener in
+        listeners.invoke { (listener) in
             if listener.listenerType == ListenerType.chat || listener.listenerType == ListenerType.all {
                 listener.onChatChange(change: .update, userChannels: userChannels)
             }
         }
-    }
 
+        }
 
     
-    func getUsersFromReferance(Referances: [DocumentReference])async  -> [User]?{
+    func getUsersFromReferance(Referances: [DocumentReference]) async -> [User]?{
         
         var userChannelUsers: [User] = []
-        
-        for reference in Referances {
-            
-            let userDocRef = userRef?.document(reference.documentID)
-            
-            let querysnapshot = try? await userDocRef?.getDocument()
-                    
-            if let user = try? await self.parseUserSnapshot(snapshot: querysnapshot as! QueryDocumentSnapshot){
-                                userChannelUsers.append(user)
-                            }
+    
+            for reference in Referances {
                 
-        }
-       
+                let documentSnapshot = try? await userRef?.document(reference.documentID).getDocument()
+                
+                guard let documentSnapshot = documentSnapshot else {
+                    print("Error fetching teams:)")
+                    return nil
+                }
+                
+                if let user = self.parseUserSnapshot(snapshot: documentSnapshot){
+                    userChannelUsers.append(user)
+                }
+            }
         return userChannelUsers
-        
     }
         
     
@@ -544,13 +489,13 @@ class FirebaseController: NSObject, DatabaseProtocol {
     }
 
     
-    func parseUserSnapshot(snapshot: QueryDocumentSnapshot) -> User? {
+    func parseUserSnapshot(snapshot: DocumentSnapshot) -> User? {
         
         let currentUser = User()
-        currentUser.UserID = snapshot.data()["userUID"] as? String
-        currentUser.Fname = snapshot.data()["Fname"] as? String
-        currentUser.Lname = snapshot.data()["Lname"] as? String
-        currentUser.email = snapshot.data()["userEmail"] as? String
+        currentUser.UserID = snapshot.data()?["userUID"] as? String
+        currentUser.Fname = snapshot.data()?["Fname"] as? String
+        currentUser.Lname = snapshot.data()?["Lname"] as? String
+        currentUser.email = snapshot.data()?["userEmail"] as? String
         currentUser.id = snapshot.documentID
         return currentUser
     }
