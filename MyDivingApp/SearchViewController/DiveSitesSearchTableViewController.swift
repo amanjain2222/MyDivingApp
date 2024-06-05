@@ -55,11 +55,11 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
         
         
         if CurrentLocation == nil {
-            CurrentLocationButton.title = "set location v"
+            CurrentLocationButton.title = "Set Location: "
         }else{
             CurrentLocationButton.title = CurrentLocation
         }
-      
+        tableView.separatorStyle = .none
     }
     
     
@@ -106,6 +106,7 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
                 newSites.append(contentsOf: diveSites)
                 filteredSites = newSites
                 searchController.searchBar.isHidden = hideSearchBar()
+                tableView.separatorStyle = .singleLine
                 tableView.reloadData()
             }
             
@@ -159,21 +160,49 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return filteredSites.count
+        if filteredSites.count != 0{
+            return filteredSites.count
+        }else{
+            return 1
+        }
+        
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: CELL_SITE, for: indexPath)
+        
+        if filteredSites.count != 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: CELL_SITE, for: indexPath)
+            // Configure the cell...
+            let site = filteredSites[indexPath.row]
+            cell.textLabel?.text = site.name
+            cell.detailTextLabel?.text = site.region
+            
+            return cell
+        }else{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "WelcomeCell", for: indexPath)
+            return cell
+            
+        }
 
-        // Configure the cell...
+    }
+    
+    override func tableView(_ tableView: UITableView,heightForRowAt indexPath: IndexPath) -> CGFloat {
 
-        let site = filteredSites[indexPath.row]
-        cell.textLabel?.text = site.name
-        cell.detailTextLabel?.text = site.region
+        if filteredSites.count == 0 {
+                return 500
+            }
 
-        return cell
 
+           // Use the default size for all other rows.
+           return UITableView.automaticDimension
+    }
+    
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        if filteredSites.count == 0 {
+            return nil
+        }
+        return indexPath
     }
     
 
@@ -181,7 +210,7 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
-        return true
+        return false
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

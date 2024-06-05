@@ -14,9 +14,23 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
     }
     
     func onChatChange(change: DatabaseChange, userChannels: [Channel]) {
+        
+        
         if databaseController?.isSignedIn() == true{
             currentuser = databaseController!.currentUserDetails
-            self.channels = userChannels
+            
+            var filteredChannels: [Channel] = []
+            for channel in userChannels{
+                for user in channel.Users! {
+                    if user.email == (currentuser?.email)!{
+                        filteredChannels.append(channel)
+                        break
+                    }
+                }
+            }
+            
+            
+            self.channels = filteredChannels
             currentSender = Sender(senderId: databaseController!.currentUserDetails.UserID! , displayName: databaseController!.currentUserDetails.Fname!)
             
             DispatchQueue.main.async {
@@ -32,8 +46,16 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
         
         if databaseController!.isSignedIn(){
             addChannelButton.isHidden = false
+            tableView.separatorStyle = .singleLine
         }else{
             addChannelButton.isHidden = true
+            tableView.separatorStyle = .none
+        }
+        
+        
+        
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
         }
     }
     
@@ -68,13 +90,16 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
         let database = Firestore.firestore()
         channelsRef = database.collection("Channels")
         
-       
+        databaseController?.addListener(listener: self)
         
         if databaseController!.isSignedIn(){
             addChannelButton.isHidden = false
         }else{
             addChannelButton.isHidden = true
         }
+        
+        tableView.separatorStyle = .none
+//        tableView.separatorStyle = .none
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -86,13 +111,13 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = false
-        databaseController?.addListener(listener: self)
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         databaseListener?.remove()
-        databaseController?.removeListener(listener: self)
+        //databaseController?.removeListener(listener: self)
     }
 
     // MARK: - Table view data source

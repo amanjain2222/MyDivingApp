@@ -27,13 +27,14 @@ class LoginPageViewController: UIViewController, DatabaseListener {
     func onAuthenticationChange(ifSucessful: Bool) {
         if ifSucessful{
             DispatchQueue.main.async {
-                //                self.performSegue(withIdentifier: "signedIn", sender: nil)
                 self.navigationController?.popViewController(animated: true)
+                self.indicator.stopAnimating()
             }
         }
         
     }
     
+    var indicator = UIActivityIndicatorView()
     
     weak var databaseController: DatabaseProtocol?
     
@@ -45,6 +46,18 @@ class LoginPageViewController: UIViewController, DatabaseListener {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
         // Do any additional setup after loading the view.
+        
+        indicator.style = UIActivityIndicatorView.Style.large
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(indicator)
+        
+        NSLayoutConstraint.activate([
+            indicator.centerXAnchor.constraint(equalTo:
+                    view.safeAreaLayoutGuide.centerXAnchor),
+            indicator.centerYAnchor.constraint(equalTo:
+        view.safeAreaLayoutGuide.centerYAnchor)
+            ])
+        
         
     }
     
@@ -73,9 +86,19 @@ class LoginPageViewController: UIViewController, DatabaseListener {
         
         guard let email = EmailText.text, let password = PasswordText.text
         else{
+            
             return
         }
+        
+        if email == "" || password == "" {
+            displayMessage(title: "Empty Feilds", message: "Cannot leave text feilds empty")
+            return
+        }
+        
+        indicator.startAnimating()
         databaseController?.login(email: email, password: password)
+        
+        
     }
     
     

@@ -60,9 +60,11 @@ class LogBookTableViewController: UITableViewController, DatabaseListener {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         
         databaseController = appDelegate?.databaseController
+        databaseController?.addListener(listener: self)
         if databaseController?.isSignedIn() == false{
+            databaseController?.removeListener(listener: self)
             databaseController = appDelegate?.coreDatabaseController
-            
+            databaseController?.addListener(listener: self)
         }
         
        
@@ -82,10 +84,13 @@ class LogBookTableViewController: UITableViewController, DatabaseListener {
         
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
-        if databaseController?.isSignedIn() == false{
-            databaseController = appDelegate?.coreDatabaseController
-        }
         databaseController?.addListener(listener: self)
+        if databaseController?.isSignedIn() == false{
+            databaseController?.removeListener(listener: self)
+            databaseController = appDelegate?.coreDatabaseController
+            databaseController?.addListener(listener: self)
+        }
+        
     
     }
     
@@ -136,7 +141,6 @@ class LogBookTableViewController: UITableViewController, DatabaseListener {
         if databaseController?.isCoredata() == false{
             if allLogs.count == 0{
                 let warningcell = tableView.dequeueReusableCell(withIdentifier: "Warning", for: indexPath) as! LogBookWarningViewCell
-                warningcell.selectionStyle = .none
                 return warningcell
             }
             else{
@@ -151,7 +155,6 @@ class LogBookTableViewController: UITableViewController, DatabaseListener {
         else{
             if allLogsCoredata.count == 0{
                 let warningcell = tableView.dequeueReusableCell(withIdentifier: "Warning", for: indexPath) as! LogBookWarningViewCell
-                warningcell.selectionStyle = .none
                 return warningcell
             }
             else{
