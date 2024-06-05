@@ -21,6 +21,11 @@
 		072D217A2BF457F90068E6B3 /* profileViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D21792BF457F90068E6B3 /* profileViewTableViewCell.swift */; };
 		072D217E2BF478CF0068E6B3 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D217D2BF478CF0068E6B3 /* SignUpViewController.swift */; };
 		072D21802BF4BA1E0068E6B3 /* ViewDiveSiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D217F2BF4BA1E0068E6B3 /* ViewDiveSiteViewController.swift */; };
+		078FA4482C0EB61C001208A4 /* DivingCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 078FA4462C0EB61C001208A4 /* DivingCoreData.xcdatamodeld */; };
+		078FA44B2C0EB71A001208A4 /* Logs+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078FA4492C0EB71A001208A4 /* Logs+CoreDataClass.swift */; };
+		078FA44C2C0EB71A001208A4 /* Logs+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078FA44A2C0EB71A001208A4 /* Logs+CoreDataProperties.swift */; };
+		078FA44E2C0EB939001208A4 /* CoreDatabaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078FA44D2C0EB939001208A4 /* CoreDatabaseProtocol.swift */; };
+		078FA4502C0EB9D7001208A4 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078FA44F2C0EB9D7001208A4 /* CoreDataController.swift */; };
 		07A342382BF59EFF00A4FF35 /* FishInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A342372BF59EFF00A4FF35 /* FishInfo.swift */; };
 		07A3423A2BF5A35900A4FF35 /* FishInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A342392BF5A35900A4FF35 /* FishInfoViewController.swift */; };
 		07B112FE2BD7B8C200FFECC5 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 07B112FD2BD7B8C200FFECC5 /* FirebaseAuth */; };
@@ -65,6 +70,11 @@
 		072D21792BF457F90068E6B3 /* profileViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileViewTableViewCell.swift; sourceTree = "<group>"; };
 		072D217D2BF478CF0068E6B3 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		072D217F2BF4BA1E0068E6B3 /* ViewDiveSiteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDiveSiteViewController.swift; sourceTree = "<group>"; };
+		078FA4472C0EB61C001208A4 /* DivingCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DivingCoreData.xcdatamodel; sourceTree = "<group>"; };
+		078FA4492C0EB71A001208A4 /* Logs+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logs+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		078FA44A2C0EB71A001208A4 /* Logs+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logs+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		078FA44D2C0EB939001208A4 /* CoreDatabaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDatabaseProtocol.swift; sourceTree = "<group>"; };
+		078FA44F2C0EB9D7001208A4 /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
 		07A342372BF59EFF00A4FF35 /* FishInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishInfo.swift; sourceTree = "<group>"; };
 		07A342392BF5A35900A4FF35 /* FishInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishInfoViewController.swift; sourceTree = "<group>"; };
 		07B113032BD7E6E300FFECC5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -109,6 +119,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		078FA4422C0EB5F0001208A4 /* datamodel */ = {
+			isa = PBXGroup;
+			children = (
+				078FA4492C0EB71A001208A4 /* Logs+CoreDataClass.swift */,
+				078FA44A2C0EB71A001208A4 /* Logs+CoreDataProperties.swift */,
+				078FA4462C0EB61C001208A4 /* DivingCoreData.xcdatamodeld */,
+			);
+			path = datamodel;
+			sourceTree = "<group>";
+		};
 		07BCE9F02BEB85F2008DB0CB /* SearchViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -128,6 +148,8 @@
 			children = (
 				07BCE9F22BEB8665008DB0CB /* MulticastDelegate.swift */,
 				07BCE9F42BEB8678008DB0CB /* DatabaseProtocol.swift */,
+				078FA44D2C0EB939001208A4 /* CoreDatabaseProtocol.swift */,
+				078FA44F2C0EB9D7001208A4 /* CoreDataController.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -151,6 +173,7 @@
 		275F443C2BD7B24F00E136CD /* MyDivingApp */ = {
 			isa = PBXGroup;
 			children = (
+				078FA4422C0EB5F0001208A4 /* datamodel */,
 				07BCE9F12BEB8657008DB0CB /* Database */,
 				07BCE9F02BEB85F2008DB0CB /* SearchViewController */,
 				07B113032BD7E6E300FFECC5 /* GoogleService-Info.plist */,
@@ -274,9 +297,11 @@
 				07BCE9F52BEB8678008DB0CB /* DatabaseProtocol.swift in Sources */,
 				07F979692BE2526000F52DC8 /* MapViewController.swift in Sources */,
 				070B0B802BDA9F640098EB91 /* FirebaseController.swift in Sources */,
+				078FA4482C0EB61C001208A4 /* DivingCoreData.xcdatamodeld in Sources */,
 				0723039E2C04D56A003F41AC /* ChatMessage.swift in Sources */,
 				0723039C2C04D4E8003F41AC /* Sender.swift in Sources */,
 				07BF44E92BD8BD490062EFD0 /* DiveSites.swift in Sources */,
+				078FA4502C0EB9D7001208A4 /* CoreDataController.swift in Sources */,
 				275F44422BD7B24F00E136CD /* ViewController.swift in Sources */,
 				07EEDD852BDA964300172BF2 /* DiveSiteViewController.swift in Sources */,
 				07BCEA022BEBC864008DB0CB /* LogBookWarningViewCell.swift in Sources */,
@@ -296,11 +321,14 @@
 				07BCEA042BEC5918008DB0CB /* userLogs.swift in Sources */,
 				275F44402BD7B24F00E136CD /* SceneDelegate.swift in Sources */,
 				0705564C2BDD6419001719CB /* CurrentLocationViewController.swift in Sources */,
+				078FA44E2C0EB939001208A4 /* CoreDatabaseProtocol.swift in Sources */,
 				275150C02C05BCCB002EB8C5 /* Users.swift in Sources */,
 				07BCEA062BEC6BB8008DB0CB /* LoginPageViewController.swift in Sources */,
 				07BCE9FE2BEBB96B008DB0CB /* LogBookTableViewController.swift in Sources */,
 				072D21802BF4BA1E0068E6B3 /* ViewDiveSiteViewController.swift in Sources */,
 				07BF44E72BD8BD270062EFD0 /* DiveSiteObject.swift in Sources */,
+				078FA44B2C0EB71A001208A4 /* Logs+CoreDataClass.swift in Sources */,
+				078FA44C2C0EB71A001208A4 /* Logs+CoreDataProperties.swift in Sources */,
 				07F9796B2BE253DB00F52DC8 /* LocationAnnotation.swift in Sources */,
 				07BCE9F32BEB8665008DB0CB /* MulticastDelegate.swift in Sources */,
 				07A342382BF59EFF00A4FF35 /* FishInfo.swift in Sources */,
@@ -571,6 +599,20 @@
 			productName = FirebaseFirestoreSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		078FA4462C0EB61C001208A4 /* DivingCoreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				078FA4472C0EB61C001208A4 /* DivingCoreData.xcdatamodel */,
+			);
+			currentVersion = 078FA4472C0EB61C001208A4 /* DivingCoreData.xcdatamodel */;
+			name = DivingCoreData.xcdatamodeld;
+			path = /Users/aman/Desktop/MyDivingApp/MyDivingApp/datamodel/DivingCoreData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 275F44322BD7B24F00E136CD /* Project object */;
 }

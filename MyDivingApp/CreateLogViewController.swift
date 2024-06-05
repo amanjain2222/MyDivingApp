@@ -16,6 +16,10 @@ class CreateLogViewController: UIViewController {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
         // Do any additional setup after loading the view.
+        
+        if databaseController?.isSignedIn() == false{
+            databaseController = appDelegate?.coreDatabaseController
+        }
     }
     
 
@@ -30,12 +34,22 @@ class CreateLogViewController: UIViewController {
     
     @IBAction func AddLog(_ sender: Any) {
         
-        guard let title = LogTitle.text, let diveType = MyDivingApp.DiveType(rawValue:Int(DiveType.selectedSegmentIndex)), let diveDate = DiveDate.text, let diveLocation = DiveLocation.text
-                else {
+        if databaseController?.isCoredata() == false{
+            guard let title = LogTitle.text, let diveType = MyDivingApp.DiveType(rawValue:Int(DiveType.selectedSegmentIndex)), let diveDate = DiveDate.text, let diveLocation = DiveLocation.text
+            else {
                 return
-                }
-        
-        _ = databaseController?.addlog(title: title, divetype: diveType, DiveLocation: diveLocation, DiveDate: diveDate)
+            }
+            
+            _ = databaseController?.addlog(title: title, divetype: diveType, DiveLocation: diveLocation, DiveDate: diveDate)
+        }else{
+            
+            guard let title = LogTitle.text, let diveType = MyDivingApp.TypeOFDive(rawValue: Int32(DiveType.selectedSegmentIndex)), let diveDate = DiveDate.text, let diveLocation = DiveLocation.text
+            else {
+                return
+            }
+            
+            _ = databaseController?.addlogCoredata(title: title, divetype: diveType, DiveLocation: diveLocation, DiveDate: diveDate)
+        }
         
         navigationController?.popViewController(animated: true)
         

@@ -8,6 +8,13 @@
 import UIKit
 
 class LogBookTableViewController: UITableViewController, DatabaseListener {
+    func onLogsChange(change: DatabaseChange, logs: [Logs]) {
+        allLogsCoredata = logs
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
     func onChatChange(change: DatabaseChange, userChannels: [Channel]) {
         
     }
@@ -33,37 +40,33 @@ class LogBookTableViewController: UITableViewController, DatabaseListener {
     var section_other = 3
     
     var currentLog: diveLogs?
+    var currentLogcoredata: Logs?
     
     func onAuthenticationChange(ifSucessful: Bool) {
+        
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
         
-        if ifSucessful{
-            addlogbutton.isHidden = false
-        }else{
-            addlogbutton.isHidden = true
-        }
     }
-    
-    
     weak var databaseController: DatabaseProtocol?
-    var allLogs:[diveLogs] = []
 
+    var allLogs: [diveLogs] = []
+    var allLogsCoredata: [Logs] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        
         databaseController = appDelegate?.databaseController
-        
-        databaseController?.addListener(listener: self)
-        
         if databaseController?.isSignedIn() == false{
-            addlogbutton.isHidden = true
-        }else{
-            addlogbutton.isHidden = false
+            databaseController = appDelegate?.coreDatabaseController
+            
         }
-
+        
+       
+                
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -73,15 +76,24 @@ class LogBookTableViewController: UITableViewController, DatabaseListener {
         //tableView.separatorStyle = .none
         //tableView.allowsSelection = false
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        databaseController = appDelegate?.databaseController
+        if databaseController?.isSignedIn() == false{
+            databaseController = appDelegate?.coreDatabaseController
+        }
+        databaseController?.addListener(listener: self)
     
-//    override func viewDidAppear(_ animated: Bool) {
-//        
-//        if databaseController?.isSignedIn() == false{
-//            addlogbutton.isHidden = true
-//        }else{
-//            addlogbutton.isHidden = false
-//        }
-//    }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        databaseController?.removeListener(listener: self)
+    }
+
     
 
     // MARK: - Table view data source
@@ -99,41 +111,68 @@ class LogBookTableViewController: UITableViewController, DatabaseListener {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        guard let controller = databaseController else{fatalError()}
-        if controller.isSignedIn() {
-            return allLogs.count
-        }else{
-            return 1
+        if databaseController?.isCoredata() == false{
+            if allLogs.count == 0 {
+                return 1
+            }else{
+                return allLogs.count
+            }
         }
+        else{
+            if allLogsCoredata.count == 0 {
+                return 1
+            }else{
+                return allLogsCoredata.count
+            }
+
+            
+        }
+        
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let controller = databaseController else{fatalError()}
-        if controller.isSignedIn() == false{
-            let warningcell = tableView.dequeueReusableCell(withIdentifier: "Warning", for: indexPath) as! LogBookWarningViewCell
-            warningcell.selectionStyle = .none
-            return warningcell
+        if databaseController?.isCoredata() == false{
+            if allLogs.count == 0{
+                let warningcell = tableView.dequeueReusableCell(withIdentifier: "Warning", for: indexPath) as! LogBookWarningViewCell
+                warningcell.selectionStyle = .none
+                return warningcell
+            }
+            else{
+                let logcell = tableView.dequeueReusableCell(withIdentifier: "diveLog", for: indexPath)
+                let log = allLogs[indexPath.row]
+                var content = logcell.defaultContentConfiguration()
+                content.text = log.title
+                logcell.contentConfiguration = content
+                return logcell
+            }
         }
         else{
-            let logcell = tableView.dequeueReusableCell(withIdentifier: "diveLog", for: indexPath)
-            let log = allLogs[indexPath.row]
-            var content = logcell.defaultContentConfiguration()
-            content.text = log.title
-            logcell.contentConfiguration = content
-            return logcell
+            if allLogsCoredata.count == 0{
+                let warningcell = tableView.dequeueReusableCell(withIdentifier: "Warning", for: indexPath) as! LogBookWarningViewCell
+                warningcell.selectionStyle = .none
+                return warningcell
+            }
+            else{
+                let logcell = tableView.dequeueReusableCell(withIdentifier: "diveLog", for: indexPath)
+                let log = allLogsCoredata[indexPath.row]
+                var content = logcell.defaultContentConfiguration()
+                content.text = log.title
+                logcell.contentConfiguration = content
+                return logcell
+            }
+
         }
 
     }
     
     override func tableView(_ tableView: UITableView,heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let controller = databaseController else{fatalError()}
-        if controller.isSignedIn() == false {
-                return 500
-            }
-
-
+        if databaseController?.isCoredata() == false && allLogs.count == 0{
+            return 500
+        }else if databaseController?.isCoredata() == true && allLogsCoredata.count == 0{
+            return 500
+        }
            // Use the default size for all other rows.
            return UITableView.automaticDimension
     }
@@ -142,7 +181,9 @@ class LogBookTableViewController: UITableViewController, DatabaseListener {
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
-        if databaseController?.isSignedIn() == false {
+        if databaseController?.isCoredata() == false && allLogs.count == 0{
+            return false
+        }else if databaseController?.isCoredata() == true && allLogsCoredata.count == 0{
             return false
         }
         return true
@@ -154,7 +195,12 @@ class LogBookTableViewController: UITableViewController, DatabaseListener {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            self.databaseController?.removeLogFromUserLogs(log: allLogs[indexPath.row])
+            if databaseController?.isCoredata() == false{
+                self.databaseController?.removeLogFromUserLogs(log: allLogs[indexPath.row])
+            }
+            else{
+                self.databaseController?.deletelog(log: allLogsCoredata[indexPath.row])
+            }
         }
     }
     
@@ -176,17 +222,24 @@ class LogBookTableViewController: UITableViewController, DatabaseListener {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        var selectedLog = allLogs[indexPath.row]
-        currentLog = selectedLog
+        if databaseController?.isCoredata() == false{
+            var selectedLog = allLogs[indexPath.row]
+            currentLog = selectedLog
+        }else{
+            var selectedLog = allLogsCoredata[indexPath.row]
+            currentLogcoredata = selectedLog
+        }
         performSegue(withIdentifier: "showDive", sender: nil)
     }
 
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        if databaseController?.isSignedIn() == false{
+        if databaseController?.isCoredata() == false && allLogs.count == 0{
+            return nil
+        }else if databaseController?.isCoredata() == true && allLogsCoredata.count == 0{
             return nil
         }
-        return indexPath 
+        return indexPath
     }
     
     // MARK: - Navigation
@@ -199,8 +252,8 @@ class LogBookTableViewController: UITableViewController, DatabaseListener {
         if segue.identifier == "showDive"{
                 
                 let destination = segue.destination as! ViewDiveSiteViewController
-                destination.currentLog = currentLog!
-        
+                destination.currentLog = currentLog
+                destination.currentLogCoredata = currentLogcoredata
                 
             }
     }

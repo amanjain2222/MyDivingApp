@@ -15,7 +15,8 @@ protocol DatabaseProtocol: AnyObject {
     func addlog(title: String, divetype: DiveType, DiveLocation: String, DiveDate: String) -> diveLogs
     func deletelog(log: diveLogs)
     
-    
+    func addlogCoredata(title: String, divetype: TypeOFDive, DiveLocation: String, DiveDate: String) -> Logs
+    func deletelog(log: Logs)
     
     func addUserLogs(logID: String, Fname: String, Lname: String) async throws -> UserLogs
     func deleteUserLogs(userlog: UserLogs)
@@ -41,6 +42,33 @@ protocol DatabaseProtocol: AnyObject {
     
     func addChannelHelper(name: String, users:[User]) -> Channel?
     func deleteChannel(channel: Channel)
+    
+    func isCoredata() -> Bool
+}
+extension DatabaseProtocol {
+    func cleanup() {}
+    func addListener(listener: DatabaseListener) {}
+    func removeListener(listener: DatabaseListener) {}
+    func addlog(title: String, divetype: DiveType, DiveLocation: String, DiveDate: String) -> diveLogs { return diveLogs() }
+    func deletelog(log: diveLogs) {}
+    func addlogCoredata(title: String, divetype: TypeOFDive, DiveLocation: String, DiveDate: String) -> Logs { return Logs() }
+    func deletelog(log: Logs) {}
+    func addUserLogs(logID: String, Fname: String, Lname: String) async throws -> UserLogs { return UserLogs() }
+    func deleteUserLogs(userlog: UserLogs) {}
+    func addLogToUserLogs(log: diveLogs, userLog: UserLogs) -> Bool { return false }
+    func removeLogFromUserLogs(log: diveLogs) {}
+    func login(email: String, password: String) {}
+    func createAccount(email: String, password: String, Fname: String, Lname: String) {}
+    func signOutUser() {}
+    func isSignedIn() -> Bool { return false }
+    var currentUser: FirebaseAuth.User? { return nil }
+    var currentUserLogs: UserLogs { return UserLogs() }
+    var currentUserDetails: User { get { return User() } set {} }
+    var currentSender: Sender? { get { return nil } set {} }
+    func findUserByEmail(_ email: String) async throws -> User? { return nil }
+    func getUsersFromReferance(Referances: [DocumentReference]) async -> [User]? { return nil }
+    func addChannelHelper(name: String, users: [User]) -> Channel? { return nil }
+    func deleteChannel(channel: Channel) {}
 }
 
 
@@ -66,4 +94,7 @@ protocol DatabaseListener: AnyObject {
     func onAllLogsChange(change: DatabaseChange, logs: [diveLogs])
     func onUserLogsChange(change: DatabaseChange, logs: [diveLogs])
     func onChatChange(change: DatabaseChange, userChannels: [Channel])
+    
+    
+    func onLogsChange(change: DatabaseChange, logs: [Logs])
 }

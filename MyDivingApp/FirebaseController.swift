@@ -10,6 +10,10 @@ import Firebase
 import FirebaseFirestoreSwift
 
 class FirebaseController: NSObject, DatabaseProtocol {
+    func isCoredata() -> Bool {
+        return false
+    }
+    
 
 
     var listeners = MulticastDelegate<DatabaseListener>()
@@ -121,12 +125,6 @@ class FirebaseController: NSObject, DatabaseProtocol {
     func addListener(listener: any DatabaseListener) {
         listeners.addDelegate(listener)
         
-//        if listener.listenerType == .heroes || listener.listenerType == .all {
-//                    listener.onAllHeroesChange(change: .update, heroes: heroList)
-//                }
-//        if listener.listenerType == .team || listener.listenerType == .all {
-//                    listener.onTeamChange(change: .update, teamHeroes: defaultTeam.heroes)
-//                }
         if listener.listenerType == .authentication || listener.listenerType == .Userlogs {
             if authController.currentUser != nil{
                 isUserSignedIn = true
@@ -134,6 +132,11 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 self.setUpLogsListener()
                 listener.onAuthenticationChange(ifSucessful: true)
             }
+        }
+        
+        if listener.listenerType == .chat{
+            listener.onAuthenticationChange(ifSucessful: true)
+//            self.setUpChannelsListener()
         }
 
     }
@@ -330,16 +333,13 @@ class FirebaseController: NSObject, DatabaseProtocol {
                     currentUserLogs.logs.append(log)
                 }
             }
-            
-            listeners.invoke { (listener) in
-                if listener.listenerType == ListenerType.Userlogs ||
-                    listener.listenerType == ListenerType.all {
-                    listener.onUserLogsChange(change: .update, logs: currentUserLogs.logs)
-                }
-            }
-            
         }
-        
+        listeners.invoke { (listener) in
+            if listener.listenerType == ListenerType.Userlogs ||
+                listener.listenerType == ListenerType.all {
+                listener.onUserLogsChange(change: .update, logs: currentUserLogs.logs)
+            }
+        }
         
     }
     
@@ -360,59 +360,52 @@ class FirebaseController: NSObject, DatabaseProtocol {
 
 
     func parseChannelSnapshot(snapshot: QuerySnapshot) {
-    
-        snapshot.documentChanges.forEach { (change) in
-            Task{
-                     
-                var userchannel: Channel
-                do{
-                    userchannel = try change.document.data(as: Channel.self)
-                }catch {
-                    fatalError("Unable to decode channel: \(error.localizedDescription)")
-                }
+            snapshot.documentChanges.forEach { (change) in
                 
-                //          deleteChannel(channel: userchannel)
-                
-                if let userChannelUsers = await getUsersFromReferance(Referances: userchannel.userReferances!){
-                    userchannel.Users = userChannelUsers
-                }
-                
-                
-                var channelBelongToUser: Bool = false
-                
-                for user in userchannel.Users! {
-                    if user.email == (currentUser?.email)!{
-                        channelBelongToUser = true
-                        break
+                Task{
+                    var userchannel: Channel
+                    do{
+                        userchannel = try change.document.data(as: Channel.self)
+                    }catch {
+                        fatalError("Unable to decode channel: \(error.localizedDescription)")
                     }
-                }
-                
-                
-                if change.type == .added  && channelBelongToUser{
-                    userChannels.insert(userchannel, at: Int(change.newIndex))
-                }else if change.type == .modified && channelBelongToUser{
-                    userChannels.remove(at: Int(change.oldIndex))
-                    userChannels.insert(userchannel, at: Int(change.newIndex))
-                }else if change.type == .removed && channelBelongToUser{
-                    userChannels.remove(at: Int(change.oldIndex))
-                }
-                
-                listeners.invoke { (listener) in
-                    if listener.listenerType == ListenerType.chat || listener.listenerType == ListenerType.all {
-                        listener.onChatChange(change: .update, userChannels: userChannels)
+                    
+                    if let userChannelUsers = await self.getUsersFromReferance(Referances: userchannel.userReferances!){
+                        userchannel.Users = userChannelUsers
                     }
-                }
-                
-            }
-        }
-        
-        listeners.invoke { (listener) in
-            if listener.listenerType == ListenerType.chat || listener.listenerType == ListenerType.all {
-                listener.onChatChange(change: .update, userChannels: userChannels)
-            }
-        }
+                    var channelBelongToUser: Bool = false
+                    
+                    for user in userchannel.Users! {
+                        if user.email == (self.currentUser?.email)!{
+                            channelBelongToUser = true
+                            break
+                        }
+                    }
+                    
+                    if change.type == .added  && channelBelongToUser{
+                        userChannels.insert(userchannel, at: Int(change.newIndex))
+                    }else if change.type == .modified && channelBelongToUser{
+                        userChannels.remove(at: Int(change.oldIndex))
+                        userChannels.insert(userchannel, at: Int(change.newIndex))
+                    }else if change.type == .removed && channelBelongToUser{
+                        userChannels.remove(at: Int(change.oldIndex))
+                    }
+                    
 
-        }
+                    listeners.invoke { (listener) in
+                        if listener.listenerType == ListenerType.chat || listener.listenerType == ListenerType.all {
+                            listener.onChatChange(change: .update, userChannels: userChannels)
+                        }
+                    }
+                    
+                }
+            }
+            listeners.invoke { (listener) in
+                if listener.listenerType == ListenerType.chat || listener.listenerType == ListenerType.all {
+                    listener.onChatChange(change: .update, userChannels: userChannels)
+                }
+            }
+    }
 
     
     func getUsersFromReferance(Referances: [DocumentReference]) async -> [User]?{

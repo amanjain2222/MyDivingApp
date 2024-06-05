@@ -10,18 +10,23 @@ import FirebaseFirestore
 import Firebase
 
 class ChannelsTableViewController: UITableViewController, DatabaseListener {
+    func onLogsChange(change: DatabaseChange, logs: [Logs]) {
+    }
+    
     func onChatChange(change: DatabaseChange, userChannels: [Channel]) {
-
-        currentuser = databaseController!.currentUserDetails
-        self.channels = userChannels
-        currentSender = Sender(senderId: databaseController!.currentUserDetails.UserID! , displayName: databaseController!.currentUserDetails.Fname!)
-        self.tableView.reloadData()
-
+        if databaseController?.isSignedIn() == true{
+            currentuser = databaseController!.currentUserDetails
+            self.channels = userChannels
+            currentSender = Sender(senderId: databaseController!.currentUserDetails.UserID! , displayName: databaseController!.currentUserDetails.Fname!)
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
     }
     
     
     var listenerType: ListenerType = .chat
-    
     
     func onAuthenticationChange(ifSucessful: Bool) {
         
@@ -62,7 +67,8 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
         
         let database = Firestore.firestore()
         channelsRef = database.collection("Channels")
-        databaseController?.addListener(listener: self)
+        
+       
         
         if databaseController!.isSignedIn(){
             addChannelButton.isHidden = false
@@ -80,12 +86,13 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = false
-     
+        databaseController?.addListener(listener: self)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         databaseListener?.remove()
+        databaseController?.removeListener(listener: self)
     }
 
     // MARK: - Table view data source

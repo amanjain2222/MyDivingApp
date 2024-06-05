@@ -12,6 +12,7 @@ class ViewDiveSiteViewController: UIViewController {
     weak var databaseController: DatabaseProtocol?
     
     var currentLog: diveLogs?
+    var currentLogCoredata: Logs?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,11 +20,22 @@ class ViewDiveSiteViewController: UIViewController {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
         
+        if databaseController?.isSignedIn() == false{
+            databaseController = appDelegate?.coreDatabaseController
+        }
         
-        diveLocation.text = currentLog?.location
-        DiveDate.text = currentLog?.date
-        
-        navigationItem.title = currentLog?.title
+        if databaseController?.isCoredata() == false{
+            diveLocation.text = currentLog?.location
+            DiveDate.text = currentLog?.date
+            
+            navigationItem.title = currentLog?.title
+        }else{
+            diveLocation.text = currentLogCoredata?.location
+            DiveDate.text = currentLogCoredata?.date
+            
+            navigationItem.title = currentLogCoredata?.title
+            
+        }
         
 
         // Do any additional setup after loading the view.

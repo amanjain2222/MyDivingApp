@@ -8,6 +8,10 @@
 import UIKit
 
 class SignUpViewController: UIViewController, DatabaseListener {
+    func onLogsChange(change: DatabaseChange, logs: [Logs]) {
+        
+    }
+    
     func onChatChange(change: DatabaseChange, userChannels: [Channel]) {
         
     }
