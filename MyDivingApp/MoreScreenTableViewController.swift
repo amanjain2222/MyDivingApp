@@ -8,6 +8,10 @@
 import UIKit
 
 class MoreScreenTableViewController: UITableViewController, DatabaseListener {
+    func onLocationChange(change: DatabaseChange, locations: [DiveLocations]) {
+        
+    }
+    
     func onLogsChange(change: DatabaseChange, logs: [Logs]) {
         
     }
@@ -20,7 +24,9 @@ class MoreScreenTableViewController: UITableViewController, DatabaseListener {
     var listenerType: ListenerType = .authentication
     
     func onAuthenticationChange(ifSucessful: Bool) {
-            tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     func onAllLogsChange(change: DatabaseChange, logs: [diveLogs]) {
@@ -63,9 +69,9 @@ class MoreScreenTableViewController: UITableViewController, DatabaseListener {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        if databaseController?.isSignedIn() == false{
-            return 1
-        }
+//        if databaseController?.isSignedIn() == false{
+//            return 1
+//        }
         return 2
     }
 
@@ -73,10 +79,9 @@ class MoreScreenTableViewController: UITableViewController, DatabaseListener {
         // #warning Incomplete implementation, return the number of rows
         if section == Section_Options{
             return 6
-        }else if section == Section_Signout && databaseController?.isSignedIn() == true{
+        }else {
             return 1
         }
-        return 0
     }
 
     
@@ -91,51 +96,72 @@ class MoreScreenTableViewController: UITableViewController, DatabaseListener {
                 return profileInfoCell
             }
             else{
-                
-                let optionCell = tableView.dequeueReusableCell(withIdentifier: "MoreOptions", for: indexPath)
+
+                let accountCell = tableView.dequeueReusableCell(withIdentifier: "accountCell", for: indexPath)
+                let settingsCell = tableView.dequeueReusableCell(withIdentifier: "settingsCell", for: indexPath)
+                let equipmentCell = tableView.dequeueReusableCell(withIdentifier: "equipmentCell", for: indexPath)
+                let safetyCell = tableView.dequeueReusableCell(withIdentifier: "resourcesCell", for: indexPath)
+                let abouttCell = tableView.dequeueReusableCell(withIdentifier: "aboutCell", for: indexPath)
                 
                 switch indexPath.row {
                 case 1:
-                    optionCell.textLabel?.text = "Account"
+                    return accountCell
                 case 2:
-                    optionCell.textLabel?.text = "Settings"
+                    return settingsCell
                 case 3:
-                    optionCell.textLabel?.text = "My Equipment"
+                    return equipmentCell
                 case 4:
-                    optionCell.textLabel?.text = "Dive Safety And Resources"
+                    return safetyCell
                 case 5:
-                    optionCell.textLabel?.text = "About"
+                    return abouttCell
                 default:
                     fatalError("Unhandled row index")
                 }
-                return optionCell
+                
             }
         }
         
         else{
             
-                let signoutCell = tableView.dequeueReusableCell(withIdentifier: "MoreOptions", for: indexPath)
-                signoutCell.textLabel?.text = "Sign Out"
+                let signoutCell = tableView.dequeueReusableCell(withIdentifier: "signinCell", for: indexPath) as! SignInTableViewCell
+                
+            if databaseController?.isSignedIn() == false{
+                signoutCell.textLable.text = "Sign In"
+            }else{
+                signoutCell.textLable.text = "Sign Out"
+            }
                 return signoutCell
             
         }
     }
     
 
-
-    
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return false
     }
     
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == Section_Signout {
+            if databaseController?.isSignedIn() == true{
+                databaseController?.signOutUser()
+                performSegue(withIdentifier: "toLoginPage", sender: nil)
+            }else{
+                performSegue(withIdentifier: "toLoginPage", sender: nil)
+            }
+        }else{
             
-            databaseController?.signOutUser()
-            performSegue(withIdentifier: "toLoginPage", sender: nil)
-            
+            if indexPath.row == 5{
+                performSegue(withIdentifier: "aboutPageSegue", sender: nil)
+            }else if indexPath.row == 1 && databaseController?.isSignedIn() == true{
+                performSegue(withIdentifier: "accountPageSegue", sender: nil)
+            }else if indexPath.row == 4{
+                performSegue(withIdentifier: "diveSafetySegue", sender: nil)
+            }else if indexPath.row == 2{
+                performSegue(withIdentifier: "settingsSegue", sender: nil)
+            }
         }
 
     }

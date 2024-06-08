@@ -83,6 +83,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
                         listener.onAuthenticationChange(ifSucessful: wasSuccessful)
                         
                     }
+                    
                   
                 }
 
@@ -116,6 +117,50 @@ class FirebaseController: NSObject, DatabaseProtocol {
             catch{
                 print(error)
             }
+        }
+    }
+    func deleteUserAccount() async throws{
+        
+        
+        let backupUserDetails = currentUserDetails
+        let backuplogs = currentUserLogs
+        
+        try await deleteCurrentUser()
+        print("Successfully deleted user document from Firestore")
+        
+        try await deleteUserLogs(userlog: currentUserLogs)
+        print("Successfully deleted user logs from Firestore")
+        
+        do{
+            try await authController.currentUser?.delete()
+            print("successfully deleted")
+            
+            self.logsList = []
+            self.isUserSignedIn = false
+            self.currentUserLogs = UserLogs()
+            self.currentUser = nil
+            self.userChannels = []
+            self.currentUserDetails = User()
+            
+            self.listeners.invoke { (listener) in
+                if listener.listenerType == ListenerType.authentication || listener.listenerType == ListenerType.Userlogs || listener.listenerType == ListenerType.chat{
+                    let wasSuccessful = false
+                    listener.onAuthenticationChange(ifSucessful: wasSuccessful)
+                }
+                
+                if listener.listenerType == ListenerType.chat{
+                    
+                    listener.onChatChange(change: .update, userChannels: self.userChannels)
+                }
+                
+            }
+            
+        }
+        catch{
+            currentUserDetails = backupUserDetails
+            currentUserLogs = backuplogs
+            print("Failed to delete user: \(error.localizedDescription)")
+           
         }
     }
     
@@ -179,17 +224,23 @@ class FirebaseController: NSObject, DatabaseProtocol {
             user.id = usersRef.documentID
             }
 
-        try await UserlogRef?.document(user.id!).setData(["id": user.id])
         return user
     }
     
-    func addlog(title: String, divetype: DiveType, DiveLocation: String, DiveDate: String) -> diveLogs {
+
+    
+    func addlog(title: String, divetype: DiveType, DiveLocation: String, DiveDate: Date, duration: String, weight: String, comments: String) -> diveLogs {
         
         let log = diveLogs()
         log.title = title
         log.type = divetype.rawValue
         log.date = DiveDate
         log.location = DiveLocation
+        log.duration = duration
+        log.weights = weight
+        log.additionalComments = comments
+        
+        
         do {
         if let logsRef = try logRef?.addDocument(from: log) {
             log.id = logsRef.documentID
@@ -219,7 +270,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
         log.UserID = logID
         log.Fname = Fname
         log.Lname = Lname
-        var data: [String: Any] = [
+        let data: [String: Any] = [
                 "UserID": logID,
                 "Fname": Fname,
                 "Lname": Lname
@@ -231,9 +282,40 @@ class FirebaseController: NSObject, DatabaseProtocol {
         return log
     }
     
-    func deleteUserLogs(userlog: UserLogs) {
+    func deleteCurrentUser() async throws {
+        // Check if currentUserDetails.id is not nil and get the userID
+        guard let userID = currentUserDetails.id else {
+            print("User ID is nil. Cannot delete user.")
+            return
+        }
+
+        // Reference to the user's document
+        let userDocument = userRef?.document(userID)
+        
+        // Delete the user's document
+        do {
+            try await userDocument?.delete()
+            print("User successfully deleted")
+        } catch {
+            print("Error deleting user: \(error.localizedDescription)")
+            throw error
+        }
+    }
+    
+    
+    
+    func deleteUserLogs(userlog: UserLogs)async throws {
         if let userlogID = userlog.id {
-            UserlogRef?.document(userlogID).delete()
+            
+            do{
+                try await UserlogRef?.document(userlogID).delete()
+            }
+            
+            catch{
+                print("Error deleting user: \(error.localizedDescription)")
+                throw error
+            }
+            
         }
     }
     
@@ -271,6 +353,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
         }
         return nil
     }
+
     
     
     
@@ -296,7 +379,9 @@ class FirebaseController: NSObject, DatabaseProtocol {
         UserlogRef?.whereField("UserID", isEqualTo: currentUser!.uid).addSnapshotListener {
             (querySnapshot, error) in
             guard let querySnapshot = querySnapshot, let teamSnapshot = querySnapshot.documents.first else {
-                print("Error fetching teams: \(error!)")
+                if let error = error{
+                    print("Error fetching UserLogs: \(error)")
+                }
             return
             }
             self.parseUserLogsSnapshot(snapshot: teamSnapshot)
@@ -361,7 +446,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
             (querySnapshot,error) in
             
             guard let querySnapshot = querySnapshot else {
-                           print("Error fetching teams: \(error!)")
+                           print("Error fetching channels: \(error!)")
                        return
                        }
            self.parseChannelSnapshot(snapshot: querySnapshot)
@@ -371,48 +456,53 @@ class FirebaseController: NSObject, DatabaseProtocol {
 
 
     func parseChannelSnapshot(snapshot: QuerySnapshot) {
-
-        
-            snapshot.documentChanges.forEach { (change) in
+        snapshot.documentChanges.forEach { (change) in
+            Task{
                 
-                Task{
-                    var userchannel: Channel
-                    do{
-                        userchannel = try change.document.data(as: Channel.self)
-                    }catch {
-                        fatalError("Unable to decode channel: \(error.localizedDescription)")
-                    }
-
-                    if let userChannelUsers = await self.getUsersFromReferance(Referances: userchannel.userReferances!){
-                        userchannel.Users = userChannelUsers
-                    }
-
-
+                var userchannel: Channel
+                do{
+                    userchannel = try change.document.data(as: Channel.self)
+                }catch {
+                    fatalError("Unable to decode channel: \(error.localizedDescription)")
+                }
+                
+                
+                if let userChannelUsers = await self.getUsersFromReferance(Referances: userchannel.userReferances!){
+                    userchannel.Users = userChannelUsers
+                }
+                
+//                deleteChannel(channel: userchannel)
+                
+           
                     if change.type == .added {
                         userChannels.insert(userchannel, at: Int(change.newIndex))
-                    }else if change.type == .modified {
-                        userChannels.remove(at: Int(change.oldIndex))
+                    } else if change.type == .modified {
+                       userChannels.remove(at: Int(change.oldIndex))
                         userChannels.insert(userchannel, at: Int(change.newIndex))
-                    }else if change.type == .removed {
+                    } else if change.type == .removed {
                         userChannels.remove(at: Int(change.oldIndex))
                     }
                     
                     
                     listeners.invoke { (listener) in
                         if listener.listenerType == ListenerType.chat || listener.listenerType == ListenerType.all {
-                            listener.onChatChange(change: .update, userChannels: userChannels)
+                            listener.onChatChange(change: .update, userChannels: self.userChannels)
                         }
                     }
                 }
-
-            }
+            
+//            
+        }
+        
+       
             listeners.invoke { (listener) in
                 if listener.listenerType == ListenerType.chat || listener.listenerType == ListenerType.all {
-                    listener.onChatChange(change: .update, userChannels: userChannels)
+                    listener.onChatChange(change: .update, userChannels: self.userChannels)
                 }
             }
+        
     }
- 
+    
 
     func getUsersFromReferance(Referances: [DocumentReference]) async -> [User]?{
         
@@ -423,7 +513,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 let documentSnapshot = try? await userRef?.document(reference.documentID).getDocument()
                 
                 guard let documentSnapshot = documentSnapshot else {
-                    print("Error fetching teams:)")
+                    print("Error fetching Users:")
                     return nil
                 }
                 
@@ -446,6 +536,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
             currentUserLogs = UserLogs()
             currentUser = nil
             userChannels = []
+            currentUserDetails = User()
             self.listeners.invoke { (listener) in
                 if listener.listenerType == ListenerType.authentication || listener.listenerType == ListenerType.Userlogs || listener.listenerType == ListenerType.chat{
                     let wasSuccessful = false
@@ -503,36 +594,55 @@ class FirebaseController: NSObject, DatabaseProtocol {
 
         let channel = Channel()
         channel.name = name
-        //channel.users = users
         channel.userReferances = []
-        
-        
-        let data: [String: Any] = [
-                    "name": name,
-                    "userReferances": []
-            ]
-        
-        channelsRef = database.collection("Channels")
-        
-        do {
-        if let channelRef = try channelsRef?.addDocument(data: data) {
-            channel.id = channelRef.documentID
-            }
-        } catch {
-        print("Failed to serialize channel")
-        }
-        
         
         for user in users{
             if let newUserReferance = userRef?.document(user.id!) {
-                channelsRef?.document(channel.id!).updateData(["userReferances" : FieldValue.arrayUnion([newUserReferance])])
                 channel.userReferances?.append(newUserReferance)
             }
         }
         
-       
+        let data: [String: Any] = [
+                    "name": name,
+                    "userReferances": channel.userReferances!
+            ]
         
+        channelsRef = database.collection("Channels")
+        
+        if let channelRef = channelsRef?.addDocument(data: data) {
+            channel.id = channelRef.documentID
+            }
+    
+    
         return channel
+    }
+    
+    func changeChannelName(newName: String, channel: Channel){
+        
+        channelsRef = database.collection("Channels")
+        guard let channelID = channel.id else{
+            return
+        }
+        if let channel = channelsRef?.document(channelID){
+            
+            channel.updateData(["name" : newName])
+            
+        }
+        
+    }
+    
+    func removeUserFromChannel(user: User, channel: Channel){        
+        if let channelID = channel.id, let userID = user.id{
+            
+            if let removedUserRef = userRef?.document(userID){
+                
+                channelsRef?.document(channelID).updateData(
+                    ["userReferances": FieldValue.arrayRemove([removedUserRef])]
+                     )
+            }
+            
+        }
+        
     }
     
 

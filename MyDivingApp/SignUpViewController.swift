@@ -8,6 +8,10 @@
 import UIKit
 
 class SignUpViewController: UIViewController, DatabaseListener {
+    func onLocationChange(change: DatabaseChange, locations: [DiveLocations]) {
+        
+    }
+    
     func onLogsChange(change: DatabaseChange, logs: [Logs]) {
         
     }
@@ -68,8 +72,13 @@ class SignUpViewController: UIViewController, DatabaseListener {
         
         guard let email = email.text, let password = password.text, let Fname = Fname.text,  let Lname = Lname.text
         else{
+            
             return
         }
+        if email == "" || password == "" || Fname == ""{
+            displayMessage(title: "Empty Feilds", message: "Please fill in all the empty feild and rerun the app")
+        }
+        
         databaseController?.createAccount(email: email, password: password, Fname: Fname, Lname: Lname)
     }
     }

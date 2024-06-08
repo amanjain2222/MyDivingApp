@@ -25,15 +25,29 @@ class ViewDiveSiteViewController: UIViewController {
         }
         
         if databaseController?.isCoredata() == false{
-            diveLocation.text = currentLog?.location
-            DiveDate.text = currentLog?.date
             
-            navigationItem.title = currentLog?.title
+           
+            
+            diveLocation.text = currentLog?.location ?? "-"
+            if let date = currentLog?.date?.formatted(date: .long, time: .shortened){
+                diveDate.text = "\(date)"
+                }
+            diveDuration.text = currentLog?.duration ?? "-"
+            diveWeights.text = currentLog?.weights ?? "-"
+            diveComments.text = currentLog?.additionalComments ?? "-"
+   
+            navigationItem.title = currentLog?.title ?? "Dive details"
         }else{
-            diveLocation.text = currentLogCoredata?.location
-            DiveDate.text = currentLogCoredata?.date
-            
-            navigationItem.title = currentLogCoredata?.title
+
+            diveLocation.text = currentLogCoredata?.location ?? "-"
+            if let date = currentLog?.date?.formatted(date: .long, time: .shortened){
+                diveDate.text = "\(date)"
+                }
+            diveDuration.text = currentLogCoredata?.duration ?? "-"
+            diveWeights.text = currentLogCoredata?.weights ?? "-"
+            diveComments.text = currentLogCoredata?.comments ?? "-"
+   
+            navigationItem.title = currentLogCoredata?.title ?? "Dive details"
             
         }
         
@@ -42,14 +56,15 @@ class ViewDiveSiteViewController: UIViewController {
     }
     
 
-    
-
     @IBOutlet weak var diveLocation: UILabel!
-    @IBOutlet weak var DiveDate: UILabel!
     
-    @IBOutlet weak var diveType: UILabel!
+    @IBOutlet weak var diveDate: UILabel!
+
+    @IBOutlet weak var diveDuration: UILabel!
     
+    @IBOutlet weak var diveWeights: UILabel!
     
+    @IBOutlet weak var diveComments: UILabel!
     /*
     // MARK: - Navigation
 

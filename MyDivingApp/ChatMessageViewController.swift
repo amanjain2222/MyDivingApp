@@ -11,11 +11,20 @@ import InputBarAccessoryView
 import FirebaseFirestore
 
 
-class ChatMessageViewController: MessagesViewController, MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDelegate, InputBarAccessoryViewDelegate {
+class ChatMessageViewController: MessagesViewController, MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDelegate, InputBarAccessoryViewDelegate,  ChannelNameChangeDelgate {
+    
+    
+    func changedChannelName(_ newName: String) {
+        navigationItem.title = newName
+        self.channelName = newName
+    }
+    
 
     var sender: Sender?
     
     var currentChannel: Channel?
+    
+    var channelName: String?
     
     var messagesList = [ChatMessage]()
     
@@ -27,7 +36,7 @@ class ChatMessageViewController: MessagesViewController, MessagesDataSource, Mes
     
     
     var currentuser: User?
-    var oppositeUserName: String?
+    //var oppositeUserName: String?
     
     weak var databaseController: DatabaseProtocol?
     
@@ -56,7 +65,7 @@ class ChatMessageViewController: MessagesViewController, MessagesDataSource, Mes
         let database = Firestore.firestore()
             channelRef = database.collection("Channels").document(currentChannel!.id!).collection("messages")
             
-            navigationItem.title = "\(oppositeUserName ?? "Anon user")"
+            navigationItem.title = "\(channelName ?? "Anon user")"
         }
         
         tabBarController?.tabBar.isHidden = true
@@ -166,28 +175,35 @@ class ChatMessageViewController: MessagesViewController, MessagesDataSource, Mes
             
             
             Task{
-                let requestedUser = try await self.databaseController?.findUserByEmail(alertController.textFields![0].text!)
-                let channelName = requestedUser?.Fname
+                guard let requestedUser = try await self.databaseController?.findUserByEmail(alertController.textFields![0].text!) else{
+                    self.displayMessage(title: "User Not Found", message: "\(alertController.textFields![0].text!) Not found in database" )
+                    return
+                }
                 
-                var doesExist = false
                 
-                var channelUsers:[User] = []
-
-                for user in self.currentChannel!.Users! {
-                    if requestedUser?.email == user.email {
-                        doesExist = true
-                        channelUsers.append(user)
+                if self.currentChannel?.Users!.contains(requestedUser) == true{
+                    self.displayMessage(title: "User already in chat", message: "")
+                    return
+                }
+                
+                
+                var channelUsers:[User] = self.currentChannel!.Users!
+                channelUsers.append(requestedUser)
+                
+                var namesList: [String] = []
+                
+                for user in channelUsers{
+                    if let userName = user.Fname{
+                        namesList.append(userName)
                     }
+                }
+                let channelName = namesList.joined(separator: ", ")
+                
+                
+                if let _ = self.databaseController?.addChannelHelper(name: channelName, users: channelUsers ){
+                    self.navigationController?.popViewController(animated: false)
+                }
 
-                }
-                channelUsers.append(requestedUser!)
-                
-                
-                
-                if !doesExist {
-                    
-                    _ = self.databaseController?.addChannelHelper(name: (requestedUser?.Fname)!, users: channelUsers )
-                }
             }
             
             
@@ -200,5 +216,23 @@ class ChatMessageViewController: MessagesViewController, MessagesDataSource, Mes
         self.present(alertController, animated: false, completion: nil)
         
     }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "channelDetails"{
+            
+            let destination = segue.destination as? channelDetailsViewController
+            
+            destination?.currentChannelName = channelName
+            destination?.currentChannelUsers = currentChannel?.Users
+            destination?.currentChannel = currentChannel
+            destination?.delegate = self
+            
+        }
+    }
+    
+    
+    
+    
 }
 

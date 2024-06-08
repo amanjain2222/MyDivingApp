@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		0705564C2BDD6419001719CB /* CurrentLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0705564B2BDD6419001719CB /* CurrentLocationViewController.swift */; };
+		07071A102C1329CC00D209DC /* DiveLocations+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07071A0E2C1329CC00D209DC /* DiveLocations+CoreDataClass.swift */; };
+		07071A112C1329CC00D209DC /* DiveLocations+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07071A0F2C1329CC00D209DC /* DiveLocations+CoreDataProperties.swift */; };
+		07071A132C1363F300D209DC /* searchedLocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07071A122C1363F300D209DC /* searchedLocationTableViewCell.swift */; };
+		07071A152C1366CE00D209DC /* warningCoredataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07071A142C1366CE00D209DC /* warningCoredataTableViewCell.swift */; };
+		07071A172C14106200D209DC /* accountsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07071A162C14106200D209DC /* accountsPageViewController.swift */; };
+		07071A192C143D5600D209DC /* channelDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07071A182C143D5600D209DC /* channelDetailsViewController.swift */; };
 		070B0B802BDA9F640098EB91 /* FirebaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070B0B7F2BDA9F640098EB91 /* FirebaseController.swift */; };
 		072303922C02F784003F41AC /* FishSpeciesListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072303912C02F784003F41AC /* FishSpeciesListTableViewController.swift */; };
 		072303942C0320AF003F41AC /* viewFishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072303932C0320AF003F41AC /* viewFishViewController.swift */; };
@@ -21,10 +27,9 @@
 		072D217A2BF457F90068E6B3 /* profileViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D21792BF457F90068E6B3 /* profileViewTableViewCell.swift */; };
 		072D217E2BF478CF0068E6B3 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D217D2BF478CF0068E6B3 /* SignUpViewController.swift */; };
 		072D21802BF4BA1E0068E6B3 /* ViewDiveSiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D217F2BF4BA1E0068E6B3 /* ViewDiveSiteViewController.swift */; };
+		0768F5222C12F71F001B9B6A /* aboutPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0768F5212C12F71F001B9B6A /* aboutPageViewController.swift */; };
+		0768F5242C130458001B9B6A /* webViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0768F5232C130458001B9B6A /* webViewController.swift */; };
 		078FA4482C0EB61C001208A4 /* DivingCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 078FA4462C0EB61C001208A4 /* DivingCoreData.xcdatamodeld */; };
-		078FA44B2C0EB71A001208A4 /* Logs+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078FA4492C0EB71A001208A4 /* Logs+CoreDataClass.swift */; };
-		078FA44C2C0EB71A001208A4 /* Logs+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078FA44A2C0EB71A001208A4 /* Logs+CoreDataProperties.swift */; };
-		078FA44E2C0EB939001208A4 /* CoreDatabaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078FA44D2C0EB939001208A4 /* CoreDatabaseProtocol.swift */; };
 		078FA4502C0EB9D7001208A4 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078FA44F2C0EB9D7001208A4 /* CoreDataController.swift */; };
 		07A342382BF59EFF00A4FF35 /* FishInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A342372BF59EFF00A4FF35 /* FishInfo.swift */; };
 		07A3423A2BF5A35900A4FF35 /* FishInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A342392BF5A35900A4FF35 /* FishInfoViewController.swift */; };
@@ -44,6 +49,11 @@
 		07BF44E72BD8BD270062EFD0 /* DiveSiteObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BF44E62BD8BD270062EFD0 /* DiveSiteObject.swift */; };
 		07BF44E92BD8BD490062EFD0 /* DiveSites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BF44E82BD8BD490062EFD0 /* DiveSites.swift */; };
 		07BF44ED2BD8DAF00062EFD0 /* DiveSitesSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BF44EC2BD8DAEF0062EFD0 /* DiveSitesSearchTableViewController.swift */; };
+		07D2A5932C146B8700B19845 /* settingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D2A5922C146B8700B19845 /* settingsViewController.swift */; };
+		07D2A5952C146BA100B19845 /* diveResourcesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D2A5942C146BA100B19845 /* diveResourcesViewController.swift */; };
+		07D5E0582C1155A100E44E59 /* SignInTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D5E0572C1155A100E44E59 /* SignInTableViewCell.swift */; };
+		07D5E05B2C11E6E100E44E59 /* Logs+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D5E0592C11E6E100E44E59 /* Logs+CoreDataClass.swift */; };
+		07D5E05C2C11E6E100E44E59 /* Logs+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D5E05A2C11E6E100E44E59 /* Logs+CoreDataProperties.swift */; };
 		07EEDD852BDA964300172BF2 /* DiveSiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EEDD842BDA964300172BF2 /* DiveSiteViewController.swift */; };
 		07F979692BE2526000F52DC8 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F979682BE2526000F52DC8 /* MapViewController.swift */; };
 		07F9796B2BE253DB00F52DC8 /* LocationAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F9796A2BE253DB00F52DC8 /* LocationAnnotation.swift */; };
@@ -58,6 +68,12 @@
 
 /* Begin PBXFileReference section */
 		0705564B2BDD6419001719CB /* CurrentLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationViewController.swift; sourceTree = "<group>"; };
+		07071A0E2C1329CC00D209DC /* DiveLocations+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiveLocations+CoreDataClass.swift"; sourceTree = "<group>"; };
+		07071A0F2C1329CC00D209DC /* DiveLocations+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiveLocations+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		07071A122C1363F300D209DC /* searchedLocationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = searchedLocationTableViewCell.swift; sourceTree = "<group>"; };
+		07071A142C1366CE00D209DC /* warningCoredataTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = warningCoredataTableViewCell.swift; sourceTree = "<group>"; };
+		07071A162C14106200D209DC /* accountsPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = accountsPageViewController.swift; sourceTree = "<group>"; };
+		07071A182C143D5600D209DC /* channelDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = channelDetailsViewController.swift; sourceTree = "<group>"; };
 		070B0B7F2BDA9F640098EB91 /* FirebaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseController.swift; sourceTree = "<group>"; };
 		072303912C02F784003F41AC /* FishSpeciesListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishSpeciesListTableViewController.swift; sourceTree = "<group>"; };
 		072303932C0320AF003F41AC /* viewFishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = viewFishViewController.swift; sourceTree = "<group>"; };
@@ -70,10 +86,9 @@
 		072D21792BF457F90068E6B3 /* profileViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileViewTableViewCell.swift; sourceTree = "<group>"; };
 		072D217D2BF478CF0068E6B3 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		072D217F2BF4BA1E0068E6B3 /* ViewDiveSiteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDiveSiteViewController.swift; sourceTree = "<group>"; };
+		0768F5212C12F71F001B9B6A /* aboutPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = aboutPageViewController.swift; sourceTree = "<group>"; };
+		0768F5232C130458001B9B6A /* webViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = webViewController.swift; sourceTree = "<group>"; };
 		078FA4472C0EB61C001208A4 /* DivingCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DivingCoreData.xcdatamodel; sourceTree = "<group>"; };
-		078FA4492C0EB71A001208A4 /* Logs+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logs+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		078FA44A2C0EB71A001208A4 /* Logs+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logs+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
-		078FA44D2C0EB939001208A4 /* CoreDatabaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDatabaseProtocol.swift; sourceTree = "<group>"; };
 		078FA44F2C0EB9D7001208A4 /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
 		07A342372BF59EFF00A4FF35 /* FishInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishInfo.swift; sourceTree = "<group>"; };
 		07A342392BF5A35900A4FF35 /* FishInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishInfoViewController.swift; sourceTree = "<group>"; };
@@ -90,6 +105,11 @@
 		07BF44E62BD8BD270062EFD0 /* DiveSiteObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiveSiteObject.swift; sourceTree = "<group>"; };
 		07BF44E82BD8BD490062EFD0 /* DiveSites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiveSites.swift; sourceTree = "<group>"; };
 		07BF44EC2BD8DAEF0062EFD0 /* DiveSitesSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiveSitesSearchTableViewController.swift; sourceTree = "<group>"; };
+		07D2A5922C146B8700B19845 /* settingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = settingsViewController.swift; sourceTree = "<group>"; };
+		07D2A5942C146BA100B19845 /* diveResourcesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = diveResourcesViewController.swift; sourceTree = "<group>"; };
+		07D5E0572C1155A100E44E59 /* SignInTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInTableViewCell.swift; sourceTree = "<group>"; };
+		07D5E0592C11E6E100E44E59 /* Logs+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logs+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		07D5E05A2C11E6E100E44E59 /* Logs+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logs+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		07EEDD842BDA964300172BF2 /* DiveSiteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiveSiteViewController.swift; sourceTree = "<group>"; };
 		07F979682BE2526000F52DC8 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		07F9796A2BE253DB00F52DC8 /* LocationAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAnnotation.swift; sourceTree = "<group>"; };
@@ -122,8 +142,10 @@
 		078FA4422C0EB5F0001208A4 /* datamodel */ = {
 			isa = PBXGroup;
 			children = (
-				078FA4492C0EB71A001208A4 /* Logs+CoreDataClass.swift */,
-				078FA44A2C0EB71A001208A4 /* Logs+CoreDataProperties.swift */,
+				07071A0E2C1329CC00D209DC /* DiveLocations+CoreDataClass.swift */,
+				07071A0F2C1329CC00D209DC /* DiveLocations+CoreDataProperties.swift */,
+				07D5E0592C11E6E100E44E59 /* Logs+CoreDataClass.swift */,
+				07D5E05A2C11E6E100E44E59 /* Logs+CoreDataProperties.swift */,
 				078FA4462C0EB61C001208A4 /* DivingCoreData.xcdatamodeld */,
 			);
 			path = datamodel;
@@ -148,7 +170,6 @@
 			children = (
 				07BCE9F22BEB8665008DB0CB /* MulticastDelegate.swift */,
 				07BCE9F42BEB8678008DB0CB /* DatabaseProtocol.swift */,
-				078FA44D2C0EB939001208A4 /* CoreDatabaseProtocol.swift */,
 				078FA44F2C0EB9D7001208A4 /* CoreDataController.swift */,
 			);
 			path = Database;
@@ -206,6 +227,15 @@
 				0723039D2C04D56A003F41AC /* ChatMessage.swift */,
 				0723039F2C04D6CF003F41AC /* ChannelsTableViewController.swift */,
 				072303A12C04DAAA003F41AC /* ChatMessageViewController.swift */,
+				07D5E0572C1155A100E44E59 /* SignInTableViewCell.swift */,
+				0768F5212C12F71F001B9B6A /* aboutPageViewController.swift */,
+				0768F5232C130458001B9B6A /* webViewController.swift */,
+				07071A122C1363F300D209DC /* searchedLocationTableViewCell.swift */,
+				07071A142C1366CE00D209DC /* warningCoredataTableViewCell.swift */,
+				07071A162C14106200D209DC /* accountsPageViewController.swift */,
+				07071A182C143D5600D209DC /* channelDetailsViewController.swift */,
+				07D2A5922C146B8700B19845 /* settingsViewController.swift */,
+				07D2A5942C146BA100B19845 /* diveResourcesViewController.swift */,
 			);
 			path = MyDivingApp;
 			sourceTree = "<group>";
@@ -295,6 +325,7 @@
 			files = (
 				072D217E2BF478CF0068E6B3 /* SignUpViewController.swift in Sources */,
 				07BCE9F52BEB8678008DB0CB /* DatabaseProtocol.swift in Sources */,
+				07071A152C1366CE00D209DC /* warningCoredataTableViewCell.swift in Sources */,
 				07F979692BE2526000F52DC8 /* MapViewController.swift in Sources */,
 				070B0B802BDA9F640098EB91 /* FirebaseController.swift in Sources */,
 				078FA4482C0EB61C001208A4 /* DivingCoreData.xcdatamodeld in Sources */,
@@ -308,11 +339,17 @@
 				07BCEA002BEBC362008DB0CB /* diveLogs.swift in Sources */,
 				07A3423A2BF5A35900A4FF35 /* FishInfoViewController.swift in Sources */,
 				07BF44ED2BD8DAF00062EFD0 /* DiveSitesSearchTableViewController.swift in Sources */,
+				07D5E0582C1155A100E44E59 /* SignInTableViewCell.swift in Sources */,
 				072303A02C04D6CF003F41AC /* ChannelsTableViewController.swift in Sources */,
 				072303A22C04DAAA003F41AC /* ChatMessageViewController.swift in Sources */,
 				072303982C0331D8003F41AC /* UIViewController+displayMessage.swift in Sources */,
+				07071A192C143D5600D209DC /* channelDetailsViewController.swift in Sources */,
 				072D217A2BF457F90068E6B3 /* profileViewTableViewCell.swift in Sources */,
 				072303922C02F784003F41AC /* FishSpeciesListTableViewController.swift in Sources */,
+				07D2A5932C146B8700B19845 /* settingsViewController.swift in Sources */,
+				07071A172C14106200D209DC /* accountsPageViewController.swift in Sources */,
+				07071A132C1363F300D209DC /* searchedLocationTableViewCell.swift in Sources */,
+				07D2A5952C146BA100B19845 /* diveResourcesViewController.swift in Sources */,
 				07BCEA082BEC6F87008DB0CB /* CreateLogViewController.swift in Sources */,
 				275F443E2BD7B24F00E136CD /* AppDelegate.swift in Sources */,
 				0723039A2C045D2A003F41AC /* Channel.swift in Sources */,
@@ -321,17 +358,20 @@
 				07BCEA042BEC5918008DB0CB /* userLogs.swift in Sources */,
 				275F44402BD7B24F00E136CD /* SceneDelegate.swift in Sources */,
 				0705564C2BDD6419001719CB /* CurrentLocationViewController.swift in Sources */,
-				078FA44E2C0EB939001208A4 /* CoreDatabaseProtocol.swift in Sources */,
 				275150C02C05BCCB002EB8C5 /* Users.swift in Sources */,
 				07BCEA062BEC6BB8008DB0CB /* LoginPageViewController.swift in Sources */,
 				07BCE9FE2BEBB96B008DB0CB /* LogBookTableViewController.swift in Sources */,
 				072D21802BF4BA1E0068E6B3 /* ViewDiveSiteViewController.swift in Sources */,
+				0768F5222C12F71F001B9B6A /* aboutPageViewController.swift in Sources */,
+				07071A102C1329CC00D209DC /* DiveLocations+CoreDataClass.swift in Sources */,
+				07071A112C1329CC00D209DC /* DiveLocations+CoreDataProperties.swift in Sources */,
+				0768F5242C130458001B9B6A /* webViewController.swift in Sources */,
 				07BF44E72BD8BD270062EFD0 /* DiveSiteObject.swift in Sources */,
-				078FA44B2C0EB71A001208A4 /* Logs+CoreDataClass.swift in Sources */,
-				078FA44C2C0EB71A001208A4 /* Logs+CoreDataProperties.swift in Sources */,
 				07F9796B2BE253DB00F52DC8 /* LocationAnnotation.swift in Sources */,
 				07BCE9F32BEB8665008DB0CB /* MulticastDelegate.swift in Sources */,
 				07A342382BF59EFF00A4FF35 /* FishInfo.swift in Sources */,
+				07D5E05B2C11E6E100E44E59 /* Logs+CoreDataClass.swift in Sources */,
+				07D5E05C2C11E6E100E44E59 /* Logs+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

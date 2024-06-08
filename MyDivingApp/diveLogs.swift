@@ -29,7 +29,11 @@ class diveLogs: NSObject, Codable {
     var title: String?
     var type: Int?
     var location: String?
-    var date: String?
+    var date: Date?
+    var duration: String?
+    var weights: String?
+    var additionalComments: String?
+    
 }
 
 extension diveLogs{

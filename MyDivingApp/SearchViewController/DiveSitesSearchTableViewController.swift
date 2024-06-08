@@ -8,7 +8,6 @@
 import UIKit
 
 class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDelegate, UpdateLoctionDelegate, UISearchResultsUpdating {
-
     
     let searchController = UISearchController(searchResultsController: nil)
     let CELL_SITE = "diveSiteCell"
@@ -25,10 +24,14 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
         "X-RapidAPI-Key": "007d406e35msh8a93dbecf6813cfp15bd95jsn9c435e5f31f3",
         "X-RapidAPI-Host": "world-scuba-diving-sites-api.p.rapidapi.com"
     ]
+    
+    weak var databaseController: DatabaseProtocol?
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        databaseController = appDelegate?.coreDatabaseController
         
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
@@ -97,18 +100,25 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
          ]
         
         do {
-            let (data, _) = try await URLSession.shared.data(for: urlRequest)
-            indicator.stopAnimating()
+            let (data,_ ) = try await URLSession.shared.data(for: urlRequest) 
             
+            indicator.stopAnimating()
             let decoder = JSONDecoder()
             let diveSiteObject = try decoder.decode(DiveSiteObject.self, from: data)
             if let diveSites = diveSiteObject.diveSites {
+                if diveSites.isEmpty {
+                    displayMessage(title: "Error 404 \(region) not found", message: "Please check for spelling mistakes and try again")
+                    return
+                }
+                
+                _ = databaseController?.addDiveLocation(location: region)
                 newSites.append(contentsOf: diveSites)
                 filteredSites = newSites
                 searchController.searchBar.isHidden = hideSearchBar()
                 tableView.separatorStyle = .singleLine
                 tableView.reloadData()
             }
+            
             
         }
         catch let error {

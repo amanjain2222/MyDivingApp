@@ -10,13 +10,17 @@ import FirebaseFirestore
 import Firebase
 
 class ChannelsTableViewController: UITableViewController, DatabaseListener {
+    func onLocationChange(change: DatabaseChange, locations: [DiveLocations]) {
+        
+    }
+    
     func onLogsChange(change: DatabaseChange, logs: [Logs]) {
     }
     
     func onChatChange(change: DatabaseChange, userChannels: [Channel]) {
         
-        
         if databaseController?.isSignedIn() == true{
+            
             currentuser = databaseController!.currentUserDetails
             
             var filteredChannels: [Channel] = []
@@ -35,24 +39,35 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
             
             DispatchQueue.main.async {
                 self.tableView.reloadData()
+                self.indicator.stopAnimating()
+                
             }
+            
+            
         }
     }
     
     
     var listenerType: ListenerType = .chat
     
+    var indicator = UIActivityIndicatorView()
+    
+    var channelName: String?
+    
     func onAuthenticationChange(ifSucessful: Bool) {
         
+
         if databaseController!.isSignedIn(){
             addChannelButton.isHidden = false
-            tableView.separatorStyle = .singleLine
+            DispatchQueue.main.async {
+                self.tableView.separatorStyle = .singleLine
+            }
+
         }else{
             addChannelButton.isHidden = true
             tableView.separatorStyle = .none
+           
         }
-        
-        
         
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -70,12 +85,10 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
     
     let SEGUE_CHANNEL = "channelSegue"
     let CELL_CHANNEL = "channelCell"
-    
     var channels = [Channel]()
     
     var currentSender: Sender?
     var channelsRef: CollectionReference?
-    var databaseListener: ListenerRegistration?
     
     weak var databaseController: DatabaseProtocol?
     
@@ -92,20 +105,27 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
         
         databaseController?.addListener(listener: self)
         
+        
         if databaseController!.isSignedIn(){
             addChannelButton.isHidden = false
+            indicator.startAnimating()
         }else{
             addChannelButton.isHidden = true
         }
         
         tableView.separatorStyle = .none
-//        tableView.separatorStyle = .none
+        
+        indicator.style = UIActivityIndicatorView.Style.large
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(indicator)
+        
+        NSLayoutConstraint.activate([
+            indicator.centerXAnchor.constraint(equalTo:
+                    view.safeAreaLayoutGuide.centerXAnchor),
+            indicator.centerYAnchor.constraint(equalTo:
+        view.safeAreaLayoutGuide.centerYAnchor)
+            ])
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -114,11 +134,11 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
         
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        databaseListener?.remove()
-        //databaseController?.removeListener(listener: self)
-    }
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
+//        databaseListener?.remove()
+// 
+//    }
 
     // MARK: - Table view data source
 
@@ -146,21 +166,20 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
             
             
             let users = currentChannel.Users
-            for user in users!{
-                if user.Fname != currentuser?.Fname{
-                    let oppositeUserName = user.Fname
-                    content.text = oppositeUserName
+            
+            if users!.count < 3{
+                for user in users!{
+                    if user.Fname != currentuser?.Fname{
+                        let oppositeUserName = user.Fname
+                        content.text = oppositeUserName
+                    }
                 }
             }
+            else{
+                content.text = currentChannel.name
+            }
+
             
-//            if let userChannelUsers = databaseController?.getUsersFromReferance(Referances: currentChannel.userReferances!){
-//                for user in userChannelUsers{
-//                    if user.Fname != currentuser?.Fname{
-//                        let oppositeUserName = user.Fname
-//                        content.text = oppositeUserName
-//                    }
-//                }
-//            }
             cell.contentConfiguration = content
             
             return cell
@@ -169,7 +188,7 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
 //            var content = cell.defaultContentConfiguration()
 //            content.text = "Sign in before using chat"
 //            cell.contentConfiguration = content
-            cell.selectionStyle = .none
+//            cell.selectionStyle = .none
             return cell
             
         }
@@ -180,8 +199,6 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
         if controller.isSignedIn() == false {
                 return 500
             }
-
-
            // Use the default size for all other rows.
            return UITableView.automaticDimension
     }
@@ -190,6 +207,9 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let channel = channels[indexPath.row]
+        
+        
+        
         performSegue(withIdentifier: SEGUE_CHANNEL, sender: channel)
     }
 
@@ -220,33 +240,6 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
         }
         return indexPath
     }
-    
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
 
     
     
@@ -265,20 +258,38 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
             
             
             Task{
-                let requestedUser = try await self.databaseController?.findUserByEmail(alertController.textFields![0].text!)
-                let channelName = requestedUser?.Fname
-                
-                var doesExist = false
-                for channel in self.channels {
-                    if channel.name!.lowercased() == channelName!.lowercased() {
-                        doesExist = true
-                    }
+                guard let requestedUser = try await self.databaseController?.findUserByEmail(alertController.textFields![0].text!) else{
+                    self.displayMessage(title: "User Not Found", message: "\(alertController.textFields![0].text!) Not found in database" )
+                    return
                 }
                 
                 
-                if !doesExist {
+                var usernames: [String] = []
+                
+                
+                guard let currentUserName = self.currentuser?.Fname, let requestedUserName =  requestedUser.Fname else{
+                    return
+                }
+                
+                usernames.append(currentUserName)
+                usernames.append(requestedUserName)
+                
+                self.channelName = usernames.joined(separator: ", ")
+                
+                var doesExist = false
+                for channel in self.channels {
+                    if let name = channel.name{
+                        if name.lowercased() == self.channelName!.lowercased() {
+                            doesExist = true
+                        }
+                    }
+                }
+                
+                if doesExist{
+                    self.displayMessage(title: "Channel already available", message: "")
+                }else {
                     
-                    _ = self.databaseController?.addChannelHelper(name: (requestedUser?.Fname)!, users: [self.currentuser!, requestedUser!])
+                    _ = self.databaseController?.addChannelHelper(name: self.channelName! , users: [self.currentuser!, requestedUser])
                 }
             }
             
@@ -305,13 +316,7 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
             let destinationVC = segue.destination as! ChatMessageViewController
             destinationVC.sender = currentSender
             destinationVC.currentChannel = channel
-            let users = channel.Users
-            for user in users! {
-                if user.Fname != currentuser?.Fname{
-                    let oppositeUserName = user.Fname
-                    destinationVC.oppositeUserName = oppositeUserName
-                }
-            }
+            destinationVC.channelName = channel.name
             destinationVC.currentuser = self.currentuser
         }
     }

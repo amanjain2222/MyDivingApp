@@ -10,9 +10,11 @@ import UIKit
 class viewFishViewController: UIViewController {
     
     var fish: FishInfo?
+    var isLinkAvailable: Bool = false
 
     override func viewDidLoad()  {
         super.viewDidLoad()
+        
 
         // Do any additional setup after loading the view.
         
@@ -26,7 +28,12 @@ class viewFishViewController: UIViewController {
             
         }
         
-        wikiUrl.text = "\((fish?.url) ?? "Not Available")"
+        if let url = fish?.url{
+            wikiUrl.setTitle(url, for: .normal)
+            isLinkAvailable = true
+        }else{
+            wikiUrl.setTitle("Not available", for: .normal)
+        }
         
         synonym.text = "Synonyms: \((fish?.synonyms) ?? "Not Available")"
         
@@ -85,6 +92,24 @@ class viewFishViewController: UIViewController {
                 }
         }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "webViewSegue"{
+            let destination = segue.destination as! webViewController
+            destination.webUrl = fish?.url ?? "Not Available"
+         
+        }
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        
+        if identifier == "webViewSegue"{
+            if !isLinkAvailable{
+                return false
+            }
+        }
+        return true
+    }
 
     /*
     // MARK: - Navigation
@@ -98,7 +123,14 @@ class viewFishViewController: UIViewController {
 
     @IBOutlet weak var fishImage: UIImageView!
     
-    @IBOutlet weak var wikiUrl: UILabel!
+    
+    @IBAction func wikiUrlAction(_ sender: Any) {
+        
+        if self.isLinkAvailable{
+            performSegue(withIdentifier: "webViewSegue", sender: nil)
+        }
+    }
+    @IBOutlet weak var wikiUrl: UIButton!
     
     @IBOutlet weak var synonym: UILabel!
     

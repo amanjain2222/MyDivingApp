@@ -62,7 +62,7 @@ class FishInfoViewController: UIViewController{
             let fishInfoObject = try decoder.decode([FishInfo].self, from: data)
             fishSpecies = fishInfoObject
         }
-        catch let error {
+        catch {
             fatalError()
         }
     }

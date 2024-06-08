@@ -15,6 +15,7 @@ class CoreDataController: NSObject, DatabaseProtocol,NSFetchedResultsControllerD
     var persistentContainer: NSPersistentContainer
     
     var logsFetchedResultsController: NSFetchedResultsController<Logs>?
+    var locationFetchedResultsController: NSFetchedResultsController<DiveLocations>?
     
     override init() {
         persistentContainer = NSPersistentContainer(name: "DivingCoreData")
@@ -36,14 +37,39 @@ class CoreDataController: NSObject, DatabaseProtocol,NSFetchedResultsControllerD
         }
     }
     
-    func addlogCoredata(title: String, divetype: TypeOFDive, DiveLocation: String, DiveDate: String) -> Logs {
+    func addDiveLocation(location: String) -> DiveLocations? {
+        let previousSearchedLocations = fetchAllLocations()
+        var alreadyPresent: Bool = false
+        for divelocation in previousSearchedLocations{
+            if divelocation.location?.lowercased() == location.lowercased() {
+                alreadyPresent = true
+            }
+        }
+        
+        if !alreadyPresent{
+            let diveLocation = NSEntityDescription.insertNewObject(forEntityName: "DiveLocations", into: persistentContainer.viewContext) as! DiveLocations
+            diveLocation.location = location
+            return diveLocation
+        }
+        return nil
+    }
+    
+    func deleteLocation(location: DiveLocations){
+        
+        persistentContainer.viewContext.delete(location)
+    }
+    
+    func addlogCoredata(title: String, divetype: TypeOFDive, DiveLocation: String, DiveDate: Date, duration: String, weight: String, comments: String) -> Logs {
         
         let log = NSEntityDescription.insertNewObject(forEntityName: "Logs", into: persistentContainer.viewContext) as! Logs
         
         log.title = title
-        log.DiveType = divetype
-        log.location = DiveLocation
+        log.type = divetype.rawValue
         log.date = DiveDate
+        log.location = DiveLocation
+        log.duration = duration
+        log.weights = weight
+        log.comments = comments
         
         return log
         
@@ -53,6 +79,34 @@ class CoreDataController: NSObject, DatabaseProtocol,NSFetchedResultsControllerD
         
         persistentContainer.viewContext.delete(log)
     }
+    
+    
+    func fetchAllLocations() -> [DiveLocations]{
+        
+        let fetchRequest: NSFetchRequest<DiveLocations> = DiveLocations.fetchRequest()
+        let nameSortDescriptor = NSSortDescriptor(key: "location", ascending: true)
+        
+        fetchRequest.sortDescriptors = [nameSortDescriptor]
+        locationFetchedResultsController = NSFetchedResultsController<DiveLocations>(fetchRequest: fetchRequest, managedObjectContext: persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        locationFetchedResultsController?.delegate = self
+        do {
+            try locationFetchedResultsController?.performFetch()
+        } catch {
+            print("Fetch Request Failed: \(error)")
+        }
+            
+            var allLocations = [DiveLocations]()
+//            var locations: [String] = []
+            if locationFetchedResultsController?.fetchedObjects != nil {
+                allLocations = (locationFetchedResultsController?.fetchedObjects)!
+            }
+//            for divelocations in allLocations{
+//                locations.append(divelocations.location!)
+//            }
+            return allLocations
+        
+    }
+    
     
     func fetchAllLogs() -> [Logs] {
 
@@ -85,6 +139,10 @@ class CoreDataController: NSObject, DatabaseProtocol,NSFetchedResultsControllerD
             listener.onLogsChange(change: .update, logs: fetchAllLogs())
                                                                                                            
             }
+        if listener.listenerType == .diveLocations || listener.listenerType == .all {
+            listener.onLocationChange(change: .update, locations: fetchAllLocations())
+                                                                                                           
+            }
         }
     
     func removeListener(listener: DatabaseListener) {
@@ -108,6 +166,15 @@ class CoreDataController: NSObject, DatabaseProtocol,NSFetchedResultsControllerD
                 }
             }
             }
+        
+        if controller == locationFetchedResultsController {
+            listeners.invoke { (listener) in
+                if listener.listenerType == .diveLocations || listener.listenerType == .all {
+                    listener.onLocationChange(change: .update, locations: fetchAllLocations())
+                }
+            }
+            
+        }
     }
 
 }

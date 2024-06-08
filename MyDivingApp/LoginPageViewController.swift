@@ -8,6 +8,10 @@
 import UIKit
 
 class LoginPageViewController: UIViewController, DatabaseListener {
+    func onLocationChange(change: DatabaseChange, locations: [DiveLocations]) {
+        
+    }
+    
     func onLogsChange(change: DatabaseChange, logs: [Logs]) {
         
     }
