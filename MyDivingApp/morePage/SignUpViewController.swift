@@ -7,7 +7,13 @@
 
 import UIKit
 
+
+//responsable to register new users in the database.
 class SignUpViewController: UIViewController, DatabaseListener {
+    
+    
+    var indicator = UIActivityIndicatorView()
+    
     func onLocationChange(change: DatabaseChange, locations: [DiveLocations]) {
         
     }
@@ -27,13 +33,24 @@ class SignUpViewController: UIViewController, DatabaseListener {
             DispatchQueue.main.async {
                 self.navigationController?.popViewController(animated: true)
                 self.navigationController?.popViewController(animated: true)
+                self.indicator.stopAnimating()
             }
         }
-
+        
+        else{
+            DispatchQueue.main.async {
+                self.displayMessage(title: "error", message: "Error creating account try again")
+                self.indicator.stopAnimating()
+            }
+            
+        }
+        
+        
+        
     }
     
     func onAllLogsChange(change: DatabaseChange, logs: [diveLogs]) {
-    
+        
         
     }
     
@@ -49,8 +66,20 @@ class SignUpViewController: UIViewController, DatabaseListener {
         
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
-
-        // Do any additional setup after loading the view.
+        
+        indicator.style = UIActivityIndicatorView.Style.large
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(indicator)
+        
+        NSLayoutConstraint.activate([
+            indicator.centerXAnchor.constraint(equalTo:
+                                                view.safeAreaLayoutGuide.centerXAnchor),
+            indicator.centerYAnchor.constraint(equalTo:
+                                                view.safeAreaLayoutGuide.centerYAnchor)
+        ])
+        
+        
+        password.isSecureTextEntry = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -79,17 +108,10 @@ class SignUpViewController: UIViewController, DatabaseListener {
             displayMessage(title: "Empty Feilds", message: "Please fill in all the empty feild and rerun the app")
         }
         
+        indicator.startAnimating()
         databaseController?.createAccount(email: email, password: password, Fname: Fname, Lname: Lname)
     }
-    }
-    /*
-    // MARK: - Navigation
+}
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 

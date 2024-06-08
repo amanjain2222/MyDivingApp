@@ -10,6 +10,8 @@ import FirebaseFirestore
 import Firebase
 
 class ChannelsTableViewController: UITableViewController, DatabaseListener {
+    
+    
     func onLocationChange(change: DatabaseChange, locations: [DiveLocations]) {
         
     }
@@ -17,6 +19,8 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
     func onLogsChange(change: DatabaseChange, logs: [Logs]) {
     }
     
+    
+    // whenever a channel is added/modified this is called to adjus ttableview accordingly
     func onChatChange(change: DatabaseChange, userChannels: [Channel]) {
         
         if databaseController?.isSignedIn() == true{
@@ -56,17 +60,17 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
     
     func onAuthenticationChange(ifSucessful: Bool) {
         
-
+        
         if databaseController!.isSignedIn(){
             addChannelButton.isHidden = false
             DispatchQueue.main.async {
                 self.tableView.separatorStyle = .singleLine
             }
-
+            
         }else{
             addChannelButton.isHidden = true
             tableView.separatorStyle = .none
-           
+            
         }
         
         DispatchQueue.main.async {
@@ -93,7 +97,7 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
     weak var databaseController: DatabaseProtocol?
     
     var currentuser: User?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -121,11 +125,11 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
         
         NSLayoutConstraint.activate([
             indicator.centerXAnchor.constraint(equalTo:
-                    view.safeAreaLayoutGuide.centerXAnchor),
+                                                view.safeAreaLayoutGuide.centerXAnchor),
             indicator.centerYAnchor.constraint(equalTo:
-        view.safeAreaLayoutGuide.centerYAnchor)
-            ])
-
+                                                view.safeAreaLayoutGuide.centerYAnchor)
+        ])
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -134,19 +138,13 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
         
     }
     
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//        databaseListener?.remove()
-// 
-//    }
-
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         if databaseController!.isSignedIn(){
@@ -155,7 +153,7 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
             return 1
         }
     }
-
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -178,17 +176,11 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
             else{
                 content.text = currentChannel.name
             }
-
-            
             cell.contentConfiguration = content
             
             return cell
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "warninglCell", for: indexPath)
-//            var content = cell.defaultContentConfiguration()
-//            content.text = "Sign in before using chat"
-//            cell.contentConfiguration = content
-//            cell.selectionStyle = .none
             return cell
             
         }
@@ -197,22 +189,19 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
     override func tableView(_ tableView: UITableView,heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let controller = databaseController else{fatalError()}
         if controller.isSignedIn() == false {
-                return 500
-            }
-           // Use the default size for all other rows.
-           return UITableView.automaticDimension
+            return 500
+        }
+        // Use the default size for all other rows.
+        return UITableView.automaticDimension
     }
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let channel = channels[indexPath.row]
-        
-        
-        
         performSegue(withIdentifier: SEGUE_CHANNEL, sender: channel)
     }
-
+    
     
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -223,7 +212,7 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
         return true
     }
     
-
+    
     
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -240,17 +229,14 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
         }
         return indexPath
     }
-
     
     
     
+    // adding new channels. handling appropriate errors and displaying them to users.
     @IBAction func addChannel(_ sender: Any) {
         
         let alertController = UIAlertController(title: "Add New Channel", message: "Search Email of the person you want to start a conversation with", preferredStyle: .alert)
         alertController.addTextField()
-        
-        
-        
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
@@ -263,9 +249,7 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
                     return
                 }
                 
-                
                 var usernames: [String] = []
-                
                 
                 guard let currentUserName = self.currentuser?.Fname, let requestedUserName =  requestedUser.Fname else{
                     return
@@ -296,8 +280,7 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
             
         }
         
-        
-        
+
         alertController.addAction(cancelAction)
         alertController.addAction(addAction)
         self.present(alertController, animated: false, completion: nil)
@@ -308,8 +291,7 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
     
     
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {     
         
         if segue.identifier == SEGUE_CHANNEL{
             let channel = sender as! Channel
@@ -320,8 +302,8 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
             destinationVC.currentuser = self.currentuser
         }
     }
-
-
+    
+    
     
     
     

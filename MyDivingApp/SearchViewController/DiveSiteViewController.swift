@@ -7,11 +7,16 @@
 
 import UIKit
 import MapKit
+
+/*
+ This view controller is responsable for viewing the map view for the selected location.
+ */
+
 class DiveSiteViewController: UIViewController {
     
     var currentSite: DiveSites?
     var isFirstViewApperance = true
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,14 +37,10 @@ class DiveSiteViewController: UIViewController {
         }
         
         focusOn(annotation: mapAnnotation)
-    
-
-        // Do any additional setup after loading the view.
+        
     }
+    
 
-    
-    
-    
     func focusOn(annotation: MKAnnotation) {
         mapView.selectAnnotation(annotation, animated: true)
         
@@ -49,19 +50,7 @@ class DiveSiteViewController: UIViewController {
     
     
     @IBOutlet weak var ocean: UITextField!
-
-
-    
     @IBOutlet weak var mapView: MKMapView!
-    /*
-     
-     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+ 
+    
 }

@@ -23,6 +23,5 @@ class profileViewTableViewCell: UITableViewCell {
     @IBOutlet weak var username: UILabel!
     
     @IBOutlet weak var userEmail: UILabel!
-    @IBOutlet weak var profilePhoto: UIImageView!
     
 }

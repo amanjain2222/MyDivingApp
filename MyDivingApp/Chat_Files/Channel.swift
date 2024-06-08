@@ -15,15 +15,5 @@ class Channel: NSObject, Codable {
     var name: String?
     var userReferances: [DocumentReference]?
     var Users: [User]?
-//    var channelUsers: [String] = []
-//    var channelUsernames: [String] = []
-    
-//    init(id: String, name: String, channelUsers: [String]?) {
-//        self.id = id
-//        self.name = name
-//        self.channelUsers = channelUsers
-//    }
-
-
 
 }

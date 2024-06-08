@@ -17,7 +17,10 @@ class CoreDataController: NSObject, DatabaseProtocol,NSFetchedResultsControllerD
     var logsFetchedResultsController: NSFetchedResultsController<Logs>?
     var locationFetchedResultsController: NSFetchedResultsController<DiveLocations>?
     
+ 
+    
     override init() {
+        // Initialize the Core Data stack
         persistentContainer = NSPersistentContainer(name: "DivingCoreData")
         persistentContainer.loadPersistentStores() {(description, error ) in
             if let error = error {
@@ -27,6 +30,8 @@ class CoreDataController: NSObject, DatabaseProtocol,NSFetchedResultsControllerD
         super.init()
     }
     
+    
+    // Save changes if there are any
     func cleanup() {
         if persistentContainer.viewContext.hasChanges {
             do {
@@ -37,6 +42,7 @@ class CoreDataController: NSObject, DatabaseProtocol,NSFetchedResultsControllerD
         }
     }
     
+    // Add a new dive location if it doesn't already exist
     func addDiveLocation(location: String) -> DiveLocations? {
         let previousSearchedLocations = fetchAllLocations()
         var alreadyPresent: Bool = false
@@ -54,11 +60,17 @@ class CoreDataController: NSObject, DatabaseProtocol,NSFetchedResultsControllerD
         return nil
     }
     
+    
+    
+    // Delete a dive location
     func deleteLocation(location: DiveLocations){
         
         persistentContainer.viewContext.delete(location)
     }
     
+    
+    
+    // Add log entry
     func addlogCoredata(title: String, divetype: TypeOFDive, DiveLocation: String, DiveDate: Date, duration: String, weight: String, comments: String) -> Logs {
         
         let log = NSEntityDescription.insertNewObject(forEntityName: "Logs", into: persistentContainer.viewContext) as! Logs
@@ -75,12 +87,18 @@ class CoreDataController: NSObject, DatabaseProtocol,NSFetchedResultsControllerD
         
     }
     
-    func deletelog(log: Logs) {
+    
+    
+    // Delete a log entry
+    func deleteLogCoredata(log: Logs) {
         
         persistentContainer.viewContext.delete(log)
     }
     
     
+    
+    
+    // Fetch all dive locations
     func fetchAllLocations() -> [DiveLocations]{
         
         let fetchRequest: NSFetchRequest<DiveLocations> = DiveLocations.fetchRequest()
@@ -94,29 +112,25 @@ class CoreDataController: NSObject, DatabaseProtocol,NSFetchedResultsControllerD
         } catch {
             print("Fetch Request Failed: \(error)")
         }
-            
-            var allLocations = [DiveLocations]()
-//            var locations: [String] = []
-            if locationFetchedResultsController?.fetchedObjects != nil {
-                allLocations = (locationFetchedResultsController?.fetchedObjects)!
-            }
-//            for divelocations in allLocations{
-//                locations.append(divelocations.location!)
-//            }
-            return allLocations
-        
+        var allLocations = [DiveLocations]()
+
+        if locationFetchedResultsController?.fetchedObjects != nil {
+            allLocations = (locationFetchedResultsController?.fetchedObjects)!
+        }
+
+        return allLocations
     }
     
     
+    // Fetch all log entries
     func fetchAllLogs() -> [Logs] {
 
-        
         if logsFetchedResultsController == nil {
             let fetchRequest: NSFetchRequest<Logs> = Logs.fetchRequest()
             let nameSortDescriptor = NSSortDescriptor(key: "title", ascending: true)
-    
+            
             fetchRequest.sortDescriptors = [nameSortDescriptor]
- 
+            
             logsFetchedResultsController = NSFetchedResultsController<Logs>(fetchRequest: fetchRequest, managedObjectContext: persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
             logsFetchedResultsController?.delegate = self
             do {
@@ -132,31 +146,48 @@ class CoreDataController: NSObject, DatabaseProtocol,NSFetchedResultsControllerD
         return allLogs
     }
     
-    func addListener(listener: DatabaseListener) { 
+    
+    
+    // Add a listener for database changes
+    func addListener(listener: DatabaseListener) {
         listeners.addDelegate(listener)
         
         if listener.listenerType == .Userlogs || listener.listenerType == .all {
             listener.onLogsChange(change: .update, logs: fetchAllLogs())
-                                                                                                           
-            }
+            
+        }
         if listener.listenerType == .diveLocations || listener.listenerType == .all {
             listener.onLocationChange(change: .update, locations: fetchAllLocations())
-                                                                                                           
-            }
+            
         }
+    }
+    
+    
+    
+    
     
     func removeListener(listener: DatabaseListener) {
         listeners.removeDelegate(listener)
     }
     
+    
+    
+    // Check if user is signed in, By default is is set to tru because if the user is signed out, that would mean the user is using the app anonymously
+    // this would be false/true when using firebase storage instead of coredata
     func isSignedIn() -> Bool {
         return true
     }
     
+    
+    
+    // Check if the database is Core Data
     func isCoredata() -> Bool{
         return true
     }
     
+    
+    
+    // Handle content changes in the fetched results controller
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         
         if controller == logsFetchedResultsController {
@@ -165,7 +196,7 @@ class CoreDataController: NSObject, DatabaseProtocol,NSFetchedResultsControllerD
                     listener.onLogsChange(change: .update, logs: fetchAllLogs())
                 }
             }
-            }
+        }
         
         if controller == locationFetchedResultsController {
             listeners.invoke { (listener) in
@@ -176,5 +207,9 @@ class CoreDataController: NSObject, DatabaseProtocol,NSFetchedResultsControllerD
             
         }
     }
-
+    
+    
+    
+    
+    
 }

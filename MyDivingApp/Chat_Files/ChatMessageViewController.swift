@@ -10,6 +10,9 @@ import MessageKit
 import InputBarAccessoryView
 import FirebaseFirestore
 
+/*
+ class responsable to manages Chats between users, making/editing/deleting channels as per user needs
+ */
 
 class ChatMessageViewController: MessagesViewController, MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDelegate, InputBarAccessoryViewDelegate,  ChannelNameChangeDelgate {
     
@@ -19,7 +22,7 @@ class ChatMessageViewController: MessagesViewController, MessagesDataSource, Mes
         self.channelName = newName
     }
     
-
+    
     var sender: Sender?
     
     var currentChannel: Channel?
@@ -41,7 +44,7 @@ class ChatMessageViewController: MessagesViewController, MessagesDataSource, Mes
     weak var databaseController: DatabaseProtocol?
     
     let formatter: DateFormatter = {
-    let formatter = DateFormatter()
+        let formatter = DateFormatter()
         formatter.timeZone = .current
         formatter.dateFormat = "HH:mm dd/MM/yy"
         return formatter
@@ -51,7 +54,7 @@ class ChatMessageViewController: MessagesViewController, MessagesDataSource, Mes
         super.viewDidLoad()
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
-
+        
         
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
@@ -62,7 +65,7 @@ class ChatMessageViewController: MessagesViewController, MessagesDataSource, Mes
         maintainPositionOnInputBarHeightChanged = true
         
         if currentChannel != nil {
-        let database = Firestore.firestore()
+            let database = Firestore.firestore()
             channelRef = database.collection("Channels").document(currentChannel!.id!).collection("messages")
             
             navigationItem.title = "\(channelName ?? "Anon user")"
@@ -71,6 +74,7 @@ class ChatMessageViewController: MessagesViewController, MessagesDataSource, Mes
         tabBarController?.tabBar.isHidden = true
     }
     
+    // every time the view appears the chats are displayed based on the time sent
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -157,17 +161,16 @@ class ChatMessageViewController: MessagesViewController, MessagesDataSource, Mes
         let tail: MessageStyle.TailCorner = isFromCurrentSender(message: message) ? .bottomRight : .bottomLeft
         return .bubbleTail(tail, .curved)
     }
-
     
     
-  
+    
+    // if you want to add another person in the group chat:
+    
     @IBAction func addGroupMember(_ sender: Any) {
         
         let alertController = UIAlertController(title: "Add Member To This Chat", message: "Search Email of the person you want to add", preferredStyle: .alert)
         alertController.addTextField()
-        
-        
-        
+           
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
@@ -203,7 +206,7 @@ class ChatMessageViewController: MessagesViewController, MessagesDataSource, Mes
                 if let _ = self.databaseController?.addChannelHelper(name: channelName, users: channelUsers ){
                     self.navigationController?.popViewController(animated: false)
                 }
-
+                
             }
             
             
@@ -217,7 +220,7 @@ class ChatMessageViewController: MessagesViewController, MessagesDataSource, Mes
         
     }
     
-    
+    // using delegation to exchange necessary propertiesinformation between view controllers
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "channelDetails"{
             

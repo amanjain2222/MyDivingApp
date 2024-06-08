@@ -60,7 +60,6 @@
 		275150C02C05BCCB002EB8C5 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275150BF2C05BCCB002EB8C5 /* Users.swift */; };
 		275F443E2BD7B24F00E136CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275F443D2BD7B24F00E136CD /* AppDelegate.swift */; };
 		275F44402BD7B24F00E136CD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275F443F2BD7B24F00E136CD /* SceneDelegate.swift */; };
-		275F44422BD7B24F00E136CD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275F44412BD7B24F00E136CD /* ViewController.swift */; };
 		275F44452BD7B24F00E136CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 275F44432BD7B24F00E136CD /* Main.storyboard */; };
 		275F44472BD7B25000E136CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 275F44462BD7B25000E136CD /* Assets.xcassets */; };
 		275F444A2BD7B25000E136CD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 275F44482BD7B25000E136CD /* LaunchScreen.storyboard */; };
@@ -117,7 +116,6 @@
 		275F443A2BD7B24F00E136CD /* MyDivingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyDivingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		275F443D2BD7B24F00E136CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		275F443F2BD7B24F00E136CD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		275F44412BD7B24F00E136CD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		275F44442BD7B24F00E136CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		275F44462BD7B25000E136CD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		275F44492BD7B25000E136CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -154,6 +152,7 @@
 		07BCE9F02BEB85F2008DB0CB /* SearchViewController */ = {
 			isa = PBXGroup;
 			children = (
+				07071A122C1363F300D209DC /* searchedLocationTableViewCell.swift */,
 				07BF44E82BD8BD490062EFD0 /* DiveSites.swift */,
 				07BF44E62BD8BD270062EFD0 /* DiveSiteObject.swift */,
 				07BF44EC2BD8DAEF0062EFD0 /* DiveSitesSearchTableViewController.swift */,
@@ -171,8 +170,65 @@
 				07BCE9F22BEB8665008DB0CB /* MulticastDelegate.swift */,
 				07BCE9F42BEB8678008DB0CB /* DatabaseProtocol.swift */,
 				078FA44F2C0EB9D7001208A4 /* CoreDataController.swift */,
+				070B0B7F2BDA9F640098EB91 /* FirebaseController.swift */,
 			);
 			path = Database;
+			sourceTree = "<group>";
+		};
+		07D2A5962C147ADA00B19845 /* Logbook_Files */ = {
+			isa = PBXGroup;
+			children = (
+				07071A142C1366CE00D209DC /* warningCoredataTableViewCell.swift */,
+				072D217F2BF4BA1E0068E6B3 /* ViewDiveSiteViewController.swift */,
+				07BCE9FD2BEBB96B008DB0CB /* LogBookTableViewController.swift */,
+				07BCE9FF2BEBC362008DB0CB /* diveLogs.swift */,
+				07BCEA012BEBC864008DB0CB /* LogBookWarningViewCell.swift */,
+				07BCEA032BEC5918008DB0CB /* userLogs.swift */,
+				07BCEA072BEC6F87008DB0CB /* CreateLogViewController.swift */,
+			);
+			path = Logbook_Files;
+			sourceTree = "<group>";
+		};
+		07D2A5972C147BA000B19845 /* Encyclopedia */ = {
+			isa = PBXGroup;
+			children = (
+				07A342372BF59EFF00A4FF35 /* FishInfo.swift */,
+				07A342392BF5A35900A4FF35 /* FishInfoViewController.swift */,
+				072303912C02F784003F41AC /* FishSpeciesListTableViewController.swift */,
+				072303932C0320AF003F41AC /* viewFishViewController.swift */,
+				0768F5232C130458001B9B6A /* webViewController.swift */,
+			);
+			path = Encyclopedia;
+			sourceTree = "<group>";
+		};
+		07D2A5982C147C0D00B19845 /* Chat_Files */ = {
+			isa = PBXGroup;
+			children = (
+				072303A12C04DAAA003F41AC /* ChatMessageViewController.swift */,
+				072303992C045D29003F41AC /* Channel.swift */,
+				0723039D2C04D56A003F41AC /* ChatMessage.swift */,
+				0723039F2C04D6CF003F41AC /* ChannelsTableViewController.swift */,
+				07071A182C143D5600D209DC /* channelDetailsViewController.swift */,
+				0723039B2C04D4E7003F41AC /* Sender.swift */,
+			);
+			path = Chat_Files;
+			sourceTree = "<group>";
+		};
+		07D2A5992C147C5D00B19845 /* morePage */ = {
+			isa = PBXGroup;
+			children = (
+				275150BF2C05BCCB002EB8C5 /* Users.swift */,
+				07BCE9FB2BEB8F46008DB0CB /* MoreScreenTableViewController.swift */,
+				07BCEA052BEC6BB8008DB0CB /* LoginPageViewController.swift */,
+				072D21792BF457F90068E6B3 /* profileViewTableViewCell.swift */,
+				072D217D2BF478CF0068E6B3 /* SignUpViewController.swift */,
+				07D5E0572C1155A100E44E59 /* SignInTableViewCell.swift */,
+				0768F5212C12F71F001B9B6A /* aboutPageViewController.swift */,
+				07071A162C14106200D209DC /* accountsPageViewController.swift */,
+				07D2A5922C146B8700B19845 /* settingsViewController.swift */,
+				07D2A5942C146BA100B19845 /* diveResourcesViewController.swift */,
+			);
+			path = morePage;
 			sourceTree = "<group>";
 		};
 		275F44312BD7B24F00E136CD = {
@@ -194,48 +250,21 @@
 		275F443C2BD7B24F00E136CD /* MyDivingApp */ = {
 			isa = PBXGroup;
 			children = (
+				07B113032BD7E6E300FFECC5 /* GoogleService-Info.plist */,
+				275F444B2BD7B25000E136CD /* Info.plist */,
+				275F44432BD7B24F00E136CD /* Main.storyboard */,
+				275F44482BD7B25000E136CD /* LaunchScreen.storyboard */,
+				275F44462BD7B25000E136CD /* Assets.xcassets */,
+				275F443D2BD7B24F00E136CD /* AppDelegate.swift */,
+				275F443F2BD7B24F00E136CD /* SceneDelegate.swift */,
 				078FA4422C0EB5F0001208A4 /* datamodel */,
 				07BCE9F12BEB8657008DB0CB /* Database */,
 				07BCE9F02BEB85F2008DB0CB /* SearchViewController */,
-				07B113032BD7E6E300FFECC5 /* GoogleService-Info.plist */,
-				275F443D2BD7B24F00E136CD /* AppDelegate.swift */,
-				275F443F2BD7B24F00E136CD /* SceneDelegate.swift */,
-				275F44412BD7B24F00E136CD /* ViewController.swift */,
-				070B0B7F2BDA9F640098EB91 /* FirebaseController.swift */,
-				275F44432BD7B24F00E136CD /* Main.storyboard */,
-				275F44482BD7B25000E136CD /* LaunchScreen.storyboard */,
-				275F444B2BD7B25000E136CD /* Info.plist */,
-				275F44462BD7B25000E136CD /* Assets.xcassets */,
-				07BCE9FB2BEB8F46008DB0CB /* MoreScreenTableViewController.swift */,
-				07BCE9FD2BEBB96B008DB0CB /* LogBookTableViewController.swift */,
-				07BCE9FF2BEBC362008DB0CB /* diveLogs.swift */,
-				07BCEA012BEBC864008DB0CB /* LogBookWarningViewCell.swift */,
-				275150BF2C05BCCB002EB8C5 /* Users.swift */,
-				07BCEA032BEC5918008DB0CB /* userLogs.swift */,
-				07BCEA052BEC6BB8008DB0CB /* LoginPageViewController.swift */,
-				07BCEA072BEC6F87008DB0CB /* CreateLogViewController.swift */,
-				072D21792BF457F90068E6B3 /* profileViewTableViewCell.swift */,
-				072D217D2BF478CF0068E6B3 /* SignUpViewController.swift */,
-				072D217F2BF4BA1E0068E6B3 /* ViewDiveSiteViewController.swift */,
-				07A342372BF59EFF00A4FF35 /* FishInfo.swift */,
-				07A342392BF5A35900A4FF35 /* FishInfoViewController.swift */,
-				072303912C02F784003F41AC /* FishSpeciesListTableViewController.swift */,
-				072303932C0320AF003F41AC /* viewFishViewController.swift */,
+				07D2A5962C147ADA00B19845 /* Logbook_Files */,
+				07D2A5972C147BA000B19845 /* Encyclopedia */,
+				07D2A5982C147C0D00B19845 /* Chat_Files */,
+				07D2A5992C147C5D00B19845 /* morePage */,
 				072303972C0331D8003F41AC /* UIViewController+displayMessage.swift */,
-				072303992C045D29003F41AC /* Channel.swift */,
-				0723039B2C04D4E7003F41AC /* Sender.swift */,
-				0723039D2C04D56A003F41AC /* ChatMessage.swift */,
-				0723039F2C04D6CF003F41AC /* ChannelsTableViewController.swift */,
-				072303A12C04DAAA003F41AC /* ChatMessageViewController.swift */,
-				07D5E0572C1155A100E44E59 /* SignInTableViewCell.swift */,
-				0768F5212C12F71F001B9B6A /* aboutPageViewController.swift */,
-				0768F5232C130458001B9B6A /* webViewController.swift */,
-				07071A122C1363F300D209DC /* searchedLocationTableViewCell.swift */,
-				07071A142C1366CE00D209DC /* warningCoredataTableViewCell.swift */,
-				07071A162C14106200D209DC /* accountsPageViewController.swift */,
-				07071A182C143D5600D209DC /* channelDetailsViewController.swift */,
-				07D2A5922C146B8700B19845 /* settingsViewController.swift */,
-				07D2A5942C146BA100B19845 /* diveResourcesViewController.swift */,
 			);
 			path = MyDivingApp;
 			sourceTree = "<group>";
@@ -333,7 +362,6 @@
 				0723039C2C04D4E8003F41AC /* Sender.swift in Sources */,
 				07BF44E92BD8BD490062EFD0 /* DiveSites.swift in Sources */,
 				078FA4502C0EB9D7001208A4 /* CoreDataController.swift in Sources */,
-				275F44422BD7B24F00E136CD /* ViewController.swift in Sources */,
 				07EEDD852BDA964300172BF2 /* DiveSiteViewController.swift in Sources */,
 				07BCEA022BEBC864008DB0CB /* LogBookWarningViewCell.swift in Sources */,
 				07BCEA002BEBC362008DB0CB /* diveLogs.swift in Sources */,

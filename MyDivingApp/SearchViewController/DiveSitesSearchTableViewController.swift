@@ -26,8 +26,8 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
     ]
     
     weak var databaseController: DatabaseProtocol?
-
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -51,10 +51,10 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
         
         NSLayoutConstraint.activate([
             indicator.centerXAnchor.constraint(equalTo:
-                    view.safeAreaLayoutGuide.centerXAnchor),
+                                                view.safeAreaLayoutGuide.centerXAnchor),
             indicator.centerYAnchor.constraint(equalTo:
-        view.safeAreaLayoutGuide.centerYAnchor)
-            ])
+                                                view.safeAreaLayoutGuide.centerYAnchor)
+        ])
         
         
         if CurrentLocation == nil {
@@ -76,9 +76,9 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
     
     @IBOutlet weak var CurrentLocationButton: UIBarButtonItem!
     
-
-
     
+    
+    //making request to API for dive sites, if not returned error is properly managed and displayed to the user
     func requestDiveSites(_ region: String) async{
         
         var searchURLComponents = URLComponents()
@@ -95,12 +95,12 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
         var urlRequest = URLRequest(url: requestURL)
         
         urlRequest.allHTTPHeaderFields = [
-             "X-RapidAPI-Key": Key,
-             "X-RapidAPI-Host": "world-scuba-diving-sites-api.p.rapidapi.com"
-         ]
+            "X-RapidAPI-Key": Key,
+            "X-RapidAPI-Host": "world-scuba-diving-sites-api.p.rapidapi.com"
+        ]
         
         do {
-            let (data,_ ) = try await URLSession.shared.data(for: urlRequest) 
+            let (data,_ ) = try await URLSession.shared.data(for: urlRequest)
             
             indicator.stopAnimating()
             let decoder = JSONDecoder()
@@ -139,13 +139,13 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
                 return Site.name?.lowercased().contains(searchText) ?? false
             })
         } else {
-        filteredSites = newSites
+            filteredSites = newSites
         }
         tableView.reloadData()
         
     }
     
- 
+    
     func UpdateCurrentLocation(_ Location: String?) {
         if Location != "" && Location != CurrentLocation{
             newSites.removeAll()
@@ -160,14 +160,14 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
     }
     
     
-
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         if filteredSites.count != 0{
@@ -177,7 +177,7 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
         }
         
     }
-
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -194,18 +194,18 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
             return cell
             
         }
-
+        
     }
     
     override func tableView(_ tableView: UITableView,heightForRowAt indexPath: IndexPath) -> CGFloat {
-
+        
         if filteredSites.count == 0 {
-                return 500
-            }
-
-
-           // Use the default size for all other rows.
-           return UITableView.automaticDimension
+            return 500
+        }
+        
+        
+        // Use the default size for all other rows.
+        return UITableView.automaticDimension
     }
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
@@ -215,7 +215,7 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
         return indexPath
     }
     
-
+    
     
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -226,9 +226,11 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         currentSite = filteredSites[indexPath.row]
         performSegue(withIdentifier: "diveSiteInfo", sender: nil)
-    
+        
     }
     
+    
+    //doing some preparation and using delegation to cummunicate and passing info to other controllers
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "diveSiteInfo"{
@@ -243,41 +245,6 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
         
         return
     }
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
 
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
 }

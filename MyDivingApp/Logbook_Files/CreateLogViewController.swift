@@ -7,6 +7,10 @@
 
 import UIKit
 
+/*
+ This controller is responsible for generating a log and storing it in firebase/coredata appropriately.
+ */
+
 class CreateLogViewController: UIViewController {
     
     weak var databaseController: DatabaseProtocol?
@@ -15,29 +19,22 @@ class CreateLogViewController: UIViewController {
         super.viewDidLoad()
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
-        // Do any additional setup after loading the view.
         
         if databaseController?.isSignedIn() == false{
             databaseController = appDelegate?.coreDatabaseController
         }
     }
     
-
-
+    
+    
     @IBOutlet weak var LogTitle: UITextField!
-    
     @IBOutlet weak var DiveType: UISegmentedControl!
-    
-
     @IBOutlet weak var DiveDate: UIDatePicker!
-    
     @IBOutlet weak var DiveLocation: UITextField!
-    
     @IBOutlet weak var Duration: UITextField!
-    
     @IBOutlet weak var weightsUsed: UITextField!
-    
     @IBOutlet weak var additionalComments: UITextField!
+    
     
     
     @IBAction func AddLog(_ sender: Any) {
@@ -54,8 +51,13 @@ class CreateLogViewController: UIViewController {
             navigationController?.popViewController(animated: true)
         }else{
             guard let title = LogTitle.text, let diveType = MyDivingApp.TypeOFDive(rawValue: Int32(DiveType.selectedSegmentIndex)), let diveLocation = DiveLocation.text, let duration = Duration.text, let weights = weightsUsed.text, let aditionalComments = additionalComments.text
-                    //            guard let title = LogTitle.text, let diveType = MyDivingApp.TypeOFDive(rawValue: Int32(DiveType.selectedSegmentIndex)), let diveDate = DiveDate.text, let diveLocation = DiveLocation.text
+     
             else {
+                return
+            }
+            
+            if title == ""{
+                self.displayMessage(title: "Empty title", message: "Please give a title for your dive")
                 return
             }
             
@@ -65,14 +67,5 @@ class CreateLogViewController: UIViewController {
             
         }
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
 }

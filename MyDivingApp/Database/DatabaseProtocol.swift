@@ -6,9 +6,18 @@
 //
 import Firebase
 import FirebaseFirestoreSwift
+
+
 protocol DatabaseProtocol: AnyObject {
     
+    var currentUser: FirebaseAuth.User?  {get}
+    var currentUserLogs: UserLogs {get}
+    var currentUserDetails: User {get set}
+    var currentSender: Sender? { get set }
+    
+    
     func cleanup()
+    
     func addListener(listener: DatabaseListener)
     func removeListener(listener: DatabaseListener)
     
@@ -16,7 +25,7 @@ protocol DatabaseProtocol: AnyObject {
     func deletelog(log: diveLogs)
     
     func addlogCoredata(title: String, divetype: TypeOFDive, DiveLocation: String, DiveDate: Date, duration: String, weight: String, comments: String)-> Logs
-    func deletelog(log: Logs)
+    func deleteLogCoredata(log: Logs)
     
     func addUserLogs(logID: String, Fname: String, Lname: String) async throws -> UserLogs
     func deleteUserLogs(userlog: UserLogs)
@@ -30,27 +39,28 @@ protocol DatabaseProtocol: AnyObject {
     func deleteUserAccount() async throws
     
     func isSignedIn() -> Bool
-    var currentUser: FirebaseAuth.User?  {get}
-    
-    
-    var currentUserLogs: UserLogs {get}
-    var currentUserDetails: User {get set}
-    var currentSender: Sender? { get set }
     
     func findUserByEmail(_ email: String) async throws -> User?
-    
     func getUsersFromReferance(Referances: [DocumentReference])async  -> [User]?
     
     func addChannelHelper(name: String, users:[User]) -> Channel?
     func deleteChannel(channel: Channel)
     func changeChannelName(newName: String, channel: Channel)
+    func removeUserFromChannel(user: User, channel: Channel)
     
     func addDiveLocation(location: String) -> DiveLocations?
     func deleteLocation(location: DiveLocations)
-    func removeUserFromChannel(user: User, channel: Channel)
     
     func isCoredata() -> Bool
 }
+
+/*
+This extension is so I won't have to declare all these functions in all the files that follows databaseProtocol.
+Any controller implementing these functions will override them.
+ All the default implementations of these functions are given below.
+ */
+
+
 extension DatabaseProtocol {
     func cleanup() {}
     func addListener(listener: DatabaseListener) {}
@@ -60,7 +70,7 @@ extension DatabaseProtocol {
     func addlogCoredata(title: String, divetype: TypeOFDive, DiveLocation: String, DiveDate: Date, duration: String, weight: String, comments: String) -> Logs { return Logs() }
     func addDiveLocation(location: String) -> DiveLocations? { return  DiveLocations() }
     func deleteLocation(location: DiveLocations) {}
-    func deletelog(log: Logs) {}
+    func deleteLogCoredata(log: Logs) {}
     func addUserLogs(logID: String, Fname: String, Lname: String) async throws -> UserLogs { return UserLogs() }
     func deleteUserLogs(userlog: UserLogs) {}
     func addLogToUserLogs(log: diveLogs, userLog: UserLogs) -> Bool { return false }
@@ -91,7 +101,7 @@ enum DatabaseChange {
     
 }
 enum ListenerType {
-
+    
     case all
     case authentication
     case logs

@@ -6,38 +6,27 @@
 //
 
 import UIKit
+// this page is accounts page, only handels teh delete account functionality.
 
 class accountsPageViewController: UIViewController {
     
     weak var databaseController: DatabaseProtocol?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
-
-        // Do any additional setup after loading the view.
+        
+        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    
     
     @IBAction func deleteAccount(_ sender: Any) {
         
         
         let alertController = UIAlertController(title: "This action can't be redone", message: "Are you sure you want to delete your account?", preferredStyle: .alert)
-        
-        
-        
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
@@ -53,7 +42,7 @@ class accountsPageViewController: UIViewController {
                     self.displayMessage(title: "Error", message: error.localizedDescription)
                 }
             }
-                 
+            
         }
         
         
@@ -63,5 +52,5 @@ class accountsPageViewController: UIViewController {
         self.present(alertController, animated: false, completion: nil)
     }
     
-
+    
 }

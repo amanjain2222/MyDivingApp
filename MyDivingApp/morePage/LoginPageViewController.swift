@@ -7,6 +7,9 @@
 
 import UIKit
 
+
+// function to log in a user into the database
+
 class LoginPageViewController: UIViewController, DatabaseListener {
     func onLocationChange(change: DatabaseChange, locations: [DiveLocations]) {
         
@@ -33,8 +36,16 @@ class LoginPageViewController: UIViewController, DatabaseListener {
             DispatchQueue.main.async {
                 self.navigationController?.popViewController(animated: true)
                 self.indicator.stopAnimating()
+                
             }
         }
+        else{
+            DispatchQueue.main.async {
+                self.displayMessage(title: "Failed to authenticate", message: "Please recheck your email/password and try again")
+                self.indicator.stopAnimating()
+            }
+        }
+        
         
     }
     
@@ -43,8 +54,8 @@ class LoginPageViewController: UIViewController, DatabaseListener {
     weak var databaseController: DatabaseProtocol?
     
     var listenerType: ListenerType = .authentication
-
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -57,10 +68,12 @@ class LoginPageViewController: UIViewController, DatabaseListener {
         
         NSLayoutConstraint.activate([
             indicator.centerXAnchor.constraint(equalTo:
-                    view.safeAreaLayoutGuide.centerXAnchor),
+                                                view.safeAreaLayoutGuide.centerXAnchor),
             indicator.centerYAnchor.constraint(equalTo:
-        view.safeAreaLayoutGuide.centerYAnchor)
-            ])
+                                                view.safeAreaLayoutGuide.centerYAnchor)
+        ])
+        
+        PasswordText.isSecureTextEntry = true
         
         
     }
@@ -73,18 +86,10 @@ class LoginPageViewController: UIViewController, DatabaseListener {
     override func viewDidDisappear(_ animated: Bool) {
         databaseController?.removeListener(listener: self)
     }
-
+    
     @IBOutlet weak var PasswordText: UITextField!
     @IBOutlet weak var EmailText: UITextField!
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
     @IBAction func login(_ sender: Any) {
         

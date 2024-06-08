@@ -1,35 +1,30 @@
 //
-//  webViewController.swift
+//  diveResourcesViewController.swift
 //  MyDivingApp
 //
-//  Created by aman on 7/6/2024.
+//  Created by aman on 8/6/2024.
 //
 
 import UIKit
 import WebKit
 
-class webViewController: UIViewController {
-
- 
-    @IBOutlet weak var webView: WKWebView!
-    var webUrl: String?
+// is a web view of the info and resources page
+class diveResourcesViewController: UIViewController {
+    
+    var webUrl: String = "https://familydoctor.org/scuba-diving-safety/"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        guard let FishInfoUrl = URL(string: webUrl ?? "invalid" ) else{
+        guard let resourcesURL = URL(string: webUrl) else{
             displayMessage(title: "invalid url", message: "")
      
             return
         }
  
-        let request = URLRequest(url: FishInfoUrl)
+        let request = URLRequest(url: resourcesURL)
    
-        
-        
-        webView.load(request)
-        
-
-        // Do any additional setup after loading the view.
+        resourcesView.load(request)
     }
     
 
@@ -42,5 +37,8 @@ class webViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    
+    @IBOutlet weak var resourcesView: WKWebView!
+    
 }

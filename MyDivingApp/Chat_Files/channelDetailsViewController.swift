@@ -12,7 +12,9 @@ protocol ChannelNameChangeDelgate: AnyObject
     func changedChannelName(_ newName: String)
 }
 
-
+/* 
+ responsable for viewing details such as channel name and members. Users can modify the cintents of channel through this view controller.
+ */
 class channelDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     
@@ -43,16 +45,13 @@ class channelDetailsViewController: UIViewController, UITableViewDelegate, UITab
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         var currnetUser: User
         if editingStyle == .delete {
-            if var currentUsers = currentChannelUsers{
+            if let currentUsers = currentChannelUsers{
                 currnetUser = currentUsers[indexPath.row]
                 databaseController?.removeUserFromChannel(user: currnetUser, channel: currentChannel!)
                 currentChannelUsers!.remove(at: indexPath.row)
                 tableView.reloadData()
                 
-            }
-            
-            
-            
+            }  
             
         }
     }
@@ -69,10 +68,10 @@ class channelDetailsViewController: UIViewController, UITableViewDelegate, UITab
         
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
-
+        
         ChannelUsers.delegate = self
         ChannelUsers.dataSource = self
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -85,7 +84,7 @@ class channelDetailsViewController: UIViewController, UITableViewDelegate, UITab
             editNameButton.isHidden = false
         }
     }
-
+    
     @IBOutlet weak var channelName: UILabel!
     
     @IBOutlet weak var ChannelUsers: UITableView!
@@ -111,8 +110,8 @@ class channelDetailsViewController: UIViewController, UITableViewDelegate, UITab
             self.delegate?.changedChannelName(newName)
             
             self.dismiss(animated: true)
-            }
-            
+        }
+        
         
         
         

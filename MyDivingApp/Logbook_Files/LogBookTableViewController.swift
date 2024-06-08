@@ -8,6 +8,47 @@
 import UIKit
 
 class LogBookTableViewController: UITableViewController, DatabaseListener {
+    
+    var listenerType: ListenerType = .Userlogs
+    
+    // Sections for different dive types
+    var section_shore = 0
+    var section_boat = 1
+    var section_pier = 2
+    var section_other = 3
+    
+    // Sections for CoreData dive types
+    var section_warning_cell = 0
+    var section_shore_Coredata = 1
+    var section_boat_Coredata = 2
+    var section_pier_Coredata = 3
+    var section_other_Coredata = 4
+    
+    // Current selected log
+    var currentLog: diveLogs?
+    var currentLogcoredata: Logs?
+    
+    // Arrays to store different types of dive
+    var shoreDives: [diveLogs] = []
+    var boatDives: [diveLogs] = []
+    var pierDives: [diveLogs] = []
+    var otherDives: [diveLogs] = []
+    
+    
+    var shoreDivesCoredata: [Logs] = []
+    var boatDivesCoredata: [Logs] = []
+    var pierDivesCoredata: [Logs] = []
+    var otherDivesCoredata: [Logs] = []
+    
+    
+    var indicator = UIActivityIndicatorView()
+    weak var databaseController: DatabaseProtocol?
+    
+    var allLogs: [diveLogs] = []
+    var allLogsCoredata: [Logs] = []
+    
+    
+    
     func onLocationChange(change: DatabaseChange, locations: [DiveLocations]) {
         
     }
@@ -76,37 +117,10 @@ class LogBookTableViewController: UITableViewController, DatabaseListener {
     }
     
     
-    var listenerType: ListenerType = .Userlogs
-    
-    var section_shore = 0
-    var section_boat = 1
-    var section_pier = 2
-    var section_other = 3
-    
-    
-    var section_warning_cell = 0
-    var section_shore_Coredata = 1
-    var section_boat_Coredata = 2
-    var section_pier_Coredata = 3
-    var section_other_Coredata = 4
-    
-    var currentLog: diveLogs?
-    var currentLogcoredata: Logs?
-    
-    var shoreDives: [diveLogs] = []
-    var boatDives: [diveLogs] = []
-    var pierDives: [diveLogs] = []
-    var otherDives: [diveLogs] = []
-    
-    
-    var shoreDivesCoredata: [Logs] = []
-    var boatDivesCoredata: [Logs] = []
-    var pierDivesCoredata: [Logs] = []
-    var otherDivesCoredata: [Logs] = []
-    
+
     
     func onAuthenticationChange(ifSucessful: Bool) {
-            
+        
         DispatchQueue.main.async {
             self.tableView.reloadData()
             self.indicator.stopAnimating()
@@ -114,14 +128,12 @@ class LogBookTableViewController: UITableViewController, DatabaseListener {
         
     }
     
-    var indicator = UIActivityIndicatorView()
-    weak var databaseController: DatabaseProtocol?
 
-    var allLogs: [diveLogs] = []
-    var allLogsCoredata: [Logs] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Setup database controller and add listeners, according to the signed in status of the user, this determies if we want to use firebase or coredata.
         
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
@@ -131,7 +143,6 @@ class LogBookTableViewController: UITableViewController, DatabaseListener {
             databaseController = appDelegate?.coreDatabaseController
             databaseController?.addListener(listener: self)
         }
-        //self.indicator.startAnimating()
         
         indicator.style = UIActivityIndicatorView.Style.large
         indicator.translatesAutoresizingMaskIntoConstraints = false
@@ -139,46 +150,38 @@ class LogBookTableViewController: UITableViewController, DatabaseListener {
         
         NSLayoutConstraint.activate([
             indicator.centerXAnchor.constraint(equalTo:
-                    view.safeAreaLayoutGuide.centerXAnchor),
+                                                view.safeAreaLayoutGuide.centerXAnchor),
             indicator.centerYAnchor.constraint(equalTo:
-        view.safeAreaLayoutGuide.centerYAnchor)
-            ])
-       
-                
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+                                                view.safeAreaLayoutGuide.centerYAnchor)
+        ])
         
-        //tableView.separatorStyle = .none
-        //tableView.allowsSelection = false
+        
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.indicator.startAnimating()
-
-    let appDelegate = UIApplication.shared.delegate as? AppDelegate
-    databaseController = appDelegate?.databaseController
-    databaseController?.addListener(listener: self)
-    if databaseController?.isSignedIn() == false{
-        databaseController?.removeListener(listener: self)
-        databaseController = appDelegate?.coreDatabaseController
+        
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        databaseController = appDelegate?.databaseController
         databaseController?.addListener(listener: self)
-    }
-                
+        if databaseController?.isSignedIn() == false{
+            databaseController?.removeListener(listener: self)
+            databaseController = appDelegate?.coreDatabaseController
+            databaseController?.addListener(listener: self)
+        }
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         databaseController?.removeListener(listener: self)
     }
-
     
-
+    
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         if databaseController?.isCoredata() == false{
@@ -196,7 +199,7 @@ class LogBookTableViewController: UITableViewController, DatabaseListener {
             }
         }
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         if databaseController?.isCoredata() == false{
@@ -215,7 +218,7 @@ class LogBookTableViewController: UITableViewController, DatabaseListener {
             }
         }
         else{
-           if section == section_warning_cell{
+            if section == section_warning_cell{
                 return 1
             }else if section == section_shore_Coredata{
                 return shoreDivesCoredata.count
@@ -228,20 +231,20 @@ class LogBookTableViewController: UITableViewController, DatabaseListener {
             }else{
                 fatalError()
             }
-        
+            
         }
         
     }
-
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if databaseController?.isCoredata() == false{
-//            if allLogs.count == 0{
-//                let warningcell = tableView.dequeueReusableCell(withIdentifier: "Warning", for: indexPath) as! LogBookWarningViewCell
-//                return warningcell
-//            }
-//            else{
+            //            if allLogs.count == 0{
+            //                let warningcell = tableView.dequeueReusableCell(withIdentifier: "Warning", for: indexPath) as! LogBookWarningViewCell
+            //                return warningcell
+            //            }
+            //            else{
             
             if indexPath.section == section_boat{
                 let logcell = tableView.dequeueReusableCell(withIdentifier: "diveLog", for: indexPath)
@@ -318,21 +321,23 @@ class LogBookTableViewController: UITableViewController, DatabaseListener {
                     fatalError()
                 }
             }
-
+            
         }
-
+        
     }
     
+    
+    //setting the size of warning cells
     override func tableView(_ tableView: UITableView,heightForRowAt indexPath: IndexPath) -> CGFloat {
         if databaseController?.isCoredata() == false && allLogs.count == 0{
             return 500
         }else if databaseController?.isCoredata() == true && allLogsCoredata.count == 0{
             return 500
         }
-           // Use the default size for all other rows.
-           return UITableView.automaticDimension
+        // Use the default size for all other rows.
+        return UITableView.automaticDimension
     }
-
+    
     
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -347,14 +352,13 @@ class LogBookTableViewController: UITableViewController, DatabaseListener {
         return true
     }
     
-
+    
     
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
+    
             if databaseController?.isCoredata() == false{
-//                self.databaseController?.removeLogFromUserLogs(log: allLogs[indexPath.row])
                 if indexPath.section == section_boat{
                     self.databaseController?.removeLogFromUserLogs(log: boatDives[indexPath.row])
                     
@@ -363,26 +367,26 @@ class LogBookTableViewController: UITableViewController, DatabaseListener {
                     
                 }else if indexPath.section == section_pier{
                     self.databaseController?.removeLogFromUserLogs(log: pierDives[indexPath.row])
-
+                    
                 }else if indexPath.section == section_other{
                     self.databaseController?.removeLogFromUserLogs(log: otherDives[indexPath.row])
-
+                    
                 }
             }
             else{
-//                self.databaseController?.deletelog(log: allLogsCoredata[indexPath.row])
+
                 if indexPath.section == section_boat_Coredata{
-                    self.databaseController?.deletelog(log: boatDivesCoredata[indexPath.row])
-                   
+                    self.databaseController?.deleteLogCoredata(log: boatDivesCoredata[indexPath.row])
+                    
                 }else if indexPath.section == section_shore_Coredata{
-                    self.databaseController?.deletelog(log: shoreDivesCoredata[indexPath.row])
-                  
+                    self.databaseController?.deleteLogCoredata(log: shoreDivesCoredata[indexPath.row])
+                    
                 }else if indexPath.section == section_pier_Coredata{
-                    self.databaseController?.deletelog(log: pierDivesCoredata[indexPath.row])
-          
+                    self.databaseController?.deleteLogCoredata(log: pierDivesCoredata[indexPath.row])
+                    
                 }else if indexPath.section == section_other_Coredata{
                     self.databaseController?.deletelog(log: otherDives[indexPath.row])
-                  
+                    
                 }
             }
         }
@@ -407,7 +411,7 @@ class LogBookTableViewController: UITableViewController, DatabaseListener {
             }
             
         }else{
-
+            
             if indexPath.section == section_boat_Coredata{
                 let selectedLog = boatDivesCoredata[indexPath.row]
                 currentLogcoredata = selectedLog
@@ -424,7 +428,7 @@ class LogBookTableViewController: UITableViewController, DatabaseListener {
         }
         performSegue(withIdentifier: "showDive", sender: nil)
     }
-
+    
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         if databaseController?.isCoredata() == false && allLogs.count == 0{
@@ -465,23 +469,19 @@ class LogBookTableViewController: UITableViewController, DatabaseListener {
         }
         return nil
     }
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
         
         if segue.identifier == "showDive"{
-                
-                let destination = segue.destination as! ViewDiveSiteViewController
-                destination.currentLog = currentLog
-                destination.currentLogCoredata = currentLogcoredata
-                
-            }
+            
+            let destination = segue.destination as! ViewDiveSiteViewController
+            destination.currentLog = currentLog
+            destination.currentLogCoredata = currentLogcoredata
+            
+        }
     }
     
-
+    
     
     @IBOutlet weak var addlogbutton: UIBarButtonItem!
     

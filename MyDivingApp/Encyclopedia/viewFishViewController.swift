@@ -7,15 +7,17 @@
 
 import UIKit
 
+// viewing the fish details
+
 class viewFishViewController: UIViewController {
     
     var fish: FishInfo?
     var isLinkAvailable: Bool = false
-
+    
     override func viewDidLoad()  {
         super.viewDidLoad()
         
-
+        
         // Do any additional setup after loading the view.
         
         Task{
@@ -70,34 +72,34 @@ class viewFishViewController: UIViewController {
         
     }
     
-        func loadFishImage(imageURL: String) async{
-    
-    
-                guard let requestURL = URL(string: imageURL) else { print("Invalid URL.")
-                    return
-                }
-    
-                let urlRequest = URLRequest(url: requestURL)
-    
-                do {
-    
-                    let (data, _) = try await URLSession.shared.data(for: urlRequest)
-    
-                    if let image = UIImage(data: data) {
-                        fishImage.image = image
-                    }
-                }
-                catch let error {
-                    print(error)
-                }
+    func loadFishImage(imageURL: String) async{
+        
+        
+        guard let requestURL = URL(string: imageURL) else { print("Invalid URL.")
+            return
         }
+        
+        let urlRequest = URLRequest(url: requestURL)
+        
+        do {
+            
+            let (data, _) = try await URLSession.shared.data(for: urlRequest)
+            
+            if let image = UIImage(data: data) {
+                fishImage.image = image
+            }
+        }
+        catch let error {
+            print(error)
+        }
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "webViewSegue"{
             let destination = segue.destination as! webViewController
             destination.webUrl = fish?.url ?? "Not Available"
-         
+            
         }
     }
     
@@ -110,17 +112,7 @@ class viewFishViewController: UIViewController {
         }
         return true
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
     @IBOutlet weak var fishImage: UIImageView!
     
     

@@ -9,6 +9,7 @@ import Foundation
 
 import UIKit
 
+//API structure decoding
 
 class FishInfo: NSObject, Decodable {
     
@@ -20,7 +21,7 @@ class FishInfo: NSObject, Decodable {
     var species: String?
     var binomial_name: String?
     var conservation_status: String?
-
+    
     var fishImage: String?
     
     var domain: String?
@@ -88,7 +89,6 @@ class FishInfo: NSObject, Decodable {
             fishImage = (try? imageContainer.decode(String.self, forKey: .bigImage)) ?? (try? imageContainer.decode(String.self, forKey: .smallImage))
         }
         
-        //imgSrcSet = try rootContainer.decode([String: String].self, forKey: .imgSrcSet)
         
         if let metaContainer = try? rootContainer.nestedContainer(keyedBy: MetaKeys.self, forKey: .meta) {
             
@@ -116,8 +116,8 @@ class FishInfo: NSObject, Decodable {
             
         }
         
-
-            
+        
+        
         
         
     }

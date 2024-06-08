@@ -21,7 +21,7 @@ enum CodingKeys: String, CodingKey{
     case id
     case title
     case type
-
+    
 }
 class diveLogs: NSObject, Codable {
     

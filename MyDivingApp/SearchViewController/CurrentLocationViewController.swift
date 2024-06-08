@@ -14,6 +14,15 @@ protocol UpdateLoctionDelegate: AnyObject
     func UpdateCurrentLocation(_ Location: String?)
 }
 
+/*
+ This class is responsable to take user input for the location the user wants to view dive sites in.
+ passes the information to DiveSitesSearchViewController to request the dive site from the API service
+ */
+/*
+ The code comented below was written to gather the current location of the user and finding the dive sites around it,
+ unfortunately the API for that servic has stopped working so I had to remove that functionality.
+ but the code is still present just in case the API service decides to reopen. This will be future plans for this project.
+ */
 
 class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate, DatabaseListener, UITableViewDelegate, UITableViewDataSource{
     
@@ -42,10 +51,9 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
         if editingStyle == .delete {
             
             let divelocation = previousSearchedlocations[indexPath.row]
-//            divelocation.location = previousSearchedlocations[indexPath.row]
             databaseController?.deleteLocation(location: divelocation)
-        
-        
+            
+            
         }
         
     }
@@ -70,14 +78,10 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
     }
     
     func onLocationChange(change: DatabaseChange, locations: [DiveLocations]) {
-//        var divelocations: [String] = []
-//        for location in locations{
-//            divelocations.append(location.location!)
-//        }
+        
         previousSearchedlocations = locations
         recentLocationsTableView.reloadData()
-        
-        
+
     }
     
     func onLogsChange(change: DatabaseChange, logs: [Logs]) {
@@ -85,20 +89,20 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
     }
     
     var previousSearchedlocations: [DiveLocations] = []
-//
-//    var latitude: Double?
-//    var longitude: Double?
-//    
-//    
-//    var latitudinalMeters: CLLocationDistance = 50000
-//    var longitudinalMeters: CLLocationDistance = 50000
+    //
+    //    var latitude: Double?
+    //    var longitude: Double?
+    //
+    //
+    //    var latitudinalMeters: CLLocationDistance = 50000
+    //    var longitudinalMeters: CLLocationDistance = 50000
     
     
-//    var locationManager: CLLocationManager = CLLocationManager()
-//    var currentLocation: CLLocationCoordinate2D?
+    //    var locationManager: CLLocationManager = CLLocationManager()
+    //    var currentLocation: CLLocationCoordinate2D?
     
     weak var databaseController: DatabaseProtocol?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -109,21 +113,24 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
         
         recentLocationsTableView.delegate = self
         recentLocationsTableView.dataSource = self
-//
-//        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-//        locationManager.distanceFilter = 10
-//        locationManager.delegate = self
-//        
-//        let authorisationStatus = locationManager.authorizationStatus 
-//        
-//        if authorisationStatus != .authorizedWhenInUse {
-//            useCurrentLocationButton.isHidden = true
-//            if authorisationStatus == .notDetermined {
-//                locationManager.requestWhenInUseAuthorization()
-//            }
-//        }
+        
+        
+        //
+        //        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        //        locationManager.distanceFilter = 10
+        //        locationManager.delegate = self
+        //
+        //        let authorisationStatus = locationManager.authorizationStatus
+        //
+        //        if authorisationStatus != .authorizedWhenInUse {
+        //            useCurrentLocationButton.isHidden = true
+        //            if authorisationStatus == .notDetermined {
+        //                locationManager.requestWhenInUseAuthorization()
+        //            }
+        //        }
+        
 
-        // Do any additional setup after loading the view.
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -138,63 +145,56 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
         databaseController?.removeListener(listener: self)
     }
     
-//    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-//        if manager.authorizationStatus == .authorizedWhenInUse {
-//            useCurrentLocationButton.isHidden = false
-//        }
-//    }
-//    
-//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        currentLocation = locations.last?.coordinate
-//    }
+    //    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+    //        if manager.authorizationStatus == .authorizedWhenInUse {
+    //            useCurrentLocationButton.isHidden = false
+    //        }
+    //    }
+    //
+    //    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    //        currentLocation = locations.last?.coordinate
+    //    }
     
     weak var delegate: UpdateLoctionDelegate?
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-//    @IBOutlet weak var useCurrentLocationButton: UIButton!
-//    
+    //    @IBOutlet weak var useCurrentLocationButton: UIButton!
+    //
     
-//    @IBAction func useCurrentLocation(_ sender: Any) {
-//        
-//        if let currentLocation = currentLocation { 
-//            latitude = currentLocation.latitude
-//            longitude = currentLocation.longitude
-//            
-//            
-//            let region = MKCoordinateRegion(center: currentLocation, latitudinalMeters: latitudinalMeters, longitudinalMeters: longitudinalMeters)
-//            
-//            let corners = getCorners(of: region)
-//            print(latitude,longitude,region.span.latitudeDelta,region.span.longitudeDelta)
-//            print(corners.northEast, corners.northWest, corners.southEast, corners.southWest)
-//        }
-//        else {
-//            print("error fetching current location")
-//        }
-//    }
-//    
-//    func getCorners(of region: MKCoordinateRegion) -> (northWest: CLLocationCoordinate2D, northEast: CLLocationCoordinate2D, southWest: CLLocationCoordinate2D, southEast: CLLocationCoordinate2D) {
-//        let center = region.center
-//        let latitudinalMeters = region.span.latitudeDelta
-//        let longitudinalMeters = region.span.longitudeDelta
-//
-//        let northWest = CLLocationCoordinate2D(latitude: center.latitude + latitudinalMeters, longitude: center.longitude - longitudinalMeters)
-//        let northEast = CLLocationCoordinate2D(latitude: center.latitude + latitudinalMeters, longitude: center.longitude + longitudinalMeters)
-//        let southWest = CLLocationCoordinate2D(latitude: center.latitude - latitudinalMeters, longitude: center.longitude - longitudinalMeters)
-//        let southEast = CLLocationCoordinate2D(latitude: center.latitude - latitudinalMeters, longitude: center.longitude + longitudinalMeters)
-//
-//        return (northWest, northEast, southWest, southEast)
-//    }
-//    
+    //    @IBAction func useCurrentLocation(_ sender: Any) {
+    //
+    //        if let currentLocation = currentLocation {
+    //            latitude = currentLocation.latitude
+    //            longitude = currentLocation.longitude
+    //
+    //
+    //            let region = MKCoordinateRegion(center: currentLocation, latitudinalMeters: latitudinalMeters, longitudinalMeters: longitudinalMeters)
+    //
+    //            let corners = getCorners(of: region)
+    //            print(latitude,longitude,region.span.latitudeDelta,region.span.longitudeDelta)
+    //            print(corners.northEast, corners.northWest, corners.southEast, corners.southWest)
+    //        }
+    //        else {
+    //            print("error fetching current location")
+    //        }
+    //    }
+    //
+    //    func getCorners(of region: MKCoordinateRegion) -> (northWest: CLLocationCoordinate2D, northEast: CLLocationCoordinate2D, southWest: CLLocationCoordinate2D, southEast: CLLocationCoordinate2D) {
+    //        let center = region.center
+    //        let latitudinalMeters = region.span.latitudeDelta
+    //        let longitudinalMeters = region.span.longitudeDelta
+    //
+    //        let northWest = CLLocationCoordinate2D(latitude: center.latitude + latitudinalMeters, longitude: center.longitude - longitudinalMeters)
+    //        let northEast = CLLocationCoordinate2D(latitude: center.latitude + latitudinalMeters, longitude: center.longitude + longitudinalMeters)
+    //        let southWest = CLLocationCoordinate2D(latitude: center.latitude - latitudinalMeters, longitude: center.longitude - longitudinalMeters)
+    //        let southEast = CLLocationCoordinate2D(latitude: center.latitude - latitudinalMeters, longitude: center.longitude + longitudinalMeters)
+    //
+    //        return (northWest, northEast, southWest, southEast)
+    //    }
+    //
     @IBOutlet weak var CurrentLocation: UITextField!
     
+    
+    // using delegation to send the curruntlocation entered by the user to dive site search view controller
     @IBAction func CloseButton(_ sender: Any) {
         delegate?.UpdateCurrentLocation(CurrentLocation.text)
         dismiss(animated: true)
