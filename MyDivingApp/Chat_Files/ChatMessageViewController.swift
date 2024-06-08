@@ -184,11 +184,18 @@ class ChatMessageViewController: MessagesViewController, MessagesDataSource, Mes
                 }
                 
                 
-                if self.currentChannel?.Users!.contains(requestedUser) == true{
-                    self.displayMessage(title: "User already in chat", message: "")
-                    return
+//                if self.currentChannel?.Users!.contains(requestedUser) == true{
+//                    self.displayMessage(title: "User already in chat", message: "")
+//                    return
+//                }
+                if let users = self.currentChannel?.Users!{
+                    for user in users{
+                        if user.UserID == requestedUser.UserID{
+                            self.displayMessage(title: "User already in chat", message: "")
+                            return
+                        }
+                    }
                 }
-                
                 
                 var channelUsers:[User] = self.currentChannel!.Users!
                 channelUsers.append(requestedUser)

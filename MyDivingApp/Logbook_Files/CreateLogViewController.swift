@@ -46,6 +46,11 @@ class CreateLogViewController: UIViewController {
                 return
             }
             
+            if title.isEmpty{
+                self.displayMessage(title: "Empty title", message: "Please give a title for your dive")
+                return
+            }
+            
             _ = databaseController?.addlog(title: title, divetype: diveType, DiveLocation: diveLocation, DiveDate: DiveDate.date, duration: duration, weight: weights, comments: aditionalComments)
             
             navigationController?.popViewController(animated: true)
@@ -56,7 +61,7 @@ class CreateLogViewController: UIViewController {
                 return
             }
             
-            if title == ""{
+            if title.isEmpty{
                 self.displayMessage(title: "Empty title", message: "Please give a title for your dive")
                 return
             }

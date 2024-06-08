@@ -111,10 +111,7 @@ class channelDetailsViewController: UIViewController, UITableViewDelegate, UITab
             
             self.dismiss(animated: true)
         }
-        
-        
-        
-        
+ 
         alertController.addAction(cancelAction)
         alertController.addAction(addAction)
         self.present(alertController, animated: false, completion: nil)

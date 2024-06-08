@@ -28,23 +28,29 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
             currentuser = databaseController!.currentUserDetails
             
             var filteredChannels: [Channel] = []
-            for channel in userChannels{
-                for user in channel.Users! {
-                    if user.email == (currentuser?.email)!{
-                        filteredChannels.append(channel)
-                        break
+            
+            
+            Task{
+                //adding channel users to channel
+                for channel in userChannels{
+                    if let userChannelUsers = await databaseController?.getUsersFromReferance(Referances: channel.userReferances!){
+                        channel.Users = userChannelUsers
+                    }
+                    for user in channel.Users! {
+                        if user.email == (currentuser?.email)!{
+                            filteredChannels.append(channel)
+                        }
                     }
                 }
-            }
-            
-            
-            self.channels = filteredChannels
-            currentSender = Sender(senderId: databaseController!.currentUserDetails.UserID! , displayName: databaseController!.currentUserDetails.Fname!)
-            
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.indicator.stopAnimating()
                 
+                self.channels = filteredChannels
+                currentSender = Sender(senderId: databaseController!.currentUserDetails.UserID! , displayName: databaseController!.currentUserDetails.Fname!)
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                    self.indicator.stopAnimating()
+                    
+                }
             }
             
             

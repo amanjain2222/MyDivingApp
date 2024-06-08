@@ -115,7 +115,7 @@ protocol DatabaseListener: AnyObject {
     func onAuthenticationChange(ifSucessful: Bool)
     func onAllLogsChange(change: DatabaseChange, logs: [diveLogs])
     func onUserLogsChange(change: DatabaseChange, logs: [diveLogs])
-    func onChatChange(change: DatabaseChange, userChannels: [Channel])
+    func onChatChange(change: DatabaseChange, userChannels: [Channel]) 
     func onLocationChange(change: DatabaseChange, locations: [DiveLocations])
     func onLogsChange(change: DatabaseChange, logs: [Logs])
 }

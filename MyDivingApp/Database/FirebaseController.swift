@@ -100,9 +100,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 }
 
             }
-            
-            
-            
+  
         }
     }
     
@@ -174,12 +172,9 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 }
                 
                 if listener.listenerType == ListenerType.chat{
-                    
                     listener.onChatChange(change: .update, userChannels: self.userChannels)
                 }
-                
             }
-            
         }
         catch{
             
@@ -489,39 +484,39 @@ class FirebaseController: NSObject, DatabaseProtocol {
     
     func parseChannelSnapshot(snapshot: QuerySnapshot) {
         snapshot.documentChanges.forEach { (change) in
-            Task{
-                
-                var userchannel: Channel
-                do{
-                    userchannel = try change.document.data(as: Channel.self)
-                }catch {
-                    fatalError("Unable to decode channel: \(error.localizedDescription)")
-                }
-                
-                
-                if let userChannelUsers = await self.getUsersFromReferance(Referances: userchannel.userReferances!){
-                    userchannel.Users = userChannelUsers
-                }
-                
-                //                deleteChannel(channel: userchannel)
-                
-                
-                if change.type == .added {
-                    userChannels.insert(userchannel, at: Int(change.newIndex))
-                } else if change.type == .modified {
-                    userChannels.remove(at: Int(change.oldIndex))
-                    userChannels.insert(userchannel, at: Int(change.newIndex))
-                } else if change.type == .removed {
-                    userChannels.remove(at: Int(change.oldIndex))
-                }
-                
-                
-                listeners.invoke { (listener) in
-                    if listener.listenerType == ListenerType.chat || listener.listenerType == ListenerType.all {
-                        listener.onChatChange(change: .update, userChannels: self.userChannels)
-                    }
+            
+            
+            var userchannel: Channel
+            do{
+                userchannel = try change.document.data(as: Channel.self)
+            }catch {
+                fatalError("Unable to decode channel: \(error.localizedDescription)")
+            }
+            
+            
+            //                if let userChannelUsers = await self.getUsersFromReferance(Referances: userchannel.userReferances!){
+            //                    userchannel.Users = userChannelUsers
+            //                }
+            
+            //                deleteChannel(channel: userchannel)
+            
+            
+            if change.type == .added {
+                userChannels.insert(userchannel, at: Int(change.newIndex))
+            } else if change.type == .modified {
+                userChannels.remove(at: Int(change.oldIndex))
+                userChannels.insert(userchannel, at: Int(change.newIndex))
+            } else if change.type == .removed {
+                userChannels.remove(at: Int(change.oldIndex))
+            }
+            
+            
+            listeners.invoke { (listener) in
+                if listener.listenerType == ListenerType.chat || listener.listenerType == ListenerType.all {
+                    listener.onChatChange(change: .update, userChannels: self.userChannels)
                 }
             }
+            
         }
         
         
