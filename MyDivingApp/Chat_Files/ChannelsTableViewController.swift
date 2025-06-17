@@ -22,14 +22,10 @@ class ChannelsTableViewController: UITableViewController, DatabaseListener {
     
     // whenever a channel is added/modified this is called to adjus ttableview accordingly
     func onChatChange(change: DatabaseChange, userChannels: [Channel]) {
-        
         if databaseController?.isSignedIn() == true{
-            
             currentuser = databaseController!.currentUserDetails
-            
             var filteredChannels: [Channel] = []
-            
-            
+        
             Task{
                 //adding channel users to channel
                 for channel in userChannels{

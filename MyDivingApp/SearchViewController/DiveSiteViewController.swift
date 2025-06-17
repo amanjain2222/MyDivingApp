@@ -26,8 +26,8 @@ class DiveSiteViewController: UIViewController {
         ocean.allowsEditingTextAttributes = false
         ocean.borderStyle = .none
         
-        guard let latitude = Double((currentSite?.latitude)!) else {return}
-        guard let longitude = Double((currentSite?.longitude)!) else {return}
+        guard let latitude = currentSite?.latitude else { return }
+        guard let longitude = currentSite?.longitude else { return }
         
         let mapAnnotation = LocationAnnotation(title: (currentSite?.name)!, subtitle: (currentSite?.region)!, lat: latitude , long: longitude)
         

@@ -11,7 +11,7 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
     
     let searchController = UISearchController(searchResultsController: nil)
     let CELL_SITE = "diveSiteCell"
-    let REQUEST_STRING = "https://world-scuba-diving-sites-api.p.rapidapi.com/api/divesite?country="
+    let REQUEST_STRING = "https://world-scuba-diving-sites-api.p.rapidapi.com/api/divesites?query="
     let Key = "007d406e35msh8a93dbecf6813cfp15bd95jsn9c435e5f31f3"
     
     var newSites = [DiveSites]()
@@ -84,9 +84,9 @@ class DiveSitesSearchTableViewController: UITableViewController, UISearchBarDele
         var searchURLComponents = URLComponents()
         searchURLComponents.scheme = "https"
         searchURLComponents.host = "world-scuba-diving-sites-api.p.rapidapi.com"
-        searchURLComponents.path = "/api/divesite"
+        searchURLComponents.path = "/divesites"
         searchURLComponents.queryItems = [
-            URLQueryItem(name: "country", value: region)
+            URLQueryItem(name: "query", value: region)
         ]
         
         guard let requestURL = searchURLComponents.url else { print("Invalid URL.")

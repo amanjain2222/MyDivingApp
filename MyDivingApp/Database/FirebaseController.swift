@@ -511,11 +511,11 @@ class FirebaseController: NSObject, DatabaseProtocol {
             }
             
             
-            listeners.invoke { (listener) in
-                if listener.listenerType == ListenerType.chat || listener.listenerType == ListenerType.all {
-                    listener.onChatChange(change: .update, userChannels: self.userChannels)
-                }
-            }
+//            listeners.invoke { (listener) in
+//                if listener.listenerType == ListenerType.chat || listener.listenerType == ListenerType.all {
+//                    listener.onChatChange(change: .update, userChannels: self.userChannels)
+//                }
+//            }
             
         }
         
@@ -545,7 +545,6 @@ class FirebaseController: NSObject, DatabaseProtocol {
         }
         return userChannelUsers
     }
-    
     
     
     

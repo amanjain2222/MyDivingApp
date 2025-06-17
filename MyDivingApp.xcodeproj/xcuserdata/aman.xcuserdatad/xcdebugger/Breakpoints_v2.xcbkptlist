@@ -36,12 +36,12 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "1A1CB15C-39D1-4460-9112-614BAF65394A - bf0fb4868512b831"
+                  uuid = "1A1CB15C-39D1-4460-9112-614BAF65394A - 4b2712661d3b04f8"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for closure #1 @Sendable () async throws -&gt; () in closure #1 (__C.UIAlertAction) -&gt; () in MyDivingApp.ChatMessageViewController.addGroupMember(Any) -&gt; ()"
-                  moduleName = "MyDivingApp"
+                  symbolName = "(1) suspend resume partial function for closure #1 () async throws -&gt; () in closure #1 (__C.UIAlertAction) -&gt; () in MyDivingApp.ChatMessageViewController.addGroupMember(Any) -&gt; ()"
+                  moduleName = "MyDivingApp.debug.dylib"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/aman/Desktop/MyDivingApp/MyDivingApp/Chat_Files/ChatMessageViewController.swift"
                   startingColumnNumber = "9223372036854775807"
@@ -50,12 +50,12 @@
                   endingLineNumber = "191">
                </Location>
                <Location
-                  uuid = "1A1CB15C-39D1-4460-9112-614BAF65394A - a8058e36369fc33"
+                  uuid = "1A1CB15C-39D1-4460-9112-614BAF65394A - 55bb60bfdb7240fa"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for closure #1 @Sendable () async throws -&gt; () in closure #1 (__C.UIAlertAction) -&gt; () in MyDivingApp.ChatMessageViewController.addGroupMember(Any) -&gt; ()"
-                  moduleName = "MyDivingApp"
+                  symbolName = "(3) suspend resume partial function for closure #1 () async throws -&gt; () in closure #1 (__C.UIAlertAction) -&gt; () in MyDivingApp.ChatMessageViewController.addGroupMember(Any) -&gt; ()"
+                  moduleName = "MyDivingApp.debug.dylib"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/aman/Desktop/MyDivingApp/MyDivingApp/Chat_Files/ChatMessageViewController.swift"
                   startingColumnNumber = "9223372036854775807"
@@ -64,6 +64,22 @@
                   endingLineNumber = "191">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0CFA5B35-D262-4F69-8581-BC7A879356E7"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Logs+CoreDataProperties.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "Logs"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
