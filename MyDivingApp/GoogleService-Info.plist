@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This application uses this information to display locations on a map.</string>
 	<key>API_KEY</key>
 	<string>AIzaSyB9f7IEUGNRVCqWYqFIQvbhyb4wr0b5lT4</string>
 	<key>GCM_SENDER_ID</key>
@@ -15,15 +17,15 @@
 	<key>STORAGE_BUCKET</key>
 	<string>mydivingapp-c2435.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_GCM_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:70749538786:ios:c96e0812ad1275441591bb</string>
 </dict>

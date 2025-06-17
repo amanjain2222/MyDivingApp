@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22758" systemVersion="23F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="DiveLocations" representedClassName="DiveLocations" syncable="YES">
+        <attribute name="location" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Logs" representedClassName="Logs" syncable="YES">
+        <attribute name="comments" optional="YES" attributeType="String"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="duration" optional="YES" attributeType="String"/>
+        <attribute name="location" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="type" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="weights" optional="YES" attributeType="String"/>
+    </entity>
+</model>
